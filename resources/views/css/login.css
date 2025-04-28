@@ -1,0 +1,12 @@
+body {
+    font-family: poppins, sans-serif;
+  }
+h1 {
+    margin-bottom: 20px;
+}
+form input:first-of-type {
+  margin-top: 2rem;
+}
+form button {
+    margin-top: 3rem !important;
+}

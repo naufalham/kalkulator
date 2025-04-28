@@ -1,0 +1,54 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
+header {
+  background: transparent;
+  position: relative;
+  z-index: 10;
+}
+
+nav {
+  max-width: 80rem;
+  margin: 1.5rem auto;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+section {
+  margin-top: 2.5rem;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem;
+  background: #f7faff;
+}
+
+button {
+  background-color: #2e348a;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+button:hover {
+  background-color: #1d2566;
+}
+
+/* Add more styles as needed */
