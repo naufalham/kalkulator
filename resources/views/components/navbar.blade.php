@@ -9,7 +9,7 @@
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet"/>
-  <link href="css/register.css" rel="stylesheet"/>
+
  </head>
  <body class="bg-[#f3f7ff] min-h-screen flex flex-col justify-between">
   <!-- Header -->
@@ -21,7 +21,7 @@
      </span>
     </div>
     <nav class="flex flex-wrap justify-center sm:justify-end space-x-6 font-semibold text-black text-sm w-full sm:w-auto">
-     <a class="hover:underline" href="#">
+     <a class="hover:underline" href="/landing">
       Beranda
      </a>
      <a class="hover:underline" href="#">
@@ -35,3 +35,18 @@
      </a>
     </nav>
    </header>
+
+
+   <script>
+    // Ambil elemen header
+    const header = document.getElementById('sticky-header');
+  
+    // Tambahkan event listener untuk scroll
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) { // Jika scroll lebih dari 50px
+        header.classList.add('sticky');
+      } else {
+        header.classList.remove('sticky');
+      }
+    });
+  </script>

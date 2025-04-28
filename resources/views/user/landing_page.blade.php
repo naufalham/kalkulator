@@ -5,114 +5,121 @@
   <title>
    NaZMaLogy
   </title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
-  <link href="css/landing.css" rel="stylesheet"/> <!-- Link ke file CSS -->
+  <style>
+   body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
  </head>
- <body class="bg-[#f7faff] m-0 p-0">
-  
-  
+ <body class="bg-[#f7f9ff]">
+  <!-- Navbar -->
+
   <x-navbar></x-navbar>
-
-
-  <section class="relative max-w-5xl mx-auto mt-10 rounded-2xl overflow-hidden min-h-[280px]">
-   <img alt="Person using laptop and tablet on wooden table with transparent tax document icons floating above tablet" class="w-full h-full object-cover object-center brightness-[0.55]" height="400" src="https://storage.googleapis.com/a1aa/image/dd0a14b4-8d43-4bbc-4f5c-179c515ee2c2.jpg" width="1200"/>
-   <div class="absolute top-1/2 left-6 -translate-y-1/2 max-w-xs text-white font-semibold text-lg leading-tight">
-    <p>Kalkulator Pintar<br/>Membantu Perputaran Keuangan Anda</p>
-    <button class="mt-6 bg-[#2e348a] px-5 py-2 rounded-md text-white font-semibold text-sm">Daftar</button>
+  
+  <!-- Hero Section -->
+  <section aria-label="Hero section with background image of hands on laptop and tablet with tax documents overlay" class="relative max-w-7xl mx-auto mt-10 rounded-xl overflow-hidden">
+   <img alt="Background image showing hands typing on a laptop and a tablet with transparent tax document icons floating above" class="w-full h-auto object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/46a9f8a4-d959-4f0e-6176-a75bf8132037.jpg" width="1440"/>
+   <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center px-6 sm:px-12 max-w-7xl mx-auto" style="max-width: 1440px;">
+    <h1 class="text-white font-bold text-lg sm:text-xl max-w-md leading-tight">
+     Kalkulator Pintar
+     <br/>
+     Membantu Menganalisis Kelayakan Usaha Anda
+    </h1>
+    <button class="mt-6 bg-[#2e348a] text-white font-semibold text-sm rounded-lg px-5 py-2 w-max" type="button">
+     Daftar
+    </button>
    </div>
   </section>
-  <section class="max-w-5xl mx-auto mt-14 px-6 pb-14 bg-[#f7faff]">
-   <h2 class="font-bold text-lg mb-8">
-    3 Kalkulator Terbaik
+  <!-- Business Types Section -->
+  <section class="max-w-7xl mx-auto mt-16 px-6 sm:px-12">
+   <h2 class="font-bold text-black text-lg mb-8">
+    Tersedia untuk beberapa jenis usaha
    </h2>
-   <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
-    <div class="relative border border-black rounded-xl pt-10 pb-6 px-6 flex flex-col items-center">
-     <div class="absolute -top-6 bg-[#2e348a] w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl">
-      <i class="fas fa-calculator">
-      </i>
+   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+    <!-- Fesyen -->
+    <div class="bg-white rounded-xl p-6 text-center">
+     <div class="inline-block bg-[#2e348a] rounded-md p-3 mb-4">
+      <img alt="Icon representing fashion with a stylized flower shape in white on dark blue background" class="w-8 h-8" height="32" src="https://storage.googleapis.com/a1aa/image/f20c470b-125b-4c43-67ba-c65ba6c4f35f.jpg" width="32"/>
      </div>
-     <h3 class="font-bold mb-1">
-      Kalkulator A
+     <h3 class="font-bold text-black mb-2">
+      Fesyen
      </h3>
-     <p class="text-sm mb-6">
-      Bisnis Waduw
-      <br/>
-      Wadidaw
+     <p class="text-xs text-gray-600 leading-relaxed">
+      Usaha yang berfokus pada pakaian, sepatu, dan aksesori gaya hidup
      </p>
-     <div class="absolute bottom-4 right-4 text-black text-xl">
-      <i class="fas fa-arrow-right">
-      </i>
-     </div>
     </div>
-    <div class="relative border border-black rounded-xl pt-10 pb-6 px-6 flex flex-col items-center">
-     <div class="absolute -top-6 bg-[#2e348a] w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl">
-      <i class="fas fa-th-large">
-      </i>
+    <!-- Kuliner -->
+    <div class="bg-white rounded-xl p-6 text-center">
+     <div class="inline-block bg-[#2e348a] rounded-md p-3 mb-4">
+      <img alt="Icon representing culinary with fork and spoon in white on dark blue background" class="w-8 h-8" height="32" src="https://storage.googleapis.com/a1aa/image/0625f9b3-1f51-42a4-4dd7-dd29f811b13e.jpg" width="32"/>
      </div>
-     <h3 class="font-bold mb-1">
-      Kalkulator B
+     <h3 class="font-bold text-black mb-2">
+      Kuliner
      </h3>
-     <p class="text-sm mb-6">
-      Bisnis Waduw
-      <br/>
-      Wadidaw
+     <p class="text-xs text-gray-600 leading-relaxed">
+      Usaha di bidang makanan, minuman, dan layanan kuliner
      </p>
-     <div class="absolute bottom-4 right-4 text-black text-xl">
-      <i class="fas fa-arrow-right">
-      </i>
-     </div>
     </div>
-    <div class="relative border border-black rounded-xl pt-10 pb-6 px-6 flex flex-col items-center">
-     <div class="absolute -top-6 bg-[#2e348a] w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl">
-      <i class="fas fa-calculator">
-      </i>
+    <!-- Jasa -->
+    <div class="bg-white rounded-xl p-6 text-center">
+     <div class="inline-block bg-[#2e348a] rounded-md p-3 mb-4">
+      <img alt="Icon representing services with a white heart and handshake symbol on dark blue background" class="w-8 h-8" height="32" src="https://storage.googleapis.com/a1aa/image/4c0981c2-3d6f-4721-bdb3-28ec3bd597f2.jpg" width="32"/>
      </div>
-     <h3 class="font-bold mb-1">
-      Kalkulator C
+     <h3 class="font-bold text-black mb-2">
+      Jasa
      </h3>
-     <p class="text-sm mb-6">
-      Bisnis Waduw
-      <br/>
-      Wadidaw
+     <p class="text-xs text-gray-600 leading-relaxed">
+      Usaha yang menawarkan layanan atau keahlian untuk memenuhi kebutuhan
      </p>
-     <div class="absolute bottom-4 right-4 text-black text-xl">
-      <i class="fas fa-arrow-right">
-      </i>
+    </div>
+    <!-- Kerajinan -->
+    <div class="bg-white rounded-xl p-6 text-center">
+     <div class="inline-block bg-[#2e348a] rounded-md p-3 mb-4">
+      <img alt="Icon representing crafts with white cube blocks stacked on dark blue background" class="w-8 h-8" height="32" src="https://storage.googleapis.com/a1aa/image/001ea0a2-8402-46fe-8f46-108a6f041b3d.jpg" width="32"/>
      </div>
+     <h3 class="font-bold text-black mb-2">
+      Kerajinan
+     </h3>
+     <p class="text-xs text-gray-600 leading-relaxed">
+      Usaha yang mengubah kreativitas menjadi produk kerajinan bernilai
+     </p>
     </div>
    </div>
    <div class="flex justify-center mt-10">
-    <button class="border border-black rounded-full px-6 py-2 font-bold text-sm hover:bg-black hover:text-white transition">
+    <button class="border border-black rounded-full px-6 py-2 text-xs font-bold hover:bg-gray-100" type="button">
      Coba Sekarang
     </button>
    </div>
   </section>
-  <section class="max-w-5xl mx-auto px-6 mb-20">
-   <div class="flex flex-col md:flex-row items-center md:items-stretch gap-6">
-    <div class="bg-[#2e348a] rounded-2xl p-8 flex flex-col justify-center flex-1 max-w-md text-white">
-     <div class="flex items-center justify-between mb-4">
-      <h3 class="font-bold text-lg leading-tight">
-       KALKULATOR PINTAR
-      </h3>
-      <i class="fas fa-calculator text-4xl">
-      </i>
-     </div>
-     <p class="text-sm leading-relaxed">
-      Membantu menganalisis dan mengelola keuangan usaha Anda secara cepat
-        dan efisien, agar tetap sehat dan menguntungkan.
-     </p>
+  <!-- Kalkulator Pintar Section -->
+  <section class="max-w-7xl mx-auto mt-16 px-6 sm:px-12 flex flex-col md:flex-row items-center md:items-stretch gap-6">
+   <div class="bg-[#2e348a] rounded-3xl p-8 flex flex-col justify-center max-w-md text-white relative" style="min-width: 320px;">
+    <div class="flex justify-between items-start">
+     <h3 class="font-bold text-lg leading-snug max-w-[70%]">
+      KALKULATOR PINTAR
+     </h3>
+     <img alt="White calculator icon on dark blue background" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/1a335f5a-0fac-4fb1-3332-fb67caff7c51.jpg" width="48"/>
     </div>
-    <img alt="Person holding lit lightbulb in hand with stacks of coins on table and notebook" class="flex-1 rounded-xl object-cover object-center max-h-72 w-full md:max-w-none" height="300" src="https://storage.googleapis.com/a1aa/image/d27dfd22-5d11-435a-ac11-ef5453965a78.jpg" width="600"/>
+    <p class="mt-4 text-sm leading-relaxed max-w-[90%]">
+     Membantu menganalisis dan mengelola keuangan usaha Anda secara cepat
+        dan efisien, agar tetap sehat dan menguntungkan.
+    </p>
    </div>
+   <img alt="Person holding a glowing lightbulb with stacks of coins and a notebook on a table in warm sunlight" class="rounded-xl w-full md:w-auto object-cover flex-1" height="280" src="https://storage.googleapis.com/a1aa/image/7600f4b0-eabe-4220-9b80-2769ffd10f7f.jpg" width="600"/>
   </section>
-  <footer class="bg-[#2e348a] text-white py-10">
-   <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-10 md:gap-0">
-    <div class="flex flex-col max-w-xs">
-     <div class="flex items-center gap-2 font-bold text-lg mb-4 select-none">
-      <img alt="NaZMaLogy logo, stylized NL letters in white" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/989476c8-33d0-48fd-a04b-ab71d8645046.jpg" width="24"/>
-      NaZMaLogy
+  <!-- Footer -->
+  <footer class="bg-[#2e348a] mt-16 py-10 px-6 sm:px-12 text-white">
+   <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10">
+    <div class="max-w-xs">
+     <div class="flex items-center space-x-2 mb-4">
+      <img alt="NaZMaLogy logo with stylized N and L in white" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/49eada91-e04e-49ea-a313-ced85f615e1a.jpg" width="24"/>
+      <span class="font-bold text-base">
+       NaZMaLogy
+      </span>
      </div>
      <p class="text-xs leading-tight">
       Kalkulator Pintar NaZMalogy:
@@ -124,45 +131,45 @@
       Secara Cepat dan Akurat.
      </p>
     </div>
-    <div class="flex flex-col gap-3 max-w-xs">
-     <h4 class="font-bold text-sm mb-2">
+    <div>
+     <h4 class="font-bold text-sm mb-3">
       Kontak Kami
      </h4>
-     <div class="flex gap-3 text-xs">
-      <a aria-label="Email" class="hover:text-gray-300 transition" href="#">
+     <div class="flex space-x-3 text-xs">
+      <a aria-label="Email" class="hover:text-gray-300" href="#">
        <i class="fas fa-envelope">
        </i>
       </a>
-      <a aria-label="Facebook" class="hover:text-gray-300 transition" href="#">
+      <a aria-label="Facebook" class="hover:text-gray-300" href="#">
        <i class="fab fa-facebook-f">
        </i>
       </a>
-      <a aria-label="Instagram" class="hover:text-gray-300 transition" href="#">
+      <a aria-label="Instagram" class="hover:text-gray-300" href="#">
        <i class="fab fa-instagram">
        </i>
       </a>
-      <a aria-label="LinkedIn" class="hover:text-gray-300 transition" href="#">
+      <a aria-label="LinkedIn" class="hover:text-gray-300" href="#">
        <i class="fab fa-linkedin-in">
        </i>
       </a>
-      <a aria-label="YouTube" class="hover:text-gray-300 transition" href="#">
+      <a aria-label="YouTube" class="hover:text-gray-300" href="#">
        <i class="fab fa-youtube">
        </i>
       </a>
-      <a aria-label="TikTok" class="hover:text-gray-300 transition" href="#">
+      <a aria-label="TikTok" class="hover:text-gray-300" href="#">
        <i class="fab fa-tiktok">
        </i>
       </a>
      </div>
     </div>
    </div>
-   <div class="text-center text-xs mt-8">
+   <p class="text-center text-xs mt-8">
     © Copyright 2025. - Develop By
-    <a class="underline hover:text-gray-300 transition" href="#">
+    <a class="underline hover:text-gray-300" href="#">
      NaZMa Office
     </a>
     .
-   </div>
+   </p>
   </footer>
  </body>
 </html>

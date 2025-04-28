@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter&amp;display=swap" rel="stylesheet"/>
   <link href="css/login.css" rel="stylesheet"/> 
  </head>
- <body class="bg-[#F4F8FF] min-h-screen flex flex-col">
+ <body class="bg-[#f3f7ff] min-h-screen flex flex-col justify-between">
   <!-- Header -->
   <x-navbar></x-navbar>
   

@@ -17,3 +17,7 @@ Route::get('/login', function () {
 Route::get('/profil', function () {
     return view('user.profil');
 });
+
+Route::get('/landing', function () {
+    return view('user.landing_page');
+});
