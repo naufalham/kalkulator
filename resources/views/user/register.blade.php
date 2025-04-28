@@ -29,7 +29,7 @@
     </button>
     <p class="text-center text-black text-sm font-semibold mt-4">
       Sudah punya akun? 
-      <a href="login.html" class="text-[#F97316] hover:underline">Masuk</a>
+      <a href="/login" class="text-[#F97316] hover:underline">Masuk</a>
   </p>
    </form>
   </main>

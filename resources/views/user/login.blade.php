@@ -2,6 +2,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  @vite(['resources/css/login.css','resources/js/app.js'])
   <title>
    AKUNaZMa
   </title>
@@ -15,7 +16,6 @@
   <!-- Header -->
   <x-navbar></x-navbar>
   
-
   <!-- Main content -->
   <main class="flex-grow flex justify-center items-start mt-12 px-4 sm:px-6">
    <section aria-label="Form login NaZMaLogy" class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-sm">
@@ -31,7 +31,7 @@
     </form>
     <p class="text-center text-black text-sm font-semibold mt-4">
     Belum punya akun? 
-    <a href="register.html" class="text-[#F97316] hover:underline">Daftar Sekarang</a>
+    <a href="/register" class="text-[#F97316] hover:underline">Daftar Sekarang</a>
     </p>
    </section>
   </main>
