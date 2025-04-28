@@ -33,65 +33,8 @@
   </p>
    </form>
   </main>
-  <footer class="bg-[#2e3271] text-white mt-20 py-10">
-   <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:justify-between md:items-start gap-8 md:gap-0">
-    <div class="flex flex-col space-y-4 max-w-xs">
-     <div class="flex items-center space-x-2">
-      <img alt="NaZMaLogy logo icon with stylized N in white" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/c35aa89d-dc7c-4008-9d22-014fa63a1119.jpg" width="24"/>
-      <span class="font-semibold text-lg select-none">
-       AKUNaZMa
-      </span>
-     </div>
-     <p class="text-sm leading-relaxed">
-      Kalkulator Pintar NaZMalogy:
-      <br/>
-      Inovasi Analisis Bisnis
-      <br/>
-      yang Membantumu Menentukan Kelayakan Usaha
-      <br/>
-      Secara Cepat dan Akurat.
-     </p>
-    </div>
-    <div class="flex flex-col space-y-3">
-     <h3 class="font-semibold text-sm">
-      Kontak Kami
-     </h3>
-     <div class="flex space-x-3 text-white text-lg">
-      <a aria-label="Email" class="hover:text-orange-500" href="#">
-       <i class="fas fa-envelope">
-       </i>
-      </a>
-      <a aria-label="Facebook" class="hover:text-orange-500" href="#">
-       <i class="fab fa-facebook-f">
-       </i>
-      </a>
-      <a aria-label="Instagram" class="hover:text-orange-500" href="#">
-       <i class="fab fa-instagram">
-       </i>
-      </a>
-      <a aria-label="LinkedIn" class="hover:text-orange-500" href="#">
-       <i class="fab fa-linkedin-in">
-       </i>
-      </a>
-      <a aria-label="YouTube" class="hover:text-orange-500" href="#">
-       <i class="fab fa-youtube">
-       </i>
-      </a>
-      <a aria-label="TikTok" class="hover:text-orange-500" href="#">
-       <i class="fab fa-tiktok">
-       </i>
-      </a>
-     </div>
-    </div>
-   </div>
-   <p class="text-center text-xs mt-10 px-4 sm:px-6">
-    © Copyright 2025. – Develop By
-    <a class="underline hover:text-orange-500 font-semibold" href="#">
-     NaZMa Office
-    </a>
-    .
-   </p>
-  </footer>
+  <!-- Footer -->
+  <x-footer></x-footer>
   <script>
   // Ambil elemen header
   const header = document.getElementById('sticky-header');

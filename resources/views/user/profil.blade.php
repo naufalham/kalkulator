@@ -2,6 +2,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  @vite(['resources/css/profil.css','resources/js/app.js'])
   <title>
    NaZMaLogy Account Page
   </title>
@@ -9,17 +10,10 @@
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
-  <style>
-   body {
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
  </head>
  <body class="bg-[#f5f8ff] min-h-screen flex flex-col">
   <!-- Header -->
-  
   <x-navbar></x-navbar>
-
 
   <!-- Main content -->
   <main class="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 px-4 sm:px-6 mb-20 flex-grow">
@@ -82,7 +76,7 @@
      <div class="flex items-center gap-2">
       <img alt="NaZMaLogy logo with stylized N and arrow shapes in white" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/7396e799-d81d-474a-59a7-290e6b333fdc.jpg" width="24"/>
       <span class="font-semibold text-lg">
-       NaZMaLogy
+       AKUNaZMa
       </span>
      </div>
      <p class="text-sm leading-relaxed">
