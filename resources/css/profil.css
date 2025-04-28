@@ -18,9 +18,9 @@
   h1 {
       margin-bottom: 20px;
   }
-  form input:first-of-type {
-    margin-top: 2rem !important;
-  }
-  form button {
-      margin-top: 3rem !important;
-  }
+  aside {
+    margin-top: 3rem; /* Tambahkan jarak 2rem dari atas */
+}
+section {
+    margin-top: 3rem; /* Tambahkan jarak 2rem dari atas */
+}

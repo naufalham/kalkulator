@@ -70,64 +70,7 @@
    </section>
   </main>
   <!-- Footer -->
-  <footer class="bg-[#2e3270] text-white py-12 px-4 sm:px-6 select-none">
-   <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12 md:gap-0">
-    <div class="flex flex-col gap-4 max-w-md">
-     <div class="flex items-center gap-2">
-      <img alt="NaZMaLogy logo with stylized N and arrow shapes in white" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/7396e799-d81d-474a-59a7-290e6b333fdc.jpg" width="24"/>
-      <span class="font-semibold text-lg">
-       AKUNaZMa
-      </span>
-     </div>
-     <p class="text-sm leading-relaxed">
-      Kalkulator Pintar NaZMalogy:
-      <br/>
-      Inovasi Analisis Bisnis
-      <br/>
-      yang Membantumu Menentukan Kelayakan Usaha
-      <br/>
-      Secara Cepat dan Akurat.
-     </p>
-    </div>
-    <div class="flex flex-col gap-4">
-     <h3 class="font-semibold text-sm">
-      Kontak Kami
-     </h3>
-     <div class="flex gap-3 text-lg flex-wrap">
-      <a aria-label="Email" class="hover:text-[#f97316]" href="#">
-       <i class="fas fa-envelope">
-       </i>
-      </a>
-      <a aria-label="Facebook" class="hover:text-[#f97316]" href="#">
-       <i class="fab fa-facebook-f">
-       </i>
-      </a>
-      <a aria-label="Instagram" class="hover:text-[#f97316]" href="#">
-       <i class="fab fa-instagram">
-       </i>
-      </a>
-      <a aria-label="LinkedIn" class="hover:text-[#f97316]" href="#">
-       <i class="fab fa-linkedin-in">
-       </i>
-      </a>
-      <a aria-label="YouTube" class="hover:text-[#f97316]" href="#">
-       <i class="fab fa-youtube">
-       </i>
-      </a>
-      <a aria-label="TikTok" class="hover:text-[#f97316]" href="#">
-       <i class="fab fa-tiktok">
-       </i>
-      </a>
-     </div>
-    </div>
-   </div>
-   <p class="text-center text-sm mt-12">
-    © Copyright 2025. – Develop By
-    <a class="underline hover:text-[#f97316]" href="#">
-     NaZMa Office
-    </a>
-    .
-   </p>
-  </footer>
+  <x-footer></x-footer>
+
  </body>
 </html>
