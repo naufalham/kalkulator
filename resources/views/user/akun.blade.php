@@ -17,32 +17,10 @@
  </head>
  <body class="bg-[#f5f8ff] min-h-screen flex flex-col">
   <!-- Header -->
-  <header class="bg-white rounded-xl mx-4 sm:mx-6 mt-6 mb-10 flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-3 max-w-7xl mx-auto">
-   <div class="flex items-center gap-2 mb-3 sm:mb-0 w-full sm:w-auto justify-center sm:justify-start">
-    <img alt="NaZMaLogy logo with stylized N and arrow shapes in blue and orange" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/84553dee-b191-4838-e347-b9ffa5eeec6a.jpg" width="24"/>
-    <span class="font-semibold text-lg text-black select-none">
-     NaZMaLogy
-    </span>
-   </div>
-   <nav class="flex flex-wrap justify-center sm:justify-end gap-6 font-semibold text-black text-sm w-full sm:w-auto">
-    <a class="hover:underline" href="#">
-     Beranda
-    </a>
-    <a class="hover:underline" href="#">
-     Kalkulator
-    </a>
-    <a class="hover:underline" href="#">
-     Berita
-    </a>
-    <a class="text-[#f97316] hover:underline" href="#">
-     Pumpkin
-    </a>
-    <a class="text-[#f97316] text-xl" href="#">
-     <i class="fas fa-sign-out-alt">
-     </i>
-    </a>
-   </nav>
-  </header>
+  
+  <x-navbar></x-navbar>
+
+
   <!-- Main content -->
   <main class="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 px-4 sm:px-6 mb-20 flex-grow">
    <!-- Sidebar -->

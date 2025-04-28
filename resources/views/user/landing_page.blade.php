@@ -11,20 +11,11 @@
   <link href="css/landing.css" rel="stylesheet"/> <!-- Link ke file CSS -->
  </head>
  <body class="bg-[#f7faff] m-0 p-0">
-  <header class="bg-transparent relative z-10">
-   <nav class="max-w-5xl mx-auto flex items-center justify-between bg-white bg-opacity-90 backdrop-blur-md rounded-xl px-6 py-3 mt-6">
-    <a class="flex items-center gap-1 font-bold text-black text-lg select-none" href="#">
-     <img alt="NaZMaLogy logo, stylized NL letters in blue and orange" class="w-5 h-5" height="20" src="https://storage.googleapis.com/a1aa/image/5f3994ed-55de-4c67-a26b-480970b896b6.jpg" width="20"/>
-     NaZMaLogy
-    </a>
-    <ul class="flex gap-8 text-sm font-semibold text-black">
-     <li><a class="hover:underline" href="#">Beranda</a></li>
-     <li><a class="hover:underline" href="#">Kalkulator</a></li>
-     <li><a class="hover:underline" href="#">Berita</a></li>
-     <li><a class="text-[#b36a2f] hover:underline font-semibold" href="#">Masuk</a></li>
-    </ul>
-   </nav>
-  </header>
+  
+  
+  <x-navbar></x-navbar>
+
+
   <section class="relative max-w-5xl mx-auto mt-10 rounded-2xl overflow-hidden min-h-[280px]">
    <img alt="Person using laptop and tablet on wooden table with transparent tax document icons floating above tablet" class="w-full h-full object-cover object-center brightness-[0.55]" height="400" src="https://storage.googleapis.com/a1aa/image/dd0a14b4-8d43-4bbc-4f5c-179c515ee2c2.jpg" width="1200"/>
    <div class="absolute top-1/2 left-6 -translate-y-1/2 max-w-xs text-white font-semibold text-lg leading-tight">

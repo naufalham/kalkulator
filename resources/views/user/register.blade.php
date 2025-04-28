@@ -13,28 +13,8 @@
  </head>
  <body class="bg-[#f3f7ff] min-h-screen flex flex-col justify-between">
   <!-- Header -->
-  <header id="sticky-header" class="bg-white rounded-xl mx-4 sm:mx-6 mt-6 flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-3 max-w-5xl w-full self-center">
-    <div class="flex items-center space-x-2 mb-3 sm:mb-0 w-full sm:w-auto justify-center sm:justify-start">
-     <img alt="Logo NaZMaLogy with stylized N and arrow shapes in blue and orange" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/1c9ecd82-53dc-4a00-367d-29e7a201a14f.jpg" width="24"/>
-     <span class="font-semibold text-lg text-black select-none">
-      AKUNaZMa
-     </span>
-    </div>
-    <nav class="flex flex-wrap justify-center sm:justify-end space-x-6 font-semibold text-black text-sm w-full sm:w-auto">
-     <a class="hover:underline" href="#">
-      Beranda
-     </a>
-     <a class="hover:underline" href="#">
-      Kalkulator
-     </a>
-     <a class="hover:underline" href="#">
-      Usaha
-     </a>
-     <a class="text-[#F97316] hover:underline" href="#">
-      Masuk
-     </a>
-    </nav>
-   </header>
+  <x-navbar></x-navbar>
+
   <main class="flex-grow flex items-center justify-center px-4 mt-12">
    <form aria-label="Registration form" class="bg-white rounded-xl max-w-md w-full p-6 sm:p-8 space-y-4">
     <h1 class="font-semibold text-center text-lg">

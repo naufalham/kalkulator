@@ -17,32 +17,9 @@
  </head>
  <body class="bg-[#F5F7FF] min-h-screen flex flex-col justify-between">
   <!-- Header -->
-  <header class="bg-white rounded-xl mx-10 mt-10 px-10 py-4 flex items-center justify-between max-w-7xl mx-auto">
-   <div class="flex items-center space-x-2">
-    <img alt="NaZMaLogy logo icon with orange and dark blue colors" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/32efd59f-cc95-408b-bbc5-c6f93638bcdd.jpg" width="24"/>
-    <span class="font-semibold text-lg text-black select-none">
-     NaZMaLogy
-    </span>
-   </div>
-   <nav class="flex space-x-10 font-semibold text-black text-sm">
-    <a class="hover:underline" href="#">
-     Beranda
-    </a>
-    <a class="hover:underline" href="#">
-     Kalkulator
-    </a>
-    <a class="hover:underline" href="#">
-     Berita
-    </a>
-    <a class="text-[#F97316] hover:underline" href="#">
-     Pumpkin
-    </a>
-    <a class="text-[#F97316] text-xl" href="#">
-     <i class="fas fa-sign-out-alt">
-     </i>
-    </a>
-   </nav>
-  </header>
+  <x-navbar></x-navbar>
+
+
   <!-- Main content -->
   <main class="max-w-7xl mx-auto mt-12 mb-24 px-6 flex flex-col md:flex-row gap-10">
    <!-- Left sidebar -->

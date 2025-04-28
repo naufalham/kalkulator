@@ -16,6 +16,11 @@
   </style>
  </head>
  <body class="bg-[#f5f8ff] min-h-screen flex flex-col justify-between">
+
+
+  <x-navbar></x-navbar>
+
+
   <main class="px-6 md:px-16 lg:px-24 py-16 flex flex-col gap-10 max-w-[1200px] mx-auto flex-grow">
    <h1 class="font-extrabold text-lg md:text-xl lg:text-2xl text-black max-w-max">
     Kalkulator Harga Jual
