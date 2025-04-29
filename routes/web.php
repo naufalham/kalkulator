@@ -21,3 +21,7 @@ Route::get('/profil', function () {
 Route::get('/landing', function () {
     return view('user.landing_page');
 });
+
+Route::get('/usaha', function () {
+    return view('user.usaha');
+});
