@@ -1,0 +1,39 @@
+/* Sticky header styles */
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 1.5rem;
+    margin: 0; /* Hilangkan margin saat sticky */
+    border-radius: 0; /* Hilangkan border-radius saat sticky */
+    font-family: poppins, sans-serif; 
+  }
+  body {
+      font-family: poppins, sans-serif;
+    }
+    .main-content {
+      min-height: calc(100vh - 160px); /* sesuaikan dengan tinggi navbar + footer jika perlu */
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 3rem 2rem;
+      justify-items: center; /* agar kontennya center di setiap kolom */
+      align-items: center;
+      text-align: center;
+    }
+    .relative {
+      padding-top: 4rem; /* Tambahkan lebih banyak padding atas */
+      padding-bottom: 4rem; /* Tambahkan lebih banyak padding bawah */
+      min-height: 200px; /* Atur tinggi minimum */
+  }
+
+  .custom-paragraph {
+    font-size: 0.8rem; /* Ukuran font lebih besar (18px) */
+    margin-top: 1rem; /* Tambahkan jarak ke atas */
+    margin-bottom: 1.5rem; /* Tambahkan jarak ke bawah */
+    line-height: 1.75; /* Tinggi baris untuk keterbacaan */
+    color: #000000; /* Warna teks abu-abu */
+}

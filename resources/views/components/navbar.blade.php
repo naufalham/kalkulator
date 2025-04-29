@@ -27,7 +27,7 @@
      <a class="hover:underline" href="#">
       Kalkulator
      </a>
-     <a class="hover:underline" href="#">
+     <a class="hover:underline" href="/usaha">
       Usaha
      </a>
      <a class="text-[#F97316] hover:underline" href="#">
