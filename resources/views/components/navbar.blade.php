@@ -30,7 +30,7 @@
      <a class="hover:underline" href="#">
       Usaha
      </a>
-     <a class="text-[#F97316] hover:underline" href="#">
+     <a class="text-[#F97316] hover:underline" href="/login">
       Masuk
      </a>
     </nav>

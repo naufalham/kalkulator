@@ -1,39 +1,37 @@
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   NaZMaLogy
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
-  <style>
-   body {
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
- </head>
- <body class="bg-[#f7f9ff]">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    @vite(['resources/css/landing.css','resources/js/app.js'])
+    <title>
+     AKUNaZMa
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet"/>
+  
+   </head>
+ <body class="bg-[#f3f7ff] min-h-screen flex flex-col justify-between">
   <!-- Navbar -->
 
   <x-navbar></x-navbar>
   
   <!-- Hero Section -->
-  <section aria-label="Hero section with background image of hands on laptop and tablet with tax documents overlay" class="relative max-w-7xl mx-auto mt-10 rounded-xl overflow-hidden">
-   <img alt="Background image showing hands typing on a laptop and a tablet with transparent tax document icons floating above" class="w-full h-auto object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/46a9f8a4-d959-4f0e-6176-a75bf8132037.jpg" width="1440"/>
-   <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center px-6 sm:px-12 max-w-7xl mx-auto" style="max-width: 1440px;">
-    <h1 class="text-white font-bold text-lg sm:text-xl max-w-md leading-tight">
-     Kalkulator Pintar
-     <br/>
-     Membantu Menganalisis Kelayakan Usaha Anda
-    </h1>
-    <button class="mt-6 bg-[#2e348a] text-white font-semibold text-sm rounded-lg px-5 py-2 w-max" type="button">
-     Daftar
-    </button>
+  <!-- filepath: d:\APK\xampp\htdocs\kalkulator\resources\views\user\landing_page.blade.php -->
+<section aria-label="Hero section with background image of hands on laptop and tablet with tax documents overlay" class="relative w-full h-screen">
+   <img alt="Background image showing hands typing on a laptop and a tablet with transparent tax document icons floating above" class="absolute inset-0 w-full h-full object-cover" src="https://storage.googleapis.com/a1aa/image/46a9f8a4-d959-4f0e-6176-a75bf8132037.jpg"/>
+   <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center px-6 sm:px-12 max-w-7xl mx-auto">
+      <h1 class="text-white font-bold text-lg sm:text-xl max-w-md leading-tight ml-8 sm:ml-16">
+         Kalkulator Pintar
+         <br/>
+         Membantu Menganalisis Kelayakan Usaha Anda
+      </h1>
+      <button class="mt-6 bg-[#2e348a] text-white font-semibold text-sm rounded-lg px-5 py-2 w-max ml-8 sm:ml-16" type="button">
+         Daftar
+      </button>
    </div>
-  </section>
+</section>
   <!-- Business Types Section -->
   <section class="max-w-7xl mx-auto mt-16 px-6 sm:px-12">
    <h2 class="font-bold text-black text-lg mb-8">
