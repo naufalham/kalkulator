@@ -21,3 +21,7 @@ Route::get('/profil', function () {
 Route::get('/usaha', function () {
     return view('user.usaha');
 });
+
+Route::get('/form_usaha', function () {
+    return view('user.form_usaha');
+});
