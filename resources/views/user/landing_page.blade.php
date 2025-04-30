@@ -20,7 +20,7 @@
   <!-- Hero Section -->
   <!-- filepath: d:\APK\xampp\htdocs\kalkulator\resources\views\user\landing_page.blade.php -->
    <section aria-label="Hero section with background image of hands on laptop and tablet with tax documents overlay" class="relative w-full h-screen">
-      <img alt="Background image showing hands typing on a laptop and a tablet with transparent tax document icons floating above" class="absolute inset-0 w-full h-full object-cover" src="https://storage.googleapis.com/a1aa/image/46a9f8a4-d959-4f0e-6176-a75bf8132037.jpg"/>
+      <img alt="Background image showing hands typing on a laptop and a tablet with transparent tax document icons floating above" class="absolute inset-0 w-full h-full object-cover" src="{{ asset('asset/bg_landing.jpg') }}"/>
       <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center px-6 sm:px-12 max-w-7xl mx-auto">
          <h1 class="text-white font-bold text-lg sm:text-xl max-w-md leading-tight ml-8 sm:ml-16">
             Kalkulator Pintar

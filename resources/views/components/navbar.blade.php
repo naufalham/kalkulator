@@ -21,7 +21,7 @@
      </span>
     </div>
     <nav class="flex flex-wrap justify-center sm:justify-end space-x-6 font-semibold text-black text-sm w-full sm:w-auto">
-     <a class="hover:underline" href="/landing">
+     <a class="hover:underline" href="/">
       Beranda
      </a>
      <a class="hover:underline" href="#">

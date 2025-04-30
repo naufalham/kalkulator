@@ -69,6 +69,8 @@
     </form>
    </section>
   </main>
+
+  
   <!-- Footer -->
   <x-footer></x-footer>
 
