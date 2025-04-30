@@ -21,3 +21,11 @@ Route::get('/profil', function () {
 Route::get('/usaha', function () {
     return view('user.usaha');
 });
+
+Route::get('/kalkulator', function () {
+    return view('user.kalkulator');
+});
+
+Route::get('/kalkulator/modal', function () {
+    return view('user.hitung.modal');
+});

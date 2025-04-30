@@ -24,7 +24,7 @@
      <a class="hover:underline" href="/">
       Beranda
      </a>
-     <a class="hover:underline" href="#">
+     <a class="hover:underline" href="/kalkulator">
       Kalkulator
      </a>
      <a class="hover:underline" href="/usaha">
