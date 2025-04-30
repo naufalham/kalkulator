@@ -29,3 +29,19 @@ Route::get('/kalkulator', function () {
 Route::get('/kalkulator/modal', function () {
     return view('user.hitung.modal');
 });
+
+Route::get('/kalkulator/bep', function () {
+    return view('user.hitung.bep');
+});
+
+Route::get('/kalkulator/laba', function () {
+    return view('user.hitung.laba');
+});
+
+Route::get('/kalkulator/penjualan', function () {
+    return view('user.hitung.penjualan');
+});
+
+Route::get('/kalkulator/stok', function () {
+    return view('user.hitung.stok');
+});
