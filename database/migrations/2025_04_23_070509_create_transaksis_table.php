@@ -17,8 +17,8 @@ return new class extends Migration
             $table->date('tgl_transaksi');
 
 
-            $table->unsignedBigInteger('id_analisis');
-            $table->foreign('id_analisis')->references('id_analisis')->on('analises')->onDelete('cascade');
+            $table->unsignedBigInteger('analisis_id');
+            $table->foreign('analisis_id')->references('id_analisis')->on('analises')->onDelete('cascade');
             $table->timestamps();
         });
     }

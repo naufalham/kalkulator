@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.landing_page');
 });
 
 Route::get('/register', function () {
@@ -16,10 +16,6 @@ Route::get('/login', function () {
 
 Route::get('/profil', function () {
     return view('user.profil');
-});
-
-Route::get('/landing', function () {
-    return view('user.landing_page');
 });
 
 Route::get('/usaha', function () {

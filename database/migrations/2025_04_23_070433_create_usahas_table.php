@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('id_usaha');
             $table->string('nama_usaha');
 
-            $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id_user')->on('create_user_tables')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id_user')->on('create_user_tables')->onDelete('cascade');
             $table->timestamps();
         });
     }

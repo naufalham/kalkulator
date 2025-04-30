@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nama_input');
             $table->enum('kategori', ['Pendapatan', 'Pengeluaran']);
 
-            $table->unsignedBigInteger('id_usaha');
-            $table->foreign('id_usaha')->references('id_usaha')->on('usahas')->onDelete('cascade');
+            $table->unsignedBigInteger('usaha_id');
+            $table->foreign('usaha_id')->references('id_usaha')->on('usahas')->onDelete('cascade');
             $table->timestamps();
         });
     }

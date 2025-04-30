@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('email');
             $table->string('kata_sandi');
+            $table->enum('role', ['admin', 'user'])->default('user');
 
             $table->timestamps();
         });
