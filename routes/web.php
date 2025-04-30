@@ -25,3 +25,11 @@ Route::get('/usaha', function () {
 Route::get('/form_usaha', function () {
     return view('user.form_usaha');
 });
+
+Route::get('/kalkulator', function () {
+    return view('user.kalkulator');
+});
+
+Route::get('/kalkulator/modal', function () {
+    return view('user.hitung.modal');
+});
