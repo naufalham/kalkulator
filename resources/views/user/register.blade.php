@@ -1,17 +1,5 @@
-<html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  @vite(['resources/css/register.css','resources/js/app.js'])
-  <title>
-   AKUNaZMa
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet"/>
- </head>
- <body class="bg-[#f3f7ff] min-h-screen flex flex-col justify-between">
+@vite(['resources/css/register.css','resources/js/app.js'])
+
   <!-- Header -->
   <x-navbar></x-navbar>
 
@@ -38,21 +26,3 @@
 
   <!-- Footer -->
   <x-footer></x-footer>
-
-
-  
-  <script>
-  // Ambil elemen header
-  const header = document.getElementById('sticky-header');
-
-  // Tambahkan event listener untuk scroll
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) { // Jika scroll lebih dari 50px
-      header.classList.add('sticky');
-    } else {
-      header.classList.remove('sticky');
-    }
-  });
-</script>
- </body>
-</html>

@@ -12,10 +12,11 @@
     border-radius: 0; /* Hilangkan border-radius saat sticky */
     font-family: poppins, sans-serif; 
   }
-  body {
+
+body {
       font-family: poppins, sans-serif;
     }
-    .main-content {
+.main-content {
       min-height: calc(100vh - 160px); /* sesuaikan dengan tinggi navbar + footer jika perlu */
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -24,13 +25,13 @@
       align-items: center;
       text-align: center;
     }
-    .relative {
+.relative {
       padding-top: 4rem; /* Tambahkan lebih banyak padding atas */
       padding-bottom: 4rem; /* Tambahkan lebih banyak padding bawah */
       min-height: 200px; /* Atur tinggi minimum */
   }
 
-  .custom-paragraph {
+.custom-paragraph {
     font-size: 0.8rem; /* Ukuran font lebih besar (18px) */
     margin-top: 1rem; /* Tambahkan jarak ke atas */
     margin-bottom: 1.5rem; /* Tambahkan jarak ke bawah */
