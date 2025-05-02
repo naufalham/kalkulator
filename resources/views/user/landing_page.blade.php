@@ -12,22 +12,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;display=swap" rel="stylesheet"/>
     </head>
     <body class="bg-[#F5F8FF] min-h-screen flex flex-col">
-        <!-- Header -->
-        <x-navbar class="fixed top-0 left-0 w-full z-50"></x-navbar>
-
-        <!-- Hero Section -->
-        <section aria-label="Hero section with full-page background image" class="relative h-screen w-full bg-cover bg-center" style="background-image: url('{{ asset('asset/landing.jpg') }}');">
-    <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-center px-6 sm:px-12">
-        <h1 class="text-white font-bold text-2xl sm:text-4xl leading-tight">
-            Kalkulator Pintar
-            <br/>
-            Membantu Menganalisis Kelayakan Usaha Anda
-        </h1>
-        <button class="mt-6 bg-[#2e348a] text-white font-semibold rounded-lg px-5 py-3 text-sm sm:text-base hover:bg-[#252a6f] transition" type="button">
-            Daftar
-        </button>
-    </div>
-</section>
+        
+        <x-navland></x-navland>
 
         <!-- Business Types Section -->
         <section class="max-w-6xl mx-auto px-6 sm:px-12 mt-16">
