@@ -1,18 +1,5 @@
-<html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta content="width=device-width, initial-scale=1" name="viewport"/>
-        @vite(['resources/css/login.css','resources/js/app.js'])
-        <title>
-            AKUNaZMa
-        </title>
-        <script src="https://cdn.tailwindcss.com">
-        </script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;display=swap" rel="stylesheet"/>
-    </head>
-    <body class="bg-[#F5F8FF] min-h-screen flex flex-col">
-        
+@vite(['resources/css/login.css','resources/js/app.js'])
+        <!-- Navbar -->
         <x-navland></x-navland>
 
         <!-- Business Types Section -->
@@ -103,5 +90,3 @@
 
         <!-- Footer -->
         <x-footer></x-footer>
-    </body>
-</html>
