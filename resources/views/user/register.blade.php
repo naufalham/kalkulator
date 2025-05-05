@@ -22,7 +22,5 @@
       </form>
     </main>
 
-
-
   <!-- Footer -->
   <x-footer></x-footer>

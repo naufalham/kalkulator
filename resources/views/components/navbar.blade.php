@@ -24,6 +24,9 @@
      <a class="hover:underline" href="/">
       Beranda
      </a>
+     <a class="hover:underline" href="/berita">
+      Berita
+     </a>
      <a class="hover:underline" href="/kalkulator">
       Kalkulator
      </a>
