@@ -23,8 +23,8 @@
           Selamat Datang!
         </h1>
         <form class="flex flex-col space-y-5">
-          <input class="border border-black rounded-lg px-4 py-2 text-black text-sm placeholder-black focus:outline-none focus:ring-2 focus:ring-[#F97316]" placeholder="Email" required="" type="email"/>
-          <input class="border border-black rounded-lg px-4 py-2 text-black text-sm placeholder-black focus:outline-none focus:ring-2 focus:ring-[#F97316]" placeholder="Kata Sandi" required="" type="password"/>
+          <input class="w-full border border-black rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Email" required="" type="email"/>
+          <input class="w-full border border-black rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Kata Sandi" required="" type="password"/>
           <button class="bg-[#F97316] text-white font-semibold rounded-lg py-3 mt-2 hover:bg-[#e06f11] transition-colors" type="submit">
             Masuk
           </button>
