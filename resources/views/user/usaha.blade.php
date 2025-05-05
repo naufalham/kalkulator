@@ -58,7 +58,7 @@
 
             <!-- Kerajinan -->
             <a href="/form_usaha" class="block">
-              <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300 translate-x-1/2">
+              <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#2E327D] w-12 h-12 rounded-xl flex items-center justify-center">
                   <img alt="Icon representing fashion" class="w-8 h-8" height="32" src="{{ asset('icons/kerajinan.png') }}" width="24"/>
                 </div>
@@ -73,7 +73,7 @@
 
             <!-- Campuran -->
             <a href="/form_usaha" class="block">
-              <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300 translate-x-1/2">
+              <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#2E327D] w-12 h-12 rounded-xl flex items-center justify-center">
                   <img alt="Icon representing fashion" class="w-8 h-8" height="32" src="{{ asset('icons/campuran.png') }}" width="24"/>
                 </div>

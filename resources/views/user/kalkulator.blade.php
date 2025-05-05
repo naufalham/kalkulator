@@ -1,9 +1,9 @@
 @vite(['resources/css/usaha.css','resources/js/app.js'])
         <!-- Navbar -->
-        <x-navbar></x-navbar>
+        <x-navbar id="sticky-navbar" class="bg-white shadow-md"></x-navbar>
 
         <!-- Main content -->
-        <main class="flex-grow max-w-7xl mx-auto px-6 mt-12">
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mt-12">
             <h2 class="font-bold text-lg text-black mb-10 select-none text-center">
                 Pilih Jenis Kalkulator
             </h2>
@@ -12,10 +12,10 @@
                     <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#2E327D] w-12 h-12 rounded-xl flex items-center justify-center">
                         <img alt="Icon Modal Awal" class="w-9 h-9" height="32" src="{{ asset('icons/kalkulator/modal.png') }}" width="24"/>
                     </div>
-                    <h3 class="font-bold text-base text-black mb-2 select-none">
+                    <h3 class="font-bold text-sm sm:text-base text-black mb-2 select-none">
                         Kalkulator Modal Awal
                     </h3>
-                    <p class="custom-paragraph">
+                    <p class="custom-paragraph text-xs sm:text-sm">
                         Cari tahu total dana yang dibutuhkan diawal
                     </p>
                 </a>
@@ -50,7 +50,7 @@
                     </p>
                 </a>
                 
-                <a href="/kalkulator/penjualan" class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300 translate-x-1/2">
+                <a href="/kalkulator/penjualan" class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
                     <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#2E327D] w-12 h-12 rounded-xl flex items-center justify-center">
                         <img alt="Icon penjualan" class="w-8 h-8" height="32" src="{{ asset('icons/kalkulator/modal.png') }}" width="24"/>
                     </div>
@@ -62,7 +62,7 @@
                     </p>
                 </a>
                 
-                <a href="/kalkulator/stok" class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300 translate-x-1/2">
+                <a href="/kalkulator/stok" class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
                     <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#2E327D] w-12 h-12 rounded-xl flex items-center justify-center">
                         <img alt="Icon stok" class="w-8 h-8" height="32" src="{{ asset('icons/kalkulator/modal.png') }}" width="24"/>
                     </div>
