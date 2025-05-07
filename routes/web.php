@@ -1,18 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
     return view('user.landing_page');
 });
 
-Route::get('/register', function () {
-    return view('user.register');
-});
-
-Route::get('/login', function () {
-    return view('user.login');
-});
 
 Route::get('/profil', function () {
     return view('user.profil');
@@ -20,6 +16,10 @@ Route::get('/profil', function () {
 
 Route::get('/usaha', function () {
     return view('user.usaha');
+});
+
+Route::get('/berita', function () {
+    return view('user.berita');
 });
 
 Route::get('/form_usaha', function () {
@@ -50,10 +50,6 @@ Route::get('/kalkulator/stok', function () {
     return view('user.hitung.stok');
 });
 
-Route::get('/berita', function () {
-    return view('user.berita');
-});
-
 Route::get('/isi', function () {
     return view('user.isi_berita');
 });
@@ -73,3 +69,18 @@ Route::get('/admin/tambah', function () {
 Route::get('/admin/kalkulator', function () {
     return view('admin.kalkulator');
 });
+
+// register
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
+Route::post('/register', [RegisterController::class, 'register']);
+
+
+// login
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+//profile
+Route::get('/profil', [UserController::class, 'edit'])->name('user.edit');
+Route::post('/profil', [UserController::class, 'update'])->name('user.update');
+

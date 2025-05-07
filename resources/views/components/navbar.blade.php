@@ -33,9 +33,21 @@
      <a class="hover:underline" href="/usaha">
       Usaha
      </a>
-     <a class="text-[#F97316] hover:underline" href="/login">
-      Masuk
-     </a>
+     @auth
+        <a class="text-[#F97316] hover:underline" href="/profil">
+            {{ Auth::user()->nama }}
+        </a>
+        <form method="POST" action="{{ route('logout') }}" class="inline">
+            @csrf
+            <button type="submit" class="text-[#F97316] hover:underline">
+                Logout
+            </button>
+        </form>
+    @else
+        <a class="text-[#F97316] hover:underline" href="/login">
+          Masuk
+        </a>
+    @endauth
     </nav>
    </header>
 

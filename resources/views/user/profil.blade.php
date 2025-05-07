@@ -21,26 +21,40 @@
         <h2 class="font-bold text-xl mb-6 select-none">
             Akun
         </h2>
-        <form class="flex flex-col gap-6">
+        <form class="flex flex-col gap-6" method="POST" action="{{ route('user.update') }}">
+            
+            @csrf
+
+            @if (session('success'))
+                <div class="bg-green-100 text-green-700 p-4 rounded-md mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="bg-red-100 text-red-700 p-4 rounded-md mb-4">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            
             <div class="flex flex-col gap-1">
                 <label class="font-semibold text-sm select-none" for="fullname">
                     Nama Lengkap
                 </label>
-                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="fullname" type="text" value="Pumpkin"/>
+                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="fullname" type="text" value="{{ old('nama', Auth::user()->nama) }}" required />
             </div>
             <div class="flex flex-col gap-1">
                 <label class="font-semibold text-sm select-none" for="email">
                     Email
                 </label>
-                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="email" type="email" value="Pumpkin@gmail.com"/>
+                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="email" type="email" value="{{ old('email', Auth::user()->email) }}" required />
             </div>
             <div class="flex flex-col md:flex-row gap-6">
-                <div class="flex-1 flex flex-col gap-1">
-                    <label class="font-semibold text-sm select-none" for="job">
-                        Jenis Pekerjaan
-                    </label>
-                    <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="job" type="text" value="Pengusaha"/>
-                </div>
                 <div class="flex-1 flex flex-col gap-1">
                     <label class="font-semibold text-sm select-none" for="password">
                         Kata Sandi
