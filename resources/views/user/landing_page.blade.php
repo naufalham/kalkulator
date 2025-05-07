@@ -2,117 +2,107 @@
 <html lang="en">
     <head>
         <meta charset="utf-8"/>
-            <meta content="width=device-width, initial-scale=1" name="viewport"/>
-            <!-- Navbar -->
-            <x-navbar></x-navbar>
-            <title>
-                AKUNaZMa
-            </title>
-            <script src="https://cdn.tailwindcss.com">
-            </script>
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-            <link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet"/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <!-- Navbar -->
+        <x-navland></x-navland>
+        <title>
+            AKUNaZMa
+        </title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet"/>
+    </head>
 
-        </head>
+    <section aria-label="Hero section with full-page background image" class="relative min-h-screen w-full bg-no-repeat bg-cover bg-center flex items-center justify-center text-center" style="background-image: url('{{ asset('asset/landing.jpg') }}');">
+        <div class="absolute  bg-black bg-opacity-60 inset-0 flex flex-col justify-center items-center text-center px-6 sm:px-12">
+            <h1 class="text-white font-bold text-2xl sm:text-4xl leading-tight">
+                Kalkulator Pintar
+                <br/>
+                Membantu Menganalisis Kelayakan Usaha Anda
+            </h1>
+            <button class="mt-6 bg-[#F28C28] text-white font-semibold rounded-lg px-6 py-3" type="button">
+                Daftar
+            </button>
+        </div>
+    </section>
 
-        <section aria-label="Hero section with full-page background image" class="relative min-h-screen -mt-[80px] pt-[80px] w-full bg-cover bg-center" style="background-image: url('{{ asset('asset/landing.jpg') }}');">
-            <div class="absolute  bg-black bg-opacity-60 inset-0 flex flex-col justify-center items-center text-center px-6 sm:px-12">
-                <h1 class="text-white font-bold text-2xl sm:text-4xl leading-tight">
-                    Kalkulator Pintar
-                    <br/>
-                    Membantu Menganalisis Kelayakan Usaha Anda
-                </h1>
-                <button class="mt-6 bg-[#2e348a] text-white font-semibold rounded-lg px-5 py-3 text-sm sm:text-base hover:bg-[#252a6f] transition" type="button">
-                    Daftar
-                </button>
-            </div>
-        </section>
-
-        <!-- Business Types Section -->
-        <section class="max-w-6xl mx-auto px-6 sm:px-12 mt-16">
-            <h2 class="font-bold text-[#1a1a1a] text-lg mb-8">
-                Tersedia untuk beberapa jenis usaha
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto" role="list">
-
-                <!-- Fesyen -->
-                <article class="bg-white rounded-2xl p-6 flex flex-col items-center text-center" role="listitem">
-                    <div aria-hidden="true" class="bg-[#2e348a] rounded-md p-3 mb-4 inline-flex items-center justify-center" style="width:48px; height:48px">
-                        <img alt="Icon representing fashion" class="w-6 h-6" height="32" src="{{ asset('icons/fesyen.png') }}" width="24"/>
-                    </div>
-                    <h3 class="font-bold text-sm mb-1">
-                    Fesyen
-                    </h3>
-                    <p class="text-xs text-[#4a4a4a] leading-relaxed">
-                        Usaha yang berfokus pada pakaian, sepatu, dan aksesoris gaya hidup
-                    </p>
-                </article>
+    <!-- Business Types Section -->
+    <section class="max-w-6xl mx-auto px-6 sm:px-12 mt-16">
+        <h2 class="font-bold text-[#1a1a1a] text-lg mb-8">
+            Tersedia untuk beberapa jenis usaha
+        </h2>
+        <div class="main-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 max-w-6xl mx-auto place-items-center">
             
-                <!-- Kuliner -->
-                <article class="bg-white rounded-2xl p-6 flex flex-col items-center text-center" role="listitem">
-                    <div aria-hidden="true" class="bg-[#2e348a] rounded-md p-3 mb-4 inline-flex items-center justify-center" style="width:48px; height:48px">
-                        <img alt="Icon representing fashion" class="w-6 h-6" height="32" src="{{ asset('icons/kuliner.png') }}" width="24"/>
+            <!-- Fesyen -->
+            <a href="/form_usaha" class="block w-full">
+                <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#2E327D] w-12 h-12 rounded-xl flex items-center justify-center">
+                        <img alt="Icon representing fashion" class="w-9 h-9" src="{{ asset('icons/fesyen.png') }}" />
                     </div>
-                    <h3 class="font-bold text-sm mb-1">
+                    <h3 class="font-bold text-base text-black mb-2 select-none">
+                        Fesyen
+                    </h3>
+                    <p class="text-sm text-[#4a4a4a] leading-relaxed">
+                        Usaha yang berfokus pada pakaian, sepatu, dan aksesori gaya hidup
+                    </p>
+                </div>
+            </a>
+
+            <!-- Kuliner -->
+            <a href="/form_usaha" class="block w-full">
+                <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#2E327D] w-12 h-12 rounded-xl flex items-center justify-center">
+                        <img alt="Icon representing food business" class="w-9 h-9" src="{{ asset('icons/kuliner.png') }}" />
+                    </div>
+                    <h3 class="font-bold text-base text-black mb-2 select-none">
                         Kuliner
                     </h3>
-                    <p class="text-xs text-[#4a4a4a] leading-relaxed">
+                    <p class="text-sm text-[#4a4a4a] leading-relaxed">
                         Usaha di bidang makanan, minuman, dan layanan kuliner
                     </p>
-                </article>
+                </div>
+            </a>
 
-                <!-- Jasa -->
-                <article class="bg-white rounded-2xl p-6 flex flex-col items-center text-center" role="listitem">
-                    <div aria-hidden="true" class="bg-[#2e348a] rounded-md p-3 mb-4 inline-flex items-center justify-center" style="width:48px; height:48px">
-                        <img alt="Icon representing fashion" class="w-6 h-6" height="32" src="{{ asset('icons/jasa.png') }}" width="24"/>
+            <!-- Jasa -->
+            <a href="/form_usaha" class="block w-full">
+                <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#2E327D] w-12 h-12 rounded-xl flex items-center justify-center">
+                        <img alt="Icon representing services" class="w-9 h-9" src="{{ asset('icons/jasa.png') }}" />
                     </div>
-                    <h3 class="font-bold text-sm mb-1">
+                    <h3 class="font-bold text-base text-black mb-2 select-none">
                         Jasa
                     </h3>
-                    <p class="text-xs text-[#4a4a4a] leading-relaxed">
+                    <p class="text-sm text-[#4a4a4a] leading-relaxed">
                         Usaha yang menawarkan layanan atau keahlian untuk memenuhi kebutuhan
                     </p>
-                </article>
+                </div>
+            </a>
 
-                <!-- Kerajinan -->
-                <article class="bg-white rounded-2xl p-6 flex flex-col items-center text-center" role="listitem">
-                    <div aria-hidden="true" class="bg-[#2e348a] rounded-md p-3 mb-4 inline-flex items-center justify-center" style="width:48px; height:48px">
-                        <img alt="Icon representing fashion" class="w-6 h-6" height="32" src="{{ asset('icons/kerajinan.png') }}" width="24"/>
+            <!-- Kerajinan -->
+            <a href="/form_usaha" class="block w-full">
+                <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#2E327D] w-12 h-12 rounded-xl flex items-center justify-center">
+                        <img alt="Icon representing crafts" class="w-9 h-9" src="{{ asset('icons/kerajinan.png') }}" />
                     </div>
-                    <h3 class="font-bold text-sm mb-1">
+                    <h3 class="font-bold text-base text-black mb-2 select-none">
                         Kerajinan
                     </h3>
-                    <p class="text-xs text-[#4a4a4a] leading-relaxed">
+                    <p class="text-sm text-[#4a4a4a] leading-relaxed">
                         Usaha yang mengubah kreativitas menjadi produk kerajinan bernilai
                     </p>
-                </article>
-            </div>
-            <div class="flex justify-center mt-10">
-                <a href="/usaha">
-                    <button class="border bg-[#2e348a] text-white font-semibold rounded-lg px-6 py-2 text-sm sm:text-base hover:bg-[#252a6f] transition" type="button">
-                        Coba Sekarang
-                    </button>
-                </a>
-            </div>
-        </section>
-    
-        <!-- Calculator Info Section -->
-        <section class="max-w-6xl mx-auto px-6 sm:px-12 mt-16 flex flex-col md:flex-row items-center md:items-stretch gap-4">
-            <div aria-label="Calculator info with icon" class="bg-[#2e348a] rounded-3xl p-6 flex flex-col justify-center flex-1 max-w-md text-white relative">
-                <div class="flex items-center justify-between mb-3">
-                    <h3 class="font-bold text-base leading-snug">
-                        KALKULATOR PINTAR
-                    </h3>
                 </div>
-                <p class="text-xs leading-relaxed">
-                    Membantu menganalisis dan mengelola keuangan usaha Anda secara cepat
-                    dan efisien, agar tetap sehat dan menguntungkan.
-                </p>
-            </div>
-            <div class="flex-1 max-w-sm">
-                <img class="rounded-3xl w-full h-auto object-cover" height="250" loading="lazy" src="{{ asset('asset/lampu.jpeg') }}" width="400"/>
-            </div>
-        </section>
+            </a>
+        </div>
 
-        <!-- Footer -->
-        <x-footer></x-footer>
+        <div class="flex justify-center mt-10">
+            <a href="/usaha">
+                <button class="border bg-[#F28C28] text-white font-semibold rounded-lg px-6 py-2 text-sm sm:text-base" type="button">
+                    Coba Sekarang
+                </button>
+            </a>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <x-footer></x-footer>

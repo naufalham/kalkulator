@@ -1,7 +1,7 @@
 @vite(['resources/css/usaha.css','resources/js/app.js'])
 
     <!-- Navbar -->
-      <x-navbar></x-navbar>
+    <x-navbar></x-navbar>
 
     <!-- Main content -->
       <main class="flex-grow max-w-7xl mx-auto px-6 mt-12">
