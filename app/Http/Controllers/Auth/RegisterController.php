@@ -36,7 +36,7 @@ class RegisterController extends Controller
         // auth()->login($user);
 
         // Redirect ke halaman dashboard (ubah sesuai kebutuhan)
-        return redirect()->route('user.berita')->with('success', 'Registrasi berhasil!');
+        return redirect()->intended('berita')->with('success', 'Registrasi berhasil!');
     }
 }
 
