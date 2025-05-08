@@ -16,15 +16,16 @@
         <x-navbar></x-navbar>
 
         <!-- Main content -->
-        <main class="flex-grow max-w-7xl mx-auto px-6 py-8 w-full">
-            <h1 class="font-extrabold text-black text-lg mb-6 select-none mx-auto max-w-5xl">
-                Analisis Kelayakan Usaha Fesyen
-            </h1>
-            <form autocomplete="off" class="bg-white rounded-xl p-8 max-w-5xl w-full mx-auto space-y-10" novalidate="">
+        <main class="flex-grow max-w-7xl mx-auto px-8 sm:px-16 lg:px-24 py-8 w-full">
+            <form autocomplete="off" class="bg-white rounded-xl p-8 max-w-6xl w-full mx-auto space-y-10" novalidate="">
 
             <!-- Pendapatan -->
                 <section>
-                    <h2 class="font-extrabold text-black text-base mb-6 select-none">
+                <h1 class="font-extrabold text-black text-lg mb-6 select-none mx-auto max-w-5xl text-center">
+                    Analisis Kelayakan Usaha Fesyen
+                </h1>
+                <hr>
+                <h2 class="font-extrabold text-black text-base mb-6 mt- select-none">
                         Pendapatan
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">

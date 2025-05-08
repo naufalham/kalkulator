@@ -10,9 +10,9 @@
         <button class="bg-[#f97316] text-white rounded-lg py-2 text-center text-sm font-semibold" type="button">
             Akun
         </button>
-        <a class="text-[#f97316] bg-[#f9faff] rounded-lg py-2 text-center text-sm font-semibold block text-center" href="/riwayat">
+        <button class="text-[#f97316] bg-[#f9faff] rounded-lg py-2 text-center text-sm font-semibold" type="button">
             Riwayat
-        </a>
+        </button>
         <button class="text-[#f97316] bg-[#f9faff] rounded-lg py-2 text-center text-sm font-semibold" type="button">
             Tanya
         </button>
