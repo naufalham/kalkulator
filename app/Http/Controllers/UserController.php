@@ -47,5 +47,13 @@ class UserController extends Controller
         return redirect()->route('user.edit')->with('success', 'Profil berhasil diperbarui!');
     }
 
+    /**
+     * Tampilkan data pengguna.
+     */
+    public function show()
+    {
+        $user = Auth::user();
+        return view('user.show', compact('user'));
+    }
 
 }
