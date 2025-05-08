@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
@@ -84,3 +85,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/profil', [UserController::class, 'edit'])->name('user.edit');
 Route::post('/profil', [UserController::class, 'update'])->name('user.update');
 
+//gugel
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
