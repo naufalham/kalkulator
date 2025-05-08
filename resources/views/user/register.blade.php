@@ -29,6 +29,11 @@
         <button class="w-full bg-orange-500 text-white rounded-lg py-2 text-sm font-medium hover:bg-orange-600 transition" type="submit">
           Daftar Sekarang
         </button>
+
+        <a href="{{ route('google.login') }}" class="bg-blue-500 text-white font-semibold rounded-lg py-2 px-4 hover:bg-blue-600 transition-colors">
+          Daftar dengan Google
+        </a>
+
         <p class="text-center text-black text-sm font-semibold mt-4">
           Sudah punya akun? 
           <a href="/login" class="text-[#F97316] hover:underline">Masuk</a>

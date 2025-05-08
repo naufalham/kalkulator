@@ -47,20 +47,20 @@
                 <label class="font-semibold text-sm select-none" for="fullname">
                     Nama Lengkap
                 </label>
-                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" placeholder="{{ old('nama', Auth::user()->nama) }}" id="nama" type="text" name="nama" value="{{ old('nama') }}" required />
+                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" placeholder="{{ old('nama', Auth::user()->nama) }}" id="nama" type="text" name="nama" value="{{ old('nama') }}" />
             </div>
             <div class="flex flex-col gap-1">
                 <label class="font-semibold text-sm select-none" for="email">
                     Email
                 </label>
-                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" placeholder="{{ old('email', Auth::user()->email) }}" id="email" type="email" name="nama" value="{{ old('email') }}" required />
+                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" placeholder="{{ old('email', Auth::user()->email) }}" id="email" type="email" name="email" value="{{ old('email') }}" />
             </div>
             <div class="flex flex-col md:flex-row gap-6">
                 <div class="flex-1 flex flex-col gap-1">
                     <label class="font-semibold text-sm select-none" for="password">
                         Kata Sandi
                     </label>
-                    <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="password" type="password"/>
+                    <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="kata_sandi" type="password" name="kata_sandi"/>
                 </div>
             </div>
             <div class="flex justify-end">

@@ -39,6 +39,11 @@
           <button class="bg-[#F97316] text-white font-semibold rounded-lg py-3 mt-2 hover:bg-[#e06f11] transition-colors" type="submit">
             Masuk
           </button>
+
+          <a href="{{ route('google.login') }}" class="bg-blue-500 text-white font-semibold rounded-lg py-2 px-4 hover:bg-blue-600 transition-colors">
+            Login dengan Google
+          </a>
+
         </form>
         <p class="text-center text-black text-sm font-semibold mt-4">
           Belum punya akun? 

@@ -20,9 +20,11 @@
                 <br/>
                 Membantu Menganalisis Kelayakan Usaha Anda
             </h1>
-            <button class="mt-6 bg-[#F28C28] text-white font-semibold rounded-lg px-6 py-3" type="button">
-                Daftar
-            </button>
+            @guest
+                <button class="mt-6 bg-[#F28C28] text-white font-semibold rounded-lg px-6 py-3" type="button" onclick="window.location.href='/register'">
+                    Daftar
+                </button>
+            @endguest
         </div>
     </section>
 
