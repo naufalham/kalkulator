@@ -20,7 +20,7 @@
     <main class="flex-grow flex justify-center items-start mt-12 px-4 sm:px-6">
       <section aria-label="Form login NaZMaLogy" class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-sm">
         <h1 class="font-semibold text-center text-lg">
-          Selamat Datang!
+          Sugeng Rawuh!
         </h1>
         <form class="flex flex-col space-y-5" method="POST" action="{{ route('login.post') }}">
 
