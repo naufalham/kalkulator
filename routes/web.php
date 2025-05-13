@@ -17,8 +17,19 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 // login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Redirect sesuai role
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/user', function () {
+        return view('admin.user');
+    })->name('admin.user');
+
+    Route::get('/', function () {
+        return view('user.landing_page');
+    })->name('user.landing_page');
+});
 
 
 Route::middleware(['auth'])->group(function () {
@@ -66,9 +77,9 @@ Route::middleware(['auth'])->group(function () {
         return view('user.isi_berita');
     });
 
-    Route::get('/admin', function () {
-        return view('admin.user');
-    });
+    // Route::get('/admin', function () {
+    //     return view('admin.user');
+    // });
 
     Route::get('/admin/berita', function () {
         return view('admin.berita');
@@ -90,3 +101,10 @@ Route::middleware(['auth'])->group(function () {
 //gugel
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
+//tampil user
+Route::get('/admin/user', [UserController::class, 'tampil'])->name('admin.user');
+Route::get('/admin/user/{id}', [UserController::class, 'show'])->name('user.show');
+Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');

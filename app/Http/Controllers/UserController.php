@@ -56,4 +56,11 @@ class UserController extends Controller
         return view('user.show', compact('user'));
     }
 
+
+    public function tampil()
+    {
+        $users = User::all();
+        return view('admin.user', compact('users'));
+    }
+
 }

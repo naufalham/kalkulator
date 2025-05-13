@@ -25,9 +25,15 @@
             <span>
              Admin
             </span>
-            <i class="fas fa-sign-out-alt text-[#f97316]">
-            </i>
-           </li>
+            
+              <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                  <button type="submit" method="POST" action="{{ route('logout') }}">
+                      <i class="fas fa-sign-out-alt text-[#f97316]"></i>
+                  </button>
+              </form>
+            
+        </li>
     </nav>
    </header>
 

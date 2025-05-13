@@ -14,9 +14,11 @@
         <p class="font-semibold text-sm">
          Total Pengguna
         </p>
-        <p class="text-xs">
-         1200 pengguna
-        </p>
+        @if(isset($users))
+            <p>Total: {{ count($users) }}</p>
+        @else
+            <p><strong>$users tidak tersedia!</strong></p>
+        @endif
        </div>
       </div>
       <form class="bg-[#f5f8ff] rounded-lg px-4 py-3 max-w-xs w-full md:w-auto flex items-center space-x-2">
@@ -39,10 +41,10 @@
           Nama
          </th>
          <th class="border border-gray-200 px-3 py-2 text-left font-semibold">
-          Alamat
+          Email
          </th>
          <th class="border border-gray-200 px-3 py-2 text-left font-semibold">
-          No. Wa
+          Role
          </th>
          <th class="border border-gray-200 px-3 py-2 text-left font-semibold">
           Action
@@ -50,94 +52,22 @@
         </tr>
        </thead>
        <tbody>
-        <tr class="border border-gray-200">
-         <td class="border border-gray-200 px-3 py-2">
-          1.
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          Robertson
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          Jalan Semeru
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          0857xxxxxxxx
-         </td>
-         <td class="border border-gray-200 px-3 py-2 space-x-2">
-          <button class="bg-red-600 text-white text-[10px] font-semibold rounded px-2 py-0.5">
-           Hapus
-          </button>
-          <button class="bg-yellow-400 text-black text-[10px] font-semibold rounded px-2 py-0.5">
-           Update
-          </button>
-         </td>
-        </tr>
-        <tr class="border border-gray-200">
-         <td class="border border-gray-200 px-3 py-2">
-          2.
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          Andrew
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          Jalan Bromo
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          0852xxxxxxxx
-         </td>
-         <td class="border border-gray-200 px-3 py-2 space-x-2">
-          <button class="bg-red-600 text-white text-[10px] font-semibold rounded px-2 py-0.5">
-           Hapus
-          </button>
-          <button class="bg-yellow-400 text-black text-[10px] font-semibold rounded px-2 py-0.5">
-           Update
-          </button>
-         </td>
-        </tr>
-        <tr class="border border-gray-200">
-         <td class="border border-gray-200 px-3 py-2">
-          3.
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          James
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          Jalan Wilis
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          0812xxxxxxxx
-         </td>
-         <td class="border border-gray-200 px-3 py-2 space-x-2">
-          <button class="bg-red-600 text-white text-[10px] font-semibold rounded px-2 py-0.5">
-           Hapus
-          </button>
-          <button class="bg-yellow-400 text-black text-[10px] font-semibold rounded px-2 py-0.5">
-           Update
-          </button>
-         </td>
-        </tr>
-        <tr class="border border-gray-200">
-         <td class="border border-gray-200 px-3 py-2">
-          4.
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          James
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          Jalan Argopuro
-         </td>
-         <td class="border border-gray-200 px-3 py-2">
-          0899xxxxxxxx
-         </td>
-         <td class="border border-gray-200 px-3 py-2 space-x-2">
-          <button class="bg-red-600 text-white text-[10px] font-semibold rounded px-2 py-0.5">
-           Hapus
-          </button>
-          <button class="bg-yellow-400 text-black text-[10px] font-semibold rounded px-2 py-0.5">
-           Update
-          </button>
-         </td>
-        </tr>
+        @foreach ($users as $index => $user)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $user->nama }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->role }}</td>
+                <td>
+                    <button class="bg-red-600 text-white text-[10px] font-semibold rounded px-2 py-0.5">
+                        Hapus
+                    </button>
+                    <button class="bg-yellow-400 text-black text-[10px] font-semibold rounded px-2 py-0.5">
+                        Update
+                    </button>
+                </td>
+            </tr>
+        @endforeach
        </tbody>
       </table>
      </div>

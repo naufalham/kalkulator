@@ -13,41 +13,46 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('user.login');
+        return view('user.login'); // Sesuaikan dengan view kamu
     }
 
-    /**
-     * Proses login.
-     */
     public function login(Request $request)
     {
-        // Validasi input
-        $request->validate([
-            'email' => 'required|email',
-            'kata_sandi' => 'required|string|min:6',
-        ]);
-
-        // Coba autentikasi
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->kata_sandi])) {
-            // Login berhasil, redirect ke dashboard atau halaman lain
-            return redirect()->intended('berita')->with('success', 'Login berhasil!');
+        $user = \App\Models\User::where('email', $request->email)->first();
+        
+        if (!$user) {
+            dd('User tidak ditemukan');
         }
 
-        // Login gagal, kembali ke halaman login dengan pesan error
+        if (!\Illuminate\Support\Facades\Hash::check($request->kata_sandi, $user->kata_sandi)) {
+            dd('Password salah');
+        }
+
+        $credentials = $request->only('email', 'kata_sandi');
+        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['kata_sandi']])) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.user');
+            } else {
+                return redirect()->route('user.landing_page');
+            }
+        }
+
         return back()->withErrors([
             'email' => 'Email atau kata sandi salah.',
-        ])->withInput($request->only('email'));
+        ])->onlyInput('email');
     }
 
-    /**
-     * Proses logout.
-     */
+
+    
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login')->with('success', 'Logout berhasil!');
+        return redirect('/login');
     }
 }
