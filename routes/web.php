@@ -42,6 +42,10 @@ Route::middleware(['auth'])->group(function () {
         return view('user.kalkulator');
     });
 
+    Route::get('/riwayat', function () {
+        return view('user.riwayat');
+    });
+
     Route::get('/kalkulator/modal', function () {
         return view('user.hitung.modal');
     });

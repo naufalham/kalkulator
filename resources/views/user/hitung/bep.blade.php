@@ -17,12 +17,11 @@
 
 
   <!-- Main content -->
-  <main class="max-w-7xl mx-auto px-6 mt-10 flex-grow w-full">
-    <h1 class="font-extrabold text-black text-lg mb-6">
-        Kalkulator Break Even Point (BEP)
-    </h1>
-
+  <main class="max-w-6xl mx-auto px-6 mt-10 flex-grow w-full">
     <form class="bg-white rounded-xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6" id="modalAwalForm" onsubmit="return false">
+        <h1 class="font-extrabold text-black text-lg mb-5">
+            Kalkulator Break Even Point (BEP)
+        </h1>
         <div class="flex flex-col">
             <label class="text-xs mb-2 text-black" for="fixedCost">
                 Biaya Tetap (Rp)

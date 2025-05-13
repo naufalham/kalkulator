@@ -25,7 +25,7 @@
                     Analisis Kelayakan Usaha Fesyen
                 </h1>
                 <hr>
-                <h2 class="font-extrabold text-black text-base mb-6 mt- select-none">
+                <h2 class="font-extrabold text-black text-base mb-6 mt-6 select-none">
                         Pendapatan
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
@@ -102,7 +102,7 @@
                 </section>
 
                 <div class="flex justify-end">
-                    <button class="bg-[#F97316] text-white text-xs font-semibold rounded-lg px-6 py-2 hover:bg-[#e06f11] transition-colors" type="submit">
+                    <button class="bg-[#F97316] text-white text-xs font-semibold rounded-lg px-6 py-3 hover:bg-[#e06f11] transition-colors" type="submit">
                         Unduh Hasil
                     </button>
                 </div>
