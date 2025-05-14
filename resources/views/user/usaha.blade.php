@@ -4,7 +4,7 @@
     <x-navbar></x-navbar>
 
     <!-- Main content -->
-      <main class="flex-grow max-w-7xl mx-auto px-6 mt-12">
+      <main class="flex-grow max-w-6xl mx-auto px-6 mt-12">
 
         <div class="main-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 max-w-6xl mx-auto place-items-center">
           
