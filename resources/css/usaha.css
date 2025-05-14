@@ -17,7 +17,7 @@ body {
       font-family: poppins, sans-serif;
     }
 .main-content {
-      min-height: calc(100vh - 160px); /* sesuaikan dengan tinggi navbar + footer jika perlu */
+      min-height: calc(100vh - 160px); /* sesuaikan dengan tnggi navbar + footer jika perlu */
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 3rem 2rem;

@@ -1,27 +1,14 @@
-<html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  @vite(['resources/css/usaha.css','resources/js/app.js'])
-  <title>
-   AKUNaZma
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;display=swap" rel="stylesheet"/>
- </head>
- <body class="bg-[#F4F8FF] min-h-screen flex flex-col">
+@vite(['resources/css/usaha.css','resources/js/app.js'])
   <!-- Header -->
   <x-navbar></x-navbar>
 
 
   <!-- Main content -->
   <main class="max-w-6xl mx-auto px-6 mt-10 flex-grow w-full">
-    <form class="bg-white rounded-xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6" id="modalAwalForm" onsubmit="return false">
-        <h1 class="font-extrabold text-black text-lg mb-5">
+  <h1 class="font-extrabold text-black text-lg mb-5">
             Kalkulator Break Even Point (BEP)
         </h1>
+    <form class="bg-white rounded-xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6" id="modalAwalForm" onsubmit="return false">
         <div class="flex flex-col">
             <label class="text-xs mb-2 text-black" for="fixedCost">
                 Biaya Tetap (Rp)
@@ -73,10 +60,5 @@
     </section>
   </main>
 
-
   <!-- Footer -->
-    <x-footer></x-footer>
-
-
- </body>
-</html>
+   <x-footer></x-footer>
