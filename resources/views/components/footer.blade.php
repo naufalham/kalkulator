@@ -13,7 +13,7 @@
  </head>
 
 <footer class="bg-[#2F3A8F] text-white mt-20 py-10 px-4 sm:px-6 w-full">
-   <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:justify-between md:items-start gap-10 md:gap-0">
+   <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-start gap-10 md:gap-0">
     <div class="flex flex-col space-y-4 max-w-xs mx-auto md:mx-0">
      <div class="flex items-center space-x-2">
       <img alt="Logo NaZMaLogy with stylized N and arrow shapes in white on blue background" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/ea8fed56-b39d-45a8-88ed-73a07a0e6e88.jpg" width="24"/>

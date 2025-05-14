@@ -4,7 +4,7 @@
 <x-navbar></x-navbar>
 
 <!-- Main Content -->
-<main class="flex-grow max-w-7xl mx-auto px-6 mt-12">
+<main class="flex-grow max-w-6xl mx-auto px-6 mt-12">
   <section class="space-y-8 max-w-6xl mx-auto">
     
     <!-- Berita 1 -->
