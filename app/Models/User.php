@@ -17,9 +17,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama',
+        'name',
         'email',
-        'kata_sandi',
+        'password',
         'role',
     ];
 
@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'kata_sandi',
+        'password',
         'remember_token',
     ];
 
@@ -42,13 +42,13 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'kata_sandi' => 'hashed',
+            'password' => 'hashed',
         ];
     }
 
     public function getAuthPassword()
     {
-        return $this->kata_sandi;
+        return $this->password;
     }
 
     use Notifiable;

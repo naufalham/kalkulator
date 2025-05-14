@@ -23,7 +23,7 @@ class LoginController extends Controller
         // Validasi input
         $request->validate([
             'email' => 'required|email',
-            'kata_sandi' => 'required|string|min:6',
+            'password' => 'required|string|min:6',
         ]);
 
         // Cari pengguna berdasarkan email
@@ -34,12 +34,19 @@ class LoginController extends Controller
         }
 
         // Periksa kata sandi
-        if (!Auth::attempt($request->only('email', 'kata_sandi'))) {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             dd ('Password salah');
-            return back()->withErrors(['kata_sandi' => 'Password salah.'])->onlyInput('email');
+            return back()->withErrors(['password' => 'Password salah.'])->onlyInput('email');
         }
 
-        return view('user.landing_page'); // Ganti dengan halaman yang sesuai
+        // Redirect berdasarkan role
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.user');
+        } elseif ($user->role === 'user') {
+            return redirect()->route('landing_page');
+        }
+
+        // return view('user.landing_page'); // Ganti dengan halaman yang sesuai
 
         // Jika autentikasi gagal
         // return back()->withErrors(['email' => 'Email atau kata sandi salah.'])->onlyInput('email');

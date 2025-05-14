@@ -5,7 +5,7 @@
     <a class="{{ Request::is('usaha') ? 'text-[#F97316]' : '' }} hover:underline" href="/usaha">Usaha</a>
     @auth
         <a class="{{ Request::is('profil') ? 'text-[#F97316]' : '' }} hover:underline" href="/profil">
-            {{ Auth::user()->nama }}
+            {{ Auth::user()->name}}
         </a>
         <form method="POST" action="{{ route('logout') }}" class="inline">
             @csrf

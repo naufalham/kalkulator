@@ -47,7 +47,7 @@
                 <label class="font-semibold text-sm select-none" for="fullname">
                     Nama Lengkap
                 </label>
-                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" placeholder="{{ old('nama', Auth::user()->nama) }}" id="nama" type="text" name="nama" value="{{ old('nama') }}" />
+                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" placeholder="{{ old('name', Auth::user()->name) }}" id="name" type="text" name="name" value="{{ old('name') }}" />
             </div>
             <div class="flex flex-col gap-1">
                 <label class="font-semibold text-sm select-none" for="email">
@@ -60,7 +60,7 @@
                     <label class="font-semibold text-sm select-none" for="password">
                         Kata Sandi
                     </label>
-                    <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="kata_sandi" type="password" name="kata_sandi"/>
+                    <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="password" type="password" name="password"/>
                 </div>
             </div>
             <div class="flex justify-end">

@@ -20,16 +20,16 @@ class RegisterController extends Controller
     {
         // Validasi input
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'kata_sandi' => 'required|string|min:6',
+            'password' => 'required|string|min:6',
         ]);
 
         // Simpan user
         $user = User::create([
-            'nama' => $request->nama,
+            'name' => $request->name,
             'email' => $request->email,
-            'kata_sandi' => Hash::make($request->kata_sandi),
+            'password' => Hash::make($request->password),
         ]);
 
         Auth::login($user);

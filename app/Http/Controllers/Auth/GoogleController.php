@@ -31,10 +31,10 @@ class GoogleController extends Controller
             if (!$user) {
                 // Jika pengguna tidak ditemukan, buat pengguna baru
                 $user = User::create([
-                    'nama' => $googleUser->getName(),
+                    'name' => $googleUser->getName(),
                     'email' => $googleUser->getEmail(),
-                    'kata_sandi' => bcrypt('defaultpassword'), // Anda bisa mengganti ini
-                    'role' => 1, // Default role = User
+                    'password' => bcrypt('defaultpassword'), // Anda bisa mengganti ini
+                    'role' => 'user', // Default role = User
                 ]);
             }
 

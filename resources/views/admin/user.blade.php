@@ -55,7 +55,7 @@
         @foreach ($users as $index => $user)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $user->nama }}</td>
+                <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
                 <td>

@@ -5,10 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\RegisterController;
-
-Route::get('/', function () {
-    return view('user.landing_page');
-});
+use App\Http\Middleware\checkRoll;
 
 // register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
@@ -21,16 +18,32 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Redirect sesuai role
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/user', function () {
-        return view('admin.user');
-    })->name('admin.user');
+Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name('admin.')->group(function(){
+    
+    Route::prefix('user')->name('user')->group(function(){
+        Route::get('', [UserController::class, 'tampil'])->name('');
+        Route::get('/{id}', [UserController::class, 'show'])->name('.show');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('.edit');
+        Route::put('/{id}', [UserController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [UserController::class, 'destroy'])->name('.destroy');
+    });
+    
 
-    Route::get('/', function () {
-        return view('user.landing_page');
-    })->name('user.landing_page');
+    
 });
 
+Route::get('/', function () {
+        return view('user.landing_page');
+    })->name('landing_page');
+
+
+Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('user.')->group(function(){
+    //profile
+    Route::prefix('profil')->group(function(){
+        Route::get('', [UserController::class, 'edit'])->name('user.edit');
+        Route::post('', [UserController::class, 'update'])->name('user.update');
+    });
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profil', function () {
@@ -97,9 +110,7 @@ Route::middleware(['auth'])->group(function () {
         return view('admin.kalkulator');
     });
 
-    //profile
-    Route::get('/profil', [UserController::class, 'edit'])->name('user.edit');
-    Route::post('/profil', [UserController::class, 'update'])->name('user.update');
+    
 });
 
 //gugel
@@ -107,8 +118,3 @@ Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name(
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
 //tampil user
-Route::get('/admin/user', [UserController::class, 'tampil'])->name('admin.user');
-Route::get('/admin/user/{id}', [UserController::class, 'show'])->name('user.show');
-Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
-Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('user.update');
-Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');

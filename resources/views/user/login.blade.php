@@ -20,7 +20,7 @@
     <main class="flex-grow flex justify-center items-start mt-12 px-4 sm:px-6">
       <section aria-label="Form login NaZMaLogy" class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-sm">
         <h1 class="font-semibold text-center text-lg">
-          Sugeng Rawuh!
+          Selamat Datang!
         </h1>
         <form class="flex flex-col space-y-5" method="POST" action="{{ route('login.post') }}">
 
@@ -35,7 +35,7 @@
           @endif
           @csrf
           <input class="w-full border border-black rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Email" required="" type="email" name="email" value="{{ old('email') }}"/>
-          <input class="w-full border border-black rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Kata Sandi" required="" type="password" name="kata_sandi" value="{{ old('kata_sandi') }}"/>
+          <input class="w-full border border-black rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Kata Sandi" required="" type="password" name="password" value="{{ old('password') }}"/>
           <button class="bg-[#F97316] text-white font-semibold rounded-lg py-3 mt-2 hover:bg-[#e06f11] transition-colors" type="submit">
             Masuk
           </button>
