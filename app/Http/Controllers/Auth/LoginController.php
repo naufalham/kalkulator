@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -18,31 +20,36 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $user = \App\Models\User::where('email', $request->email)->first();
-        
+        // Validasi input
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+        ]);
+
+        // Cari pengguna berdasarkan email
+        $user = User::where('email', $request->email)->first();
+
         if (!$user) {
-            dd('User tidak ditemukan');
+            return back()->withErrors(['email' => 'User tidak ditemukan.'])->onlyInput('email');
         }
 
-        if (!\Illuminate\Support\Facades\Hash::check($request->kata_sandi, $user->kata_sandi)) {
-            dd('Password salah');
+        // Periksa kata sandi
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            dd ('Password salah');
+            return back()->withErrors(['password' => 'Password salah.'])->onlyInput('email');
         }
 
-        $credentials = $request->only('email', 'kata_sandi');
-        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['kata_sandi']])) {
-            $request->session()->regenerate();
-
-            $user = Auth::user();
-            if ($user->role === 'admin') {
-                return redirect()->route('admin.user');
-            } else {
-                return redirect()->route('user.landing_page');
-            }
+        // Redirect berdasarkan role
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.user');
+        } elseif ($user->role === 'user') {
+            return redirect()->route('landing_page');
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau kata sandi salah.',
-        ])->onlyInput('email');
+        // return view('user.landing_page'); // Ganti dengan halaman yang sesuai
+
+        // Jika autentikasi gagal
+        // return back()->withErrors(['email' => 'Email atau kata sandi salah.'])->onlyInput('email');
     }
 
 

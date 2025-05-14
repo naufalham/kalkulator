@@ -22,7 +22,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'nama' => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:users,email,' . Auth::id(),
             'password' => 'nullable|string|min:6|confirmed',
         ]);
@@ -30,8 +30,8 @@ class UserController extends Controller
         $user = User::find(Auth::id());
         // $user = Auth::user();
 
-        if ($request->filled('nama')) {
-            $user->nama = $request->nama;
+        if ($request->filled('name')) {
+            $user->name = $request->name;
         }
 
         if ($request->filled('email')) {
@@ -39,7 +39,7 @@ class UserController extends Controller
         }
 
         if ($request->filled('password')) {
-            $user->kata_sandi = bcrypt($request->password); // atau Hash::make
+            $user->password = bcrypt($request->password); // atau Hash::make
         }
 
         $user->save();
