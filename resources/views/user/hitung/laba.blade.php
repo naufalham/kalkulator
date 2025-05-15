@@ -8,7 +8,7 @@
     <h1 class="font-bold text-lg mb-6">
         Kalkulator Laba Bersih
     </h1>
-    <form class="bg-white rounded-xl p-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6" id="calcForm" onsubmit="return false">
+    <form class="bg-white rounded-xl p-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6" id="calcForm" onsubmit="return false" method="POST" action="{{ route('user.update') }}">
         <div class="flex flex-col">
             <label class="text-xs mb-2 font-normal text-black" for="pendapatan">
                 Total Pendapatan (Rp)
@@ -32,9 +32,24 @@
             Hasil Laba Bersih
         </p>
         <p class="font-semibold text-sm" id="hasilLaba">
-            Rp. 9.000.000
+            Rp. 0
         </p>
     </section>
 </main>
+
+
+<script>
+document.getElementById('calcForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const pendapatan = parseFloat(document.getElementById('pendapatan').value) || 0;
+    const biaya = parseFloat(document.getElementById('biaya').value) || 0;
+    const laba = pendapatan - biaya;
+    let hasil = 'Rp. ' + Math.abs(laba).toLocaleString('id-ID');
+    if (laba < 0) {
+        hasil = '- ' + hasil;
+    }
+    document.getElementById('hasilLaba').textContent = hasil;
+});
+</script>
 
 <x-footer></x-footer>

@@ -20,7 +20,7 @@
         @endif
         @csrf
         <input class="w-full border border-black rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Email" required="" type="email" name="email" value="{{ old('email') }}"/>
-        <input class="w-full border border-black rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Kata Sandi" required="" type="password" name="kata_sandi" value="{{ old('kata_sandi') }}"/>
+        <input class="w-full border border-black rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Kata Sandi" required="" type="password" name="password" value="{{ old('password') }}"/>
         <button class="bg-[#F97316] text-white font-semibold rounded-lg py-3 hover:bg-[#e06f11] transition-colors" type="submit">
           Masuk
         </button>
