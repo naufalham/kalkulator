@@ -1,6 +1,6 @@
 @vite(['resources/css/landing.css','resources/js/app.js'])
 <!-- Navbar -->
- <x-navland></x-navland>
+ <x-navbar></x-navbar>
 
 <!-- Main -->
  <section aria-label="Hero section with full-page background image" class="relative min-h-screen w-full bg-no-repeat bg-cover bg-center flex items-center justify-center text-center" style="background-image: url('{{ asset('asset/landing.jpg') }}');">

@@ -13,11 +13,9 @@
  </head>
  <body class="bg-[#f3f7ff] min-h-screen flex flex-col justify-between position: fized">
   <!-- Header -->
-  <header class="bg-white shadow-sm ">
-    
-    <x-nav></x-nav> 
-
-   </header>
+  <header class="bg-white shadow-sm px-6">
+    <x-nav></x-nav>
+  </header>
 
 
   

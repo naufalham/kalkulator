@@ -42,10 +42,12 @@
                     Logout
                 </button>
             </form>
-            @else
-                <a href="/login" class="text-[#F97316] hover:underline">Masuk</a>
-            @endauth
         </li>
+            @else
+        <li>
+            <a href="/login" class="text-[#F97316] hover:underline">Masuk</a>
+        </li>
+            @endauth
     </ul>
 
     <!-- @auth
