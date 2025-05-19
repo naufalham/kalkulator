@@ -52,7 +52,7 @@ document.getElementById('calcForm').addEventListener('submit', function(e) {
     const pendapatan = parseFloat(document.getElementById('pendapatan').value) || 0;
     const biaya = parseFloat(document.getElementById('biaya').value) || 0;
     const laba = pendapatan - biaya;
-    let hasil = 'Rp. ' + Math.abs(laba).toLocaleString('id-ID');
+    let hasil = 'Rp ' + Math.abs(laba).toLocaleString('id-ID');
     if (laba < 0) {
         hasil = '- ' + hasil;
     }

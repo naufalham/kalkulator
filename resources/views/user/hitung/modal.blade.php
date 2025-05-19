@@ -75,7 +75,7 @@
       const biayaPromosi = parseFloat(document.getElementById('biayaPromosi').value) || 0;
 
       const total = sewa + biayaAlat + stokBarang + biayaPromosi;
-      document.getElementById('resultValue').textContent = 'Rp. ' + total.toLocaleString('id-ID');
+      document.getElementById('resultValue').textContent = 'Rp ' + total.toLocaleString('id-ID');
   });
 </script>
   

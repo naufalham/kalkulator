@@ -90,7 +90,7 @@
                 // BEP Revenue = Biaya Tetap / ((Harga Jual per Unit - Biaya Variabel per Unit) / Harga Jual per Unit)
                 result = (unitPrice - variableCost) !== 0 ? fixedCost / ((unitPrice - variableCost) / unitPrice) : 0;
                 result = Math.floor(result);
-                let hasil = 'Rp. ' + Math.abs(result).toLocaleString('id-ID');
+                let hasil = 'Rp ' + Math.abs(result).toLocaleString('id-ID');
                 if (result < 0) {
                     hasil = '- ' + hasil;
                 }
