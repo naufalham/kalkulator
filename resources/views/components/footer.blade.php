@@ -12,11 +12,11 @@
 
  </head>
 
-<footer class="bg-[#2F3A8F] text-white mt-20 py-10 px-4 sm:px-6 w-full">
-   <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-start gap-10 md:gap-0">
-    <div class="flex flex-col space-y-4 max-w-xs mx-auto md:mx-0">
+<footer class="bg-[#2F3A8F] text-white mt-10 py-4 px-4 sm:px-6 w-full">
+   <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-start gap-6 md:gap-0">
+    <div class="flex flex-col space-y-2 max-w-sm mx-auto md:mx-0">
      <div class="flex items-center space-x-2">
-      <img alt="Logo NaZMaLogy with stylized N and arrow shapes in white on blue background" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/ea8fed56-b39d-45a8-88ed-73a07a0e6e88.jpg" width="24"/>
+      <img alt="Logo NaZMaLogy with stylized N and arrow shapes in white on blue background" class="w-5 h-5" height="24" src="https://storage.googleapis.com/a1aa/image/ea8fed56-b39d-45a8-88ed-73a07a0e6e88.jpg" width="24"/>
       <span class="font-semibold text-lg select-none">
        AKUNaZMa
       </span>
@@ -63,7 +63,7 @@
      </div>
     </div>
    </div>
-   <p class="text-center text-sm mt-10 px-2">
+   <p class="text-center text-sm mt-6 px-2">
     © Copyright 2025. – Develop By
     <a class="underline hover:text-gray-300 font-semibold" href="#">
      NaZMa Office

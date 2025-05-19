@@ -1,42 +1,57 @@
 @vite(['resources/css/usaha.css','resources/js/app.js'])
+<!-- Navbar -->
 <x-navbar></x-navbar>
 
-<main class="flex-grow max-w-7xl mx-auto w-full px-6 mt-10">
-    <h1 class="font-bold text-lg mb-6">
-     Kalkulator Target Penjualan
-    </h1>
-    <form class="bg-white rounded-xl p-8 grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 mb-10" id="formPenjualan" autocomplete="off">
-        <div class="flex flex-col space-y-1">
-            <label class="text-xs font-normal text-black" for="biayaTetap">
+<!-- Main content -->
+<main class="max-w-6xl mx-auto flex-grow w-full px-6 mt-10">
+    <form class="bg-white rounded-xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6" id="modalAwalForm" onsubmit="return false">
+        <h1 class="font-bold text-lg text-black col-span-full">
+            Kalkulator Target Penjualan
+        </h1>
+        <div class="flex flex-col">
+            <label class="text-sm mb-2 text-black" for="pendapatan">
                 Biaya Tetap (Rp)
             </label>
-            <input class="border border-gray-400 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F47920]" id="biayaTetap" type="number"/>
+            <p class="text-xs text-gray-700 mb-2">
+                Biaya yang tidak berubah meskipun jumlah penjualan berubah (Contoh: sewa tempat, gaji tetap, listrik bulanan)
+            </p>
+            <input class="border border-gray-400 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F47920]" id="biayaTetap" type="text"/>
         </div>
-        <div class="flex flex-col space-y-1">
-            <label class="text-xs font-normal text-black" for="rasioMargin">
+
+        <div class="flex flex-col">
+            <label class="text-sm mb-2 text-black" for="rasioMargin">
                 Rasio Margin Kontribusi (Rp)
             </label>
-            <input class="border border-gray-400 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F47920]" id="rasioMargin" type="number"/>
+            <p class="text-xs text-gray-700 mb-2">
+                Selisih antara harga jual per unit dan biaya variabel per unit
+            </p>
+            <input class="border border-gray-400 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F47920] mt-4" id="rasioMargin" type="text"/>
         </div>
-        <div class="flex flex-col space-y-1 md:col-span-1">
-            <label class="text-xs font-normal text-black" for="targetLaba">
+
+        <div class="flex flex-col">
+            <label class="text-sm mb-2  text-black" for="targetLaba">
                 Target Laba (Rp)
             </label>
-            <input class="border border-gray-400 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F47920]" id="targetLaba" type="number"/>
+            <p class="text-xs text-gray-700 mb-2">
+                Jumlah keuntungan yang ingin dicapai
+            </p>
+            <input class="border border-gray-400 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F47920]" id="targetLaba" type="text"/>
         </div>
-        <div class="flex items-end justify-end">
+
+        <div class="col-span-full flex justify-end mt-4">
             <button class="bg-[#F47920] text-white text-sm font-semibold rounded-md px-6 py-2" type="submit">
                 Hitung
             </button>
         </div>
     </form>
-    <section class="bg-white rounded-xl p-6 max-w-full w-full">
-     <p class="text-xs font-semibold mb-2">
-      Hasil Target Penjualan
-     </p>
-     <p class="text-xs font-semibold" id="hasilPenjualan">
-      Rp. 0
-     </p>
+
+    <section class="bg-white rounded-xl p-6 mt-10 text-sm text-black max-w-full" id="resultSection">
+        <p class="mb-3 font-semibold">
+            Hasil Target Penjualan
+        </p>
+        <p id="resultValue" id="hasilPenjualan">
+            Rp 0
+        </p>
     </section>
 </main>
 
@@ -52,7 +67,7 @@ document.getElementById('formPenjualan').addEventListener('submit', function(e) 
         hasil = (biayaTetap + targetLaba) / rasioMargin;
     }
 
-    const hasilText = 'Rp. ' + Math.round(hasil).toLocaleString('id-ID');
+    const hasilText = 'Rp ' + Math.round(hasil).toLocaleString('id-ID');
     document.getElementById('hasilPenjualan').textContent = hasilText;
 });
 </script>

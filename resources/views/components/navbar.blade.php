@@ -11,31 +11,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet"/>
 
  </head>
- <body class="bg-[#f3f7ff] min-h-screen flex flex-col justify-between">
+ <body class="bg-[#f3f7ff] min-h-screen flex flex-col justify-between position: fized">
   <!-- Header -->
-  <header id="sticky-header" class="bg-white rounded-xl mx-4 sm:mx-6 mt-6 flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-3 max-w-5xl w-full self-center">
-    <div class="flex items-center space-x-2 mb-3 sm:mb-0 w-full sm:w-auto justify-center sm:justify-start">
-     <img alt="Logo NaZMaLogy with stylized N and arrow shapes in blue and orange" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/1c9ecd82-53dc-4a00-367d-29e7a201a14f.jpg" width="24"/>
-     <span class="font-semibold text-lg text-black select-none">
-      AKUNaZMa
-     </span>
-    </div>
+  <header class="bg-white shadow-sm ">
     
     <x-nav></x-nav> 
 
    </header>
 
 
-   <script>
-    // Ambil elemen header
-    const header = document.getElementById('sticky-header');
   
-    // Tambahkan event listener untuk scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) { // Jika scroll lebih dari 50px
-        header.classList.add('sticky');
-      } else {
-        header.classList.remove('sticky');
-      }
-    });
-  </script>
+

@@ -6,17 +6,8 @@
   <main class="w-full px-8 sm:px-12 lg:px-16 xl:px-24 flex flex-col md:flex-row gap-6 mb-20 flex-grow">
 
    <!-- Sidebar -->
-    <aside class="bg-white rounded-xl w-full md:w-72 flex flex-col gap-3 p-4 select-none">
-        <button class="bg-[#f97316] text-white rounded-lg py-2 text-center text-sm font-semibold" type="button">
-            Akun
-        </button>
-        <a class="text-[#f97316] bg-[#f9faff] rounded-lg py-2 text-center text-sm font-semibold block text-center" href="/riwayat">
-            Riwayat
-        </a>
-        <button class="text-[#f97316] bg-[#f9faff] rounded-lg py-2 text-center text-sm font-semibold" type="button">
-            Tanya
-        </button>
-    </aside>
+    <x-sidebar></x-sidebar>
+    
    <!-- Account form -->
     <section aria-label="Account profile form" class="bg-white rounded-xl p-6 sm:p-8 w-full max-w-4xl">
         <h2 class="font-bold text-xl mb-6 select-none">
