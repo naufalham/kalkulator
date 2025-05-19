@@ -39,10 +39,9 @@ Route::get('/', function () {
 
 Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('user.')->group(function(){
     //profile
-    Route::prefix('profil')->group(function(){
-        Route::get('', [UserController::class, 'edit'])->name('user.edit');
-        Route::post('', [UserController::class, 'update'])->name('user.update');
-    });
+        Route::get('/profil', [UserController::class, 'edit'])->name('edit');
+        Route::post('/profil', [UserController::class, 'update'])->name('update');
+   
 });
 
 Route::middleware(['auth'])->group(function () {
