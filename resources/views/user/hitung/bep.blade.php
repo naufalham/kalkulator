@@ -67,7 +67,7 @@
             Modal awal yang dibutuhkan
         </p>
         <p id="resultValue">
-            Rp. 0
+            Rp 0
         </p>
     </section>
 </main>
