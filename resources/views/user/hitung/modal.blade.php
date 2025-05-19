@@ -56,14 +56,28 @@
   </form>
 
   <section class="bg-white rounded-xl p-6 mt-10 text-sm text-black max-w-full" id="resultSection">
-        <p class="mb-3 font-semibold">
-            Modal awal yang dibutuhkan
-        </p>
-        <p id="resultValue">
-            Rp 9.000.000
-        </p>
-    </section>
+    <p class="mb-3 font-semibold">
+      Modal awal yang dibutuhkan
+    </p>
+    <p id="resultValue">
+      Rp. 0
+    </p>
+  </section>
 </main>
+
+
+<script>
+  document.getElementById('modalAwalForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const sewa = parseFloat(document.getElementById('sewa').value) || 0;
+      const biayaAlat = parseFloat(document.getElementById('biayaAlat').value) || 0;
+      const stokBarang = parseFloat(document.getElementById('stokBarang').value) || 0;
+      const biayaPromosi = parseFloat(document.getElementById('biayaPromosi').value) || 0;
+
+      const total = sewa + biayaAlat + stokBarang + biayaPromosi;
+      document.getElementById('resultValue').textContent = 'Rp. ' + total.toLocaleString('id-ID');
+  });
+</script>
   
 <!-- Footer -->
 <x-footer></x-footer>

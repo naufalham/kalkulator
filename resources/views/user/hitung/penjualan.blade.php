@@ -49,11 +49,27 @@
         <p class="mb-3 font-semibold">
             Hasil Target Penjualan
         </p>
-        <p id="resultValue">
-            Rp 9.000.000
+        <p id="resultValue" id="hasilPenjualan">
+            Rp 0
         </p>
     </section>
 </main>
 
-<!-- Footer -->
+<script>
+document.getElementById('formPenjualan').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const biayaTetap = parseFloat(document.getElementById('biayaTetap').value) || 0;
+    const rasioMargin = parseFloat(document.getElementById('rasioMargin').value) || 0;
+    const targetLaba = parseFloat(document.getElementById('targetLaba').value) || 0;
+
+    let hasil = 0;
+    if (rasioMargin !== 0) {
+        hasil = (biayaTetap + targetLaba) / rasioMargin;
+    }
+
+    const hasilText = 'Rp ' + Math.round(hasil).toLocaleString('id-ID');
+    document.getElementById('hasilPenjualan').textContent = hasilText;
+});
+</script>
+
 <x-footer></x-footer>

@@ -39,11 +39,25 @@
         <p class="mb-3 font-semibold">
             Hasil Laba Bersih
         </p>
-        <p id="resultValue">
-            Rp 9.000.000
+        <p class="font-semibold text-sm" id="hasilLaba">
+            Rp. 0
         </p>
     </section>
 </main>
 
-<!-- Footer -->
+
+<script>
+document.getElementById('calcForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const pendapatan = parseFloat(document.getElementById('pendapatan').value) || 0;
+    const biaya = parseFloat(document.getElementById('biaya').value) || 0;
+    const laba = pendapatan - biaya;
+    let hasil = 'Rp. ' + Math.abs(laba).toLocaleString('id-ID');
+    if (laba < 0) {
+        hasil = '- ' + hasil;
+    }
+    document.getElementById('hasilLaba').textContent = hasil;
+});
+</script>
+
 <x-footer></x-footer>

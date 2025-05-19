@@ -37,11 +37,20 @@
         <p class="mb-3 font-semibold">
             Hasil Estimasi Modal
         </p>
-        <p id="resultValue">
-            Rp 9.000.000
+        <p id="resultValue" id="hasilLaba">
+            Rp 0
         </p>
     </section>
 </main>
 
-<!-- Footer -->
+<script>
+    document.getElementById('calcForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const jumlahUnit = parseFloat(document.getElementById('pendapatan').value) || 0;
+        const hargaBeli = parseFloat(document.getElementById('biaya').value) || 0;
+        const total = jumlahUnit * hargaBeli;
+        document.getElementById('hasilLaba').textContent = 'Rp. ' + total.toLocaleString('id-ID');
+    });
+</script>
+
 <x-footer></x-footer>

@@ -35,7 +35,6 @@ class LoginController extends Controller
 
         // Periksa kata sandi
         if (!Auth::attempt($request->only('email', 'password'))) {
-            dd ('Password salah');
             return back()->withErrors(['password' => 'Password salah.'])->onlyInput('email');
         }
 

@@ -67,10 +67,39 @@
             Modal awal yang dibutuhkan
         </p>
         <p id="resultValue">
-            Rp 9.000.000
+            Rp. 0
         </p>
     </section>
 </main>
 
-<!-- Footer -->
- <x-footer></x-footer>
+    <script>
+        document.getElementById('modalAwalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fixedCost = parseFloat(document.getElementById('fixedCost').value) || 0;
+            const unitPrice = parseFloat(document.getElementById('unitPrice').value) || 0;
+            const variableCost = parseFloat(document.getElementById('variableCost').value) || 0;
+            const category = document.querySelector('input[name="category"]:checked')?.value;
+
+            let result = 0;
+            if (category === 'unit') {
+                // BEP Unit = Biaya Tetap / (Harga Jual per Unit - Biaya Variabel per Unit)
+                result = (unitPrice - variableCost) !== 0 ? fixedCost / (unitPrice - variableCost) : 0;
+                result = Math.floor(result);
+                document.getElementById('resultValue').textContent = result.toLocaleString('id-ID') + ' unit';
+            } else if (category === 'revenue') {
+                // BEP Revenue = Biaya Tetap / ((Harga Jual per Unit - Biaya Variabel per Unit) / Harga Jual per Unit)
+                result = (unitPrice - variableCost) !== 0 ? fixedCost / ((unitPrice - variableCost) / unitPrice) : 0;
+                result = Math.floor(result);
+                let hasil = 'Rp. ' + Math.abs(result).toLocaleString('id-ID');
+                if (result < 0) {
+                    hasil = '- ' + hasil;
+                }
+                document.getElementById('resultValue').textContent = hasil;
+            } else {
+                document.getElementById('resultValue').textContent = 'Pilih kategori terlebih dahulu.';
+            }
+        });
+    </script>
+
+  <!-- Footer -->
+   <x-footer></x-footer>
