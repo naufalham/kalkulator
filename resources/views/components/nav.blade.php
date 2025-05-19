@@ -27,6 +27,8 @@
                 Usaha
             </a>
         </li>
+
+        @auth
         <li>
             <a class="text-[#F97316] hover:underline" href="/profil">
                 {{ Auth::user()->name }}
@@ -40,6 +42,9 @@
                     Logout
                 </button>
             </form>
+            @else
+                <a href="/login" class="text-[#F97316] hover:underline">Masuk</a>
+            @endauth
         </li>
     </ul>
 
