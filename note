@@ -1,0 +1,17 @@
+pada file php.ini
+extension=gd
+extension=zip
+
+
+jalankan 
+php -m
+Pastikan ada gd dan zip di daftar modul.
+
+
+jalankan
+composer require maatwebsite/excel phpoffice/phpspreadsheet
+composer require phpoffice/phpspreadsheet:^1.23 maatwebsite/excel
+
+
+pada file .env
+SESSION_DRIVER=file

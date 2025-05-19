@@ -4,8 +4,9 @@
 
         <!-- Main content -->
         <main class="flex-grow max-w-7xl mx-auto px-8 sm:px-16 lg:px-24 py-8 w-full">
-            <form autocomplete="off" class="bg-white rounded-xl p-8 max-w-6xl w-full mx-auto space-y-10" novalidate="">
+            <form autocomplete="off" class="bg-white rounded-xl p-8 max-w-6xl w-full mx-auto space-y-10" novalidate="" method="POST" action="{{ route('export.analisis.usaha') }}">
 
+                @csrf
             <!-- Pendapatan -->
                 <section>
                 <h1 class="font-extrabold text-black text-lg mb-6 select-none mx-auto max-w-5xl text-center">
