@@ -1,7 +1,9 @@
- @vite(['resources/css/usaha.css','resources/js/app.js'])
+@vite(['resources/css/usaha.css','resources/js/app.js'])
+<!-- Navbar -->
 <x-navbar></x-navbar>
 
-<main class="max-w-6xl mx-auto flex-grow w-full px-6 mt-10">
+<!-- Main content -->
+<main class="max-w-6xl mx-auto flex-grow w-full px-6 mt-10 pt-20">
     <form class="bg-white rounded-xl p-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6" id="calcForm" onsubmit="return false">
         <h1 class="font-bold text-lg text-black col-span-full">
             Kalkulator Estimasi Modal Stok
@@ -53,4 +55,6 @@
     });
 </script>
 
+<!-- Footer -->
+<div class="mt-10"></div>
 <x-footer></x-footer>

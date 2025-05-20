@@ -1,9 +1,9 @@
 @vite(['resources/css/usaha.css','resources/js/app.js'])
-  <!-- Header -->
-  <x-navbar></x-navbar>
-
-  <!-- Main content -->
-  <main class="max-w-6xl mx-auto flex-grow w-full px-6 mt-10">
+<!-- Header -->
+<x-navbar></x-navbar>
+ 
+<!-- Main content -->
+ <main class="max-w-6xl mx-auto flex-grow w-full px-6 mt-10 pt-20">
     <form class="bg-white rounded-xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6" id="modalAwalForm" onsubmit="return false">
         <h1 class="font-bold text-lg text-black col-span-full">
             Kalkulator Break Even Point
@@ -72,34 +72,35 @@
     </section>
 </main>
 
-    <script>
-        document.getElementById('modalAwalForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const fixedCost = parseFloat(document.getElementById('fixedCost').value) || 0;
-            const unitPrice = parseFloat(document.getElementById('unitPrice').value) || 0;
-            const variableCost = parseFloat(document.getElementById('variableCost').value) || 0;
-            const category = document.querySelector('input[name="category"]:checked')?.value;
+<script>
+    document.getElementById('modalAwalForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fixedCost = parseFloat(document.getElementById('fixedCost').value) || 0;
+        const unitPrice = parseFloat(document.getElementById('unitPrice').value) || 0;
+        const variableCost = parseFloat(document.getElementById('variableCost').value) || 0;
+        const category = document.querySelector('input[name="category"]:checked')?.value;
 
-            let result = 0;
-            if (category === 'unit') {
-                // BEP Unit = Biaya Tetap / (Harga Jual per Unit - Biaya Variabel per Unit)
-                result = (unitPrice - variableCost) !== 0 ? fixedCost / (unitPrice - variableCost) : 0;
-                result = Math.floor(result);
-                document.getElementById('resultValue').textContent = result.toLocaleString('id-ID') + ' unit';
-            } else if (category === 'revenue') {
-                // BEP Revenue = Biaya Tetap / ((Harga Jual per Unit - Biaya Variabel per Unit) / Harga Jual per Unit)
-                result = (unitPrice - variableCost) !== 0 ? fixedCost / ((unitPrice - variableCost) / unitPrice) : 0;
-                result = Math.floor(result);
-                let hasil = 'Rp ' + Math.abs(result).toLocaleString('id-ID');
-                if (result < 0) {
-                    hasil = '- ' + hasil;
-                }
-                document.getElementById('resultValue').textContent = hasil;
-            } else {
-                document.getElementById('resultValue').textContent = 'Pilih kategori terlebih dahulu.';
+        let result = 0;
+        if (category === 'unit') {
+            // BEP Unit = Biaya Tetap / (Harga Jual per Unit - Biaya Variabel per Unit)
+            result = (unitPrice - variableCost) !== 0 ? fixedCost / (unitPrice - variableCost) : 0;
+            result = Math.floor(result);
+            document.getElementById('resultValue').textContent = result.toLocaleString('id-ID') + ' unit';
+        } else if (category === 'revenue') {
+            // BEP Revenue = Biaya Tetap / ((Harga Jual per Unit - Biaya Variabel per Unit) / Harga Jual per Unit)
+            result = (unitPrice - variableCost) !== 0 ? fixedCost / ((unitPrice - variableCost) / unitPrice) : 0;
+            result = Math.floor(result);
+            let hasil = 'Rp ' + Math.abs(result).toLocaleString('id-ID');
+            if (result < 0) {
+                hasil = '- ' + hasil;
+            }
+            document.getElementById('resultValue').textContent = hasil;
+        } else {
+            document.getElementById('resultValue').textContent = 'Pilih kategori terlebih dahulu.';
             }
         });
-    </script>
+</script>
 
-  <!-- Footer -->
-   <x-footer></x-footer>
+<!-- Footer -->
+<div class="mt-10"></div>
+<x-footer></x-footer>

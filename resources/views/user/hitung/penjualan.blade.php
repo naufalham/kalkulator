@@ -3,7 +3,7 @@
 <x-navbar></x-navbar>
 
 <!-- Main content -->
-<main class="max-w-6xl mx-auto flex-grow w-full px-6 mt-10">
+<main class="max-w-6xl mx-auto flex-grow w-full px-6 mt-10 pt-20">
     <form class="bg-white rounded-xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6" id="modalAwalForm" onsubmit="return false">
         <h1 class="font-bold text-lg text-black col-span-full">
             Kalkulator Target Penjualan
@@ -72,4 +72,6 @@ document.getElementById('formPenjualan').addEventListener('submit', function(e) 
 });
 </script>
 
+<!-- Footer -->
+<div class="mt-10"></div>
 <x-footer></x-footer>
