@@ -1,14 +1,14 @@
 @vite(['resources/css/profil.css','resources/js/app.js'])
-  <!-- Header -->
-  <x-navbar></x-navbar>
+<!-- Header -->
+<x-navbar></x-navbar>
 
-  <!-- Main content -->
-  <main class="w-full px-8 sm:px-12 lg:px-16 xl:px-24 flex flex-col md:flex-row gap-6 mb-20 flex-grow">
+<!-- Main content -->
+<main class="w-full px-8 sm:px-12 lg:px-16 xl:px-24 flex flex-col md:flex-row gap-6 flex-grow pt-20">
 
-   <!-- Sidebar -->
+    <!-- Sidebar -->
     <x-sidebar></x-sidebar>
-    
-   <!-- Account form -->
+        
+    <!-- Account form -->
     <section aria-label="Account profile form" class="bg-white rounded-xl p-6 sm:p-8 w-full max-w-4xl">
         <h2 class="font-bold text-xl mb-6 select-none">
             Akun
@@ -61,8 +61,8 @@
             </div>
         </form>
     </section>
-  </main>
+</main>
 
-  
-  <!-- Footer -->
-  <x-footer></x-footer>
+<!-- Footer -->
+<div class="mt-10"></div>
+<x-footer></x-footer>

@@ -1,10 +1,9 @@
 @vite(['resources/css/usaha.css','resources/js/app.js'])
-
 <!-- Navbar -->
 <x-navbar></x-navbar>
 
 <!-- Main Content -->
-<main class="flex-grow max-w-6xl mx-auto px-6 mt-12">
+<main class="flex-grow max-w-6xl mx-auto px-6 mt-12 pt-20">
   <section class="space-y-8 max-w-6xl mx-auto">
     
     <!-- Berita 1 -->
@@ -47,4 +46,5 @@
 </main>
 
 <!-- Footer -->
+<div class="mt-10"></div>
 <x-footer></x-footer>

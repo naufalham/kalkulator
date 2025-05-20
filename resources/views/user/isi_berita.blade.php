@@ -1,17 +1,13 @@
 @vite(['resources/css/usaha.css', 'resources/js/app.js'])
-
 <!-- Navbar -->
 <x-navbar></x-navbar>
 
 <!-- Main Berita -->
-<main class="flex-grow max-w-6xl mx-auto px-6 mt-12">
-
+<main class="flex-grow max-w-6xl mx-auto px-6 mt-12 pt-20">
   <div class="flex justify-center mb-8">
     <img src="{{ asset('asset/fesyen.jpg') }}" alt="Fesyen Image" class="rounded-lg" height="160" width="400" />
   </div>
-
   <h2 class="text-2xl sm:text-3xl font-bold text-center text-black mb-6 select-none">Busana Paris Fashion Week</h2>
-
   <p class="text-sm leading-tight text-justify">
     Jakarta, 5 Mei 2025 – Rumah mode ternama Dior kembali mencuri perhatian
     dalam peragaan busana Paris Fashion Week dengan koleksi musim panas 2025
@@ -29,11 +25,10 @@
     koleksi Dior sebelumnya.
   </p>
 
- <!-- Related news -->
+<!-- Related news -->
 <section aria-label="Related news you might also like" class="max-w-6xl">
   <h3 class="font-bold text-lg mb-6 mt-6 select-text">Anda mungkin juga suka</h3>
 
-    
   <!-- Berita 1 -->
   <article class="bg-white rounded-2xl p-6 flex items-start gap-6 shadow-sm">
     <img src="{{ asset('asset/fesyen.jpg') }}" alt="Fesyen Image" class="rounded-lg" width="200" />
@@ -61,4 +56,5 @@
 </main>
 
 <!-- Footer -->
+<div class="mt-10"></div>
 <x-footer></x-footer>
