@@ -12,7 +12,7 @@ section {
 }
 /* Card styles */
 .content-card {
-  background: #F7F9FF;
+  background: #f9faff;
   border-radius: 0.75rem;
   display: flex;
   justify-content: space-between;

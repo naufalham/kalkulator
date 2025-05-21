@@ -10,7 +10,7 @@
                 <img alt="Icon Modal Awal" class="w-9 h-9" src="{{ asset('icons/kalkulator/modal.png') }}" />
             </div>
             <div>
-                <h3 class="font-bold text-sm sm:text-base text-black mb-2 select-none">Kalkulator</h3>
+                <h3 class="font-bold text-base text-black select-none">Kalkulator</h3>
                 <h3 class="font-bold text-base text-black select-none">Modal Awal</h3>
                 <p class="custom-paragraph text-xs sm:text-sm min-h-[48px]">
                     Cari tahu total dana yang dibutuhkan diawal
@@ -49,8 +49,8 @@
                 <img alt="Icon penjualan" class="w-8 h-8" src="{{ asset('icons/kalkulator/modal.png') }}" />
             </div>
             <div>
-                <h3 class="font-bold text-base text-black mb-2 select-none">Kalkulator</h3>
-                <h3 class="font-bold text-base text-black mb-2 select-none">Target Penjualan</h3>
+                <h3 class="font-bold text-base text-black select-none">Kalkulator</h3>
+                <h3 class="font-bold text-base text-black select-none">Target Penjualan</h3>
                 <p class="custom-paragraph min-h-[48px]">
                     Tentukan jumlah produk yang harus dijual
                 </p>
@@ -62,8 +62,8 @@
                 <img alt="Icon stok" class="w-8 h-8" src="{{ asset('icons/kalkulator/modal.png') }}" />
             </div>
             <div>
-                <h3 class="font-bold text-base text-black mb-2 select-none">Kalkulator</h3>
-                <h3 class="font-bold text-base text-black mb-2 select-none">Estimasi Modal Stok</h3>
+                <h3 class="font-bold text-base text-black select-none">Kalkulator</h3>
+                <h3 class="font-bold text-base text-black select-none">Estimasi Modal Stok</h3>
                 <p class="custom-paragraph min-h-[48px]">
                     Hitung berapa modal yang perlu disiapkan
                 </p>

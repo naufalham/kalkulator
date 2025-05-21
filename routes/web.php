@@ -89,6 +89,10 @@ Route::middleware(['auth'])->group(function () {
         return view('user.riwayat');
     });
 
+    Route::get('/tanya', function () {
+        return view('user.tanya');
+    });    
+
     Route::get('/kalkulator/modal', function () {
         return view('user.hitung.modal');
     });
@@ -112,6 +116,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/isi', function () {
         return view('user.isi_berita');
     });
+    
 
     // Route::get('/admin/tambah', function () {
     //     return view('admin.tambah_berita');
@@ -120,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/kalkulator', function () {
         return view('admin.kalkulator');
     });
+    
 
     
 });
