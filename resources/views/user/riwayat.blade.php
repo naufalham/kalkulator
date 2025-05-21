@@ -8,7 +8,7 @@
   <x-sidebar></x-sidebar>
 
     <!-- Right content -->
-    <section class="bg-white rounded-xl p-6 sm:p-8 w-full max-w-4xl flex flex-col gap-6">
+    <section class="bg-white rounded-2xl flex-grow p-6 flex flex-col space-y-6 overflow-x-auto">
       <!-- Contoh artikel, ulangi sesuai kebutuhan -->
         <article class="content-card">
           <div>

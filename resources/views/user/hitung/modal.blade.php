@@ -5,9 +5,14 @@
 <!-- Main content -->
 <main class="max-w-6xl mx-auto flex-grow w-full px-6 mt-10 pt-20">
   <form class="bg-white rounded-xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6" id="modalAwalForm" onsubmit="return false">
-    <h1 class="font-bold text-lg text-black col-span-full">
-      Kalkulator Modal Awal
-    </h1>
+    <div class="col-span-full flex items-center justify-between mb-4">
+        <h1 class="font-bold text-lg text-black">
+            Kalkulator Modal Awal
+        </h1>
+        <a href="/kalkulator" class="text-[#F97316] font-semibold hover:underline text-base">
+            Keluar
+        </a>
+    </div>
     <div class="flex flex-col">
       <label class="text-sm mb-2 text-black" for="sewa">
         Sewa tempat (Rp)
