@@ -4,6 +4,7 @@ use App\Http\Middleware\checkRoll;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\UsahaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\BeritaController;
@@ -12,7 +13,7 @@ use App\Http\Controllers\AnalisisUsahaExportController;
 
 // register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
-Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
 
 // login
@@ -39,14 +40,15 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
     Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store'); // Rute untuk menyimpan berita
     Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy'); // Rute untuk menghapus berita
 
-    // Route::prefix('berita')->name('berita.')->group(function(){
-    //     // Route::get('', [BeritaController::class, 'index'])->name('index');
-    //     Route::get('/create', [BeritaController::class, 'create'])->name('create');
-    //     Route::post('', [BeritaController::class, 'store'])->name('store');
-    //     Route::delete('/{id}', [BeritaController::class, 'destroy'])->name('destroy');
-    // });
+    Route::prefix('berita')->name('berita.')->group(function(){
+        // Route::get('', [BeritaController::class, 'index'])->name('index');
+        Route::get('/create', [BeritaController::class, 'create'])->name('create');
+        Route::post('', [BeritaController::class, 'store'])->name('store');
+        Route::delete('/{id}', [BeritaController::class, 'destroy'])->name('destroy');
+    });
     
 
+    
     
 });
 
@@ -59,19 +61,17 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     //profile
     Route::get('/profil', [UserController::class, 'edit'])->name('edit');
     Route::post('/profil', [UserController::class, 'update'])->name('update');
-    
+
+    Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha.index');
 
     
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profil', function () {
-        return view('user.profil');
-    });
 
-    Route::get('/usaha', function () {
-        return view('user.usaha');
-    });
+    // Route::get('/usaha', function () {
+    //     return view('user.usaha');
+    // });
 
     Route::get('/berita', function () {
         return view('user.berita');
@@ -113,17 +113,9 @@ Route::middleware(['auth'])->group(function () {
         return view('user.isi_berita');
     });
 
-    // Route::get('/admin', function () {
-    //     return view('admin.user');
+    // Route::get('/admin/tambah', function () {
+    //     return view('admin.tambah_berita');
     // });
-
-    Route::get('/admin/berita', function () {
-        return view('admin.berita');
-    });
-
-    Route::get('/admin/tambah', function () {
-        return view('admin.tambah_berita');
-    });
 
     Route::get('/admin/kalkulator', function () {
         return view('admin.kalkulator');

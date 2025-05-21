@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id('id_transaksi');
-            $table->string('transaksi');
-            $table->date('tgl_transaksi');
+            // $table->string('transaksi');
+            // $table->date('tgl_transaksi');
 
 
-            $table->unsignedBigInteger('analisis_id');
-            $table->foreign('analisis_id')->references('id_analisis')->on('analises')->onDelete('cascade');
+            // $table->unsignedBigInteger('analisis_id');
+            // $table->foreign('analisis_id')->references('id_analisis')->on('analises')->onDelete('cascade');
             $table->timestamps();
         });
     }
