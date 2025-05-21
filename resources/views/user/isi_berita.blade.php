@@ -25,13 +25,13 @@
     koleksi Dior sebelumnya.
   </p>
 
-<!-- Related news -->
-<section aria-label="Related news you might also like" class="max-w-6xl">
-  <h3 class="font-bold text-lg mb-6 mt-6 select-text">Anda mungkin juga suka</h3>
+  <!-- Related news -->
+  <section aria-label="Related news you might also like" class="max-w-6xl">
+    <h3 class="font-bold text-lg mb-6 mt-6 select-text">Anda mungkin juga suka</h3>
 
-  <!-- Berita 1 -->
-  <article class="bg-white rounded-2xl p-6 flex items-start gap-6 shadow-sm">
-    <img src="{{ asset('asset/fesyen.jpg') }}" alt="Fesyen Image" class="rounded-lg" width="200" />
+    <!-- Berita 1 -->
+    <article class="bg-white rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-6 shadow-sm">
+      <img src="{{ asset('asset/fesyen.jpg') }}" alt="Fesyen Image" class="rounded-lg w-full sm:w-[200px] h-auto object-cover" />
       <div class="flex-1">
         <h3 class="font-bold text-base text-black mb-2 select-none">Fesyen</h3>
         <p class="text-sm text-[#4B4B4B] leading-relaxed">
@@ -41,9 +41,9 @@
       </div>
     </article>
 
-    <!-- Berita 1 -->
-    <article class="bg-white rounded-2xl p-6 flex items-start gap-6 shadow-sm mt-8">
-    <img src="{{ asset('asset/fesyen.jpg') }}" alt="Fesyen Image" class="rounded-lg" width="200" />
+    <!-- Berita 2 -->
+    <article class="bg-white rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-6 shadow-sm mt-8">
+      <img src="{{ asset('asset/fesyen.jpg') }}" alt="Fesyen Image" class="rounded-lg w-full sm:w-[200px] h-auto object-cover" />
       <div class="flex-1">
         <h3 class="font-bold text-base text-black mb-2 select-none">Fesyen</h3>
         <p class="text-sm text-[#4B4B4B] leading-relaxed">
