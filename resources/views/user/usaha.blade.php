@@ -5,80 +5,25 @@
 <!-- Main content -->
   <main class="flex-grow max-w-6xl mx-auto px-6 mt-12">
     <div class="main-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 max-w-6xl mx-auto place-items-center pt-20">
-      <!-- Fesyen -->
+      
+
+      @foreach($layanans as $layanan)
       <a href="/form_usaha" class="block">
           <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
               <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#F28C28] w-12 h-12 rounded-xl flex items-center justify-center">
-                  <img alt="Icon representing fashion" class="w-9 h-9" height="32" src="{{ asset('icons/fesyen.png') }}" width="24"/>
+                  <img alt="Icon representing fashion" class="w-9 h-9" height="32" src="{{ asset('icons/' . strtolower($layanan->nama_layanan) . '.png') }}" width="24"/>
               </div>
               <h3 class="font-bold text-base text-black mb-2 select-none">
-                  Fesyen
+                  {{ $layanan->nama_layanan }}
               </h3>
               <p class="custom-paragraph">
-                  Usaha yang berfokus pada pakaian, sepatu, dan aksesori gaya hidup
+                  {{ $layanan->deskripsi }}
               </p>
           </div>
       </a>
-            
-      <!-- Kuliner -->
-      <a href="/form_usaha" class="block">
-        <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
-          <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#F28C28] w-12 h-12 rounded-xl flex items-center justify-center">
-            <img alt="Icon representing fashion" class="w-8 h-8" height="32" src="{{ asset('icons/kuliner.png') }}" width="24"/>
-          </div>
-          <h3 class="font-bold text-base text-black mb-2 select-none">
-            Kuliner
-          </h3>
-          <p class="custom-paragraph">
-            Usaha di bidang makanan, minuman, dan layanan kuliner
-          </p>
-        </div>
-      </a>
+      @endforeach
 
-      <!-- Jasa -->
-      <a href="/form_usaha" class="block">
-        <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
-          <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#F28C28] w-12 h-12 rounded-xl flex items-center justify-center">
-            <img alt="Icon representing fashion" class="w-8 h-8" height="32" src="{{ asset('icons/jasa.png') }}" width="24"/>
-          </div>
-          <h3 class="font-bold text-base text-black mb-2 select-none">
-            Jasa
-          </h3>
-          <p class="custom-paragraph">
-            Usaha yang menawarkan layanan atau keahlian untuk memenuhi kebutuhan
-          </p>
-        </div>
-      </a>
-
-      <!-- Kerajinan -->
-      <a href="/form_usaha" class="block">
-        <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
-          <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#F28C28] w-12 h-12 rounded-xl flex items-center justify-center">
-            <img alt="Icon representing fashion" class="w-8 h-8" height="32" src="{{ asset('icons/kerajinan.png') }}" width="24"/>
-          </div>
-          <h3 class="font-bold text-base text-black mb-2 select-none">
-              Kerajinan
-          </h3>
-          <p class="custom-paragraph">
-              Usaha yang mengubah kreativitas menjadi produk kerajinan bernilai
-          </p>
-        </div>
-      </a>
-
-      <!-- Campuran -->
-      <a href="/form_usaha" class="block">
-        <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
-          <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#F28C28] w-12 h-12 rounded-xl flex items-center justify-center">
-            <img alt="Icon representing fashion" class="w-8 h-8" height="32" src="{{ asset('icons/campuran.png') }}" width="24"/>
-          </div>
-          <h3 class="font-bold text-base text-black mb-2 select-none">
-            Campuran
-          </h3>
-          <p class="custom-paragraph">
-            Usaha gabungan dari berbagai bidang untuk peluang yang lebih luas
-          </p>
-        </div>
-      </a>
+      
     </div>
   </main>
 

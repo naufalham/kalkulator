@@ -4,7 +4,7 @@
 
 <!-- Main content -->
 <main class="max-w-6xl mx-auto flex-grow w-full px-6 mt-10 pt-20">
-    <form class="bg-white rounded-xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6" id="modalAwalForm" onsubmit="return false">
+    <form class="bg-white rounded-xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6" id="calcForm" onsubmit="return false">
         <div class="col-span-full flex items-center justify-between mb-4">
             <h1 class="font-bold text-lg text-black">
                 Kalkulator Laba Bersih

@@ -44,7 +44,7 @@
         <p class="mb-3 font-semibold">
             Hasil Estimasi Modal
         </p>
-        <p id="resultValue" id="hasilLaba">
+        <p id="hasilLaba">
             Rp 0
         </p>
     </section>

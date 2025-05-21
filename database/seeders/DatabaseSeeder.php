@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             BeritaSeeder::class,
+            // LayananSeeder::class,
             // DummyUser::class,
             // CategorySeeder::class,
             // ProductSeeder::class,
@@ -29,5 +30,7 @@ class DatabaseSeeder extends Seeder
             // // TransactionSeeder::class,
             // RajaOngkirSeeder::class
         ]);
+
+        $this->call(LayananSeeder::class);
     }
 }

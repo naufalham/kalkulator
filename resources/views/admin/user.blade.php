@@ -59,9 +59,13 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
                 <td>
-                    <button class="bg-red-600 text-white text-[10px] font-semibold rounded px-2 py-0.5">
-                        Hapus
-                    </button>
+                    <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button class="bg-red-600 text-white text-[10px] font-semibold rounded px-2 py-0.5" onclick="return confirm('Yakin ingin menghapus user ini?')">
+                            Hapus
+                        </button>
+                    </form>
                     <button class="bg-yellow-400 text-black text-[10px] font-semibold rounded px-2 py-0.5">
                         Update
                     </button>

@@ -8,7 +8,7 @@
     <h1 class="font-semibold text-center text-lg">
       Selamat Datang!
     </h1>
-    <form class="flex flex-col space-y-5" method="POST" action="{{ route('login.post') }}">
+    <form class="flex flex-col space-y-5" method="POST" action="{{ route('register.post') }}">
       @if ($errors->any())
       <div class="bg-red-100 text-red-700 p-4 rounded-md mb-4">
         <ul>

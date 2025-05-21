@@ -17,7 +17,8 @@
         <li><a class="hover:underline" href="/">Beranda</a></li>
         <li><a class="hover:underline" href="/berita">Berita</a></li>
         <li><a class="hover:underline" href="/kalkulator">Kalkulator</a></li>
-        <li><a class="hover:underline" href="/usaha">Usaha</a></li>
+        <li><a class="hover:underline" href="{{ route ('user.usaha.index') }}">Usaha</a></li>
+
         @auth
         <li>
             <a class="text-[#F97316] hover:underline flex items-center gap-1" href="{{ route('user.edit') }}">

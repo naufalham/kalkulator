@@ -13,18 +13,9 @@ class AnalisisUsahaExportController extends Controller
         $spreadsheet = IOFactory::load(storage_path('app/templates/template_analisis.xlsx'));
         $sheet = $spreadsheet->getActiveSheet();
 
-        // Isi data input ke cell yang sesuai (ubah sesuai template Anda)
-        // $sheet->setCellValue('B2', $request->modal);
-        // $sheet->setCellValue('B3', $request->jasa);
-        // $sheet->setCellValue('B4', $request->penjualan);
-        // $sheet->setCellValue('B5', $request->{'lainnya-pendapatan'});
-        // $sheet->setCellValue('B7', $request->bahan);
-        // $sheet->setCellValue('B8', $request->{'gaji-karyawan'});
-        // $sheet->setCellValue('B9', $request->{'banyak-karyawan'});
-        // $sheet->setCellValue('B10', $request->{'sewa-tempat'});
-        // $sheet->setCellValue('B11', $request->listrik);
-        // $sheet->setCellValue('B12', $request->{'lainnya-pengeluaran'});
+        $total_pendapatan = $request->modal + $request->jasa + $request->penjualan + $request->{'lainnya-pendapatan'};
 
+        $sheet->setCellValue('F13', $total_pendapatan);
         $sheet->setCellValue('F8', is_numeric($request->modal) ? $request->modal : 0);
         $sheet->setCellValue('F9', is_numeric($request->jasa) ? $request->jasa : 0);
         $sheet->setCellValue('F10', is_numeric($request->penjualan) ? $request->penjualan : 0);
