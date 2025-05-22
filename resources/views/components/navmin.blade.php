@@ -1,53 +1,72 @@
-<html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   AKUNaZMa
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet"/>
-
- </head>
- <body class="bg-[#f3f7ff] min-h-screen flex flex-col justify-between">
-  <!-- Header -->
-  <header id="sticky-header" class="bg-white rounded-xl mx-4 sm:mx-6 mt-6 flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-3 max-w-5xl w-full self-center">
-    <div class="flex items-center space-x-2 mb-3 sm:mb-0 w-full sm:w-auto justify-center sm:justify-start">
-     <img alt="Logo NaZMaLogy with stylized N and arrow shapes in blue and orange" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/1c9ecd82-53dc-4a00-367d-29e7a201a14f.jpg" width="24"/>
-     <span class="font-semibold text-lg text-black select-none">
-      AKUNaZMa
-     </span>
+<nav x-data="{ open: false }" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-16 px-4 sm:px-8 md:px-12 bg-white shadow font-['Poppins',sans-serif]">
+    <div class="flex items-center space-x-2">
+        <img alt="NaZMaLogy logo" class="w-8 h-8" height="32" src="{{ asset('asset/logo.png') }}"/>
+        <span class="font-black text-xl text-black select-none tracking-tight">
+            AKUNaZMa
+        </span>
     </div>
-    <nav class="flex flex-wrap justify-center sm:justify-end space-x-6 font-semibold text-black text-sm w-full sm:w-auto">
-        <li class="text-[#f97316] cursor-pointer flex items-center space-x-2 font-semibold">
-            <span>
-             Admin
-            </span>
-            
-              <form method="POST" action="{{ route('logout') }}">
-                  @csrf
-                  <button type="submit" method="POST" action="{{ route('logout') }}">
-                      <i class="fas fa-sign-out-alt text-[#f97316]"></i>
-                  </button>
-              </form>
-            
+    <!-- Hamburger button -->
+    <button @click="open = !open" class="md:hidden focus:outline-none">
+        <svg class="w-7 h-7 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path :class="{'hidden': open, 'inline-flex': !open }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            <path :class="{'inline-flex': open, 'hidden': !open }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+    </button>
+    <!-- Menu -->
+    <ul class="hidden md:flex space-x-10 font-semibold text-black text-sm items-center tracking-tight">
+        @auth
+        <li>
+            <a class="text-[#F97316] hover:underline flex items-center gap-1">
+                <svg class="w-4 h-4 text-[#F97316]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.7 0 4.5-1.8 4.5-4.5S14.7 3 12 3 7.5 4.8 7.5 7.5 9.3 12 12 12zm0 2c-3 0-9 1.5-9 4.5V21h18v-2.5c0-3-6-4.5-9-4.5z"/>
+                </svg>
+                {{ Auth::user()->name }}
+            </a>
         </li>
-    </nav>
-   </header>
+        <li>
+            <form method="POST" action="{{ route('logout') }}" class="contents">
+                @csrf
+                <button type="submit" class="text-[#F97316] inline-flex items-center gap-1 hover:underline">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </form>
+        </li>
+        @else
+        <li>
+            <a href="/login" class="text-[#F97316] hover:underline">Masuk</a>
+        </li>
+        @endauth
+    </ul>
+    <div x-show="open" @click.away="open = false" class="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg border-t z-50 font-['Poppins',sans-serif]">
+        <ul class="flex flex-col py-4 px-6 space-y-4 font-semibold text-black text-base tracking-tight">
+            <li><a class="hover:underline" href="/">Beranda</a></li>
+            <li><a class="hover:underline" href="{{ route ('user.berita') }}">Berita</a></li>
+            <li><a class="hover:underline" href="/kalkulator">Kalkulator</a></li>
+            <li><a class="hover:underline" href="{{ route ('user.usaha.index') }}">Usaha</a></li>
+            @auth
+            <li>
+                <a class="text-[#F97316] hover:underline" href="{{ route('user.edit') }}">
+                    {{ Auth::user()->name }}
+                </a>
+            </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="text-[#F97316] inline-flex items-center gap-1 hover:underline">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </form>
+            </li>
+            @else
+            <li>
+                <a href="/login" class="text-[#F97316] hover:underline">Masuk</a>
+            </li>
+            @endauth
+        </ul>
+    </div>
+</nav>
 
-
-   <script>
-    // Ambil elemen header
-    const header = document.getElementById('sticky-header');
-  
-    // Tambahkan event listener untuk scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) { // Jika scroll lebih dari 50px
-        header.classList.add('sticky');
-      } else {
-        header.classList.remove('sticky');
-      }
-    });
-  </script>
+<!-- Tambahkan Alpine.js CDN di layout utama jika belum ada -->
+<script src="//unpkg.com/alpinejs" defer></script>
