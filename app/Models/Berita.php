@@ -31,7 +31,18 @@ class Berita extends Model
         parent::boot();
 
         static::saving(function ($model) {
-            $model->slug = Str::slug($model->judul);
+            $slug = Str::slug($model->judul);
+            $originalSlug = $slug;
+            $count = 1;
+
+            // Cek slug unik
+            while (static::where('slug', $slug)
+                ->where('id', '!=', $model->id ?? 0)
+                ->exists()) {
+                $slug = $originalSlug . '-' . $count++;
+            }
+
+            $model->slug = $slug;
         });
     }
 }

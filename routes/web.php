@@ -60,7 +60,8 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha.index');
 
     Route::get('/berita', [BeritaController::class, 'user_index'])->name('berita');
-    Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+    Route::get('/berita', [BeritaController::class, 'cari'])->name('berita');
+    Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
     
 });
