@@ -12,14 +12,13 @@
         <p class="text-white text-base text-center mb-4">
             Temukan berbagai informasi, inspirasi, dan berita terbaru seputar dunia bisnis dan kewirausahaan di sini.
         </p>
-        <form class="w-full max-w-2xl mx-auto">
+        <form class="w-full max-w-2xl mx-auto" method="GET" action="{{ route('user.berita') }}">
             <div class="flex items-center bg-white rounded-full px-6 py-3 shadow-md">
-                <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
+                <!-- ...svg... -->
                 <input 
                     type="text" 
+                    name="q"
+                    value="{{ request('q') }}"
                     placeholder="Cari" 
                     class="flex-1 border-none outline-none bg-transparent text-gray-700 text-base font-semibold"
                 />
@@ -33,9 +32,14 @@
         <div class="border-t border-gray-400 mb-5"></div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 mt-30 mb-30">
+            @if($beritas->isEmpty())
+                <div class="col-span-full text-center text-gray-500 py-8">
+                    Tidak ada berita ditemukan.
+                </div>
+            @endif
             @foreach($beritas as $berita)
             <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 px-4 pt-4 pb-5 flex flex-col h-full">
-                <a href="{{ route('user.berita.show', $berita->id) }}" class="group">
+                <a href="{{ route('user.berita.show', $berita->slug) }}" class="group">
                     <div class="relative rounded-xl overflow-hidden mb-3">
                         <img 
                             src="{{ $berita->foto ? asset('storage/' . $berita->foto) : 'https://via.placeholder.com/400x200?text=No+Image' }}" 

@@ -21,9 +21,24 @@ class BeritaController extends Controller
         return view('user.berita', compact('beritas'));
     }
 
-    public function show($id)
+    public function cari(Request $request)
     {
-        $berita = Berita::findOrFail($id);
+        $query = Berita::query();
+
+        if ($request->filled('q')) {
+            $q = $request->q;
+            $query->where('judul', 'like', "%$q%")
+                ->orWhere('isi', 'like', "%$q%");
+        }
+
+        $beritas = $query->latest()->get();
+
+        return view('user.berita', compact('beritas'));
+    }
+
+    public function show($slug)
+    {
+        $berita = Berita::where('slug', $slug)->firstOrFail();
         return view('user.isi_berita', compact('berita'));
     }
 
