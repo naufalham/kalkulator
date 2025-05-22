@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             UserSeeder::class,
-            BeritaSeeder::class,
+            // BeritaSeeder::class,
             // LayananSeeder::class,
             // DummyUser::class,
             // CategorySeeder::class,
@@ -32,5 +32,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(LayananSeeder::class);
+        $this->call(BeritaSeeder::class);
     }
 }
