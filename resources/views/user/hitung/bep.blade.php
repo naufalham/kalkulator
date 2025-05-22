@@ -69,7 +69,7 @@
 
     <section class="bg-white rounded-xl p-6 mt-10 text-sm text-black max-w-full" id="resultSection">
         <p class="mb-3 font-semibold">
-            Modal awal yang dibutuhkan
+            Hasil Break Even Point
         </p>
         <p id="resultValue">
             Rp 0
