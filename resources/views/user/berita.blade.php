@@ -29,93 +29,41 @@
 
     <!-- Artikel Terbaru -->
     <div>
-        <h2 class="text-xl font-extrabold text-gray-900">Berita Terbaru</h2>
-        <div class="border-t border-gray-400"></div>
+        <h2 class="text-xl font-extrabold text-gray-900 mb-1">Berita Terbaru</h2>
+        <div class="border-t border-gray-400 mb-5"></div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-3">
-            <!-- Isi Card Berita -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 mt-30 mb-30">
             <!-- Card 1 -->
-            <article>
-                <div class="relative rounded-lg overflow-hidden">
+             <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 px-4 pt-4 pb-5 flex flex-col h-full">
+                <a href="/isi" class="group">
+                    <div class="relative rounded-xl overflow-hidden mb-3">
                     <img 
                         src="https://storage.googleapis.com/a1aa/image/8b053ab9-ea65-420e-4d62-b31a36560a0b.jpg" 
                         alt="Group of people standing in front of a banner holding boxes in a cooking demo event"
-                        class="w-full h-auto object-cover rounded-lg"
-                        width="320" height="180"
+                        class="w-full h-44 object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
                     />
+                    </div>
+                </a>
+                <div class="flex items-center text-xs text-gray-500 mb-1">
+                    <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 4h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2z" />
+                    </svg>
+                    Rabu, 21 Mei 2025
                 </div>
-                <p class="text-xs text-gray-600">Rabu, 21 Mei 2025</p>
-                <h3 class="mt-1 font-extrabold text-gray-900 text-base leading-snug">
+                <h3 class="font-bold text-gray-900 text-base leading-snug mb-1 group-hover:text-[#2f318d] transition-colors duration-200">
+                    <a href="" class="hover:underline">
                     Final Day INSPIRA 4C Fest: Cake Decoration Competition
+                    </a>
                 </h3>
-                <p class="mt-1 text-sm text-gray-600 font-semibold">
+                <p class="text-sm text-gray-600 font-medium leading-relaxed">
                     NaZMa Office, Yogyakarta, 18 Mei 2025
-                    <span class="font-normal"> - Inspira Foo...</span>
+                    <span class="font-normal"> - Inspira Food Festival</span>
                 </p>
-            </article>
-
-            <!-- Card 2 -->
-            <article>
-                <div class="relative rounded-lg overflow-hidden">
-                    <img 
-                        src="https://storage.googleapis.com/a1aa/image/731cfd63-c41d-46cc-2b9a-424fe21647ff.jpg" 
-                        alt="Group of people standing behind a table with a cake and cooking ingredients in a demo"
-                        class="w-full h-auto object-cover rounded-lg"
-                        width="320" height="180"
-                    />
-                </div>
-                <p class="text-xs text-gray-600">Selasa, 20 Mei 2025</p>
-                <h3 class="mt-1 font-extrabold text-gray-900 text-base leading-snug">
-                    INSPIRA 4C Fest: Cooking Demo Interaktif Bersama Chef Profesional
-                </h3>
-                <p class="mt-1 text-sm text-gray-600 font-semibold">
-                    NaZMa Office, Yogyakarta, 17 Mei 2025
-                    <span class="font-normal"> - Suasana IN...</span>
-                </p>
-            </article>
-
-            <!-- Card 3 -->
-            <article>
-                <div class="relative rounded-lg overflow-hidden">
-                    <img 
-                        src="https://storage.googleapis.com/a1aa/image/24728a30-06c7-412d-6bf3-c4232969dbf7.jpg" 
-                        alt="Group photo of people sitting and standing indoors with colorful decorations in background"
-                        class="w-full h-auto object-cover rounded-lg"
-                        width="320" height="180"
-                    />
-                </div>
-                <p class="text-xs text-gray-600">Senin, 19 Mei 2025</p>
-                <h3 class="mt-1 font-extrabold text-gray-900 text-base leading-snug">
-                    INSPIRA 4C Fest: Sinergi Pendampingan KaMu, Talkshow, &amp; Edukasi Kesehatan
-                </h3>
-                <p class="mt-1 text-sm text-gray-600 font-semibold">
-                    NaZMa Office, 16 Mei 2025
-                    <span class="font-normal"> - Sebuah gebrakan kolabo...</span>
-                </p>
-            </article>
-
-            <!-- Card 4 -->
-            <article>
-                <div class="relative rounded-lg overflow-hidden">
-                    <img 
-                        src="https://storage.googleapis.com/a1aa/image/1cc5d050-95d4-489b-6cbf-e7787f9f18a7.jpg" 
-                        alt="Two people shaking hands over a table with notebooks, phones, and a cup of coffee"
-                        class="w-full h-auto object-cover rounded-lg"
-                        width="320" height="180"
-                    />
-                </div>
-                <p class="text-xs text-gray-600">Rabu, 14 Mei 2025</p>
-                <h3 class="mt-1 font-extrabold text-gray-900 text-base leading-snug">
-                    Kuasai Komunikasi, Menangkan Negosiasi: Bekal Wajib Profesional Masa Kini
-                </h3>
-                <p class="mt-1 text-sm text-gray-600 font-semibold">
-                    NaZMa Office
-                    <span class="font-normal"> - Di balik kesepakatan bisnis, lancar...</span>
-                </p>
-            </article>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Footer -->
+<div class="mt-10"></div>
 <x-footer></x-footer>

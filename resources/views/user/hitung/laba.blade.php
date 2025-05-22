@@ -44,7 +44,7 @@
         <p class="mb-3 font-semibold">
             Hasil Laba Bersih
         </p>
-        <p class="font-semibold text-sm" id="hasilLaba">
+        <p id="hasilLaba">
             Rp 0
         </p>
     </section>
