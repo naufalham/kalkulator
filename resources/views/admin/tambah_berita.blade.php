@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
+        <!-- Tambahkan di <head> -->
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
 </head>
 
 <x-navmin></x-navmin>
@@ -40,16 +42,28 @@
         </div>
 
     </form>
+    
 </section>
 
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+{{-- <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
         .create(document.querySelector('#isi'))
         .catch(error => {
             console.error(error);
         });
+</script> --}}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    $('#isi').summernote({
+      height: 200
+    });
+  });
 </script>
+
 
 </main>
 

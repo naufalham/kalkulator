@@ -15,6 +15,18 @@ class BeritaController extends Controller
         return view('admin.berita', compact('beritas')); // Kirim data ke view
     }
 
+    public function user_index()
+    {
+        $beritas = Berita::latest()->get();
+        return view('user.berita', compact('beritas'));
+    }
+
+    public function show($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('user.isi_berita', compact('berita'));
+    }
+
     /**
      * Tampilkan form untuk membuat berita baru.
      */
@@ -36,11 +48,11 @@ class BeritaController extends Controller
         $berita->isi = $request->isi;
 
         if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('public/foto');
+            // Simpan ke storage/app/public/foto
+            $path = $request->file('foto')->store('foto', 'public');
             $berita->foto = $path;
-        }else {
-            $berita->foto = null; // Atur nilai default jika tidak ada file yang diunggah
-        }
+        } 
+
         $berita->save();
 
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan!');
@@ -55,5 +67,33 @@ class BeritaController extends Controller
         $berita->delete();
 
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil dihapus!');
+    }
+
+    public function edit($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('admin.edit_berita', compact('berita'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $berita = Berita::findOrFail($id);
+        $berita->judul = $request->judul;
+        $berita->isi = $request->isi;
+
+        if ($request->hasFile('foto')) {
+            $path = $request->file('foto')->store('foto', 'public');
+            $berita->foto = $path;
+        }
+
+        $berita->save();
+
+        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diupdate!');
     }
 }

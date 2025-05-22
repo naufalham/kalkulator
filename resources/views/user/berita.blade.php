@@ -33,33 +33,33 @@
         <div class="border-t border-gray-400 mb-5"></div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 mt-30 mb-30">
-            <!-- Card 1 -->
-             <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 px-4 pt-4 pb-5 flex flex-col h-full">
-                <a href="/isi" class="group">
+            @foreach($beritas as $berita)
+            <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 px-4 pt-4 pb-5 flex flex-col h-full">
+                <a href="{{ route('user.berita.show', $berita->id) }}" class="group">
                     <div class="relative rounded-xl overflow-hidden mb-3">
-                    <img 
-                        src="https://storage.googleapis.com/a1aa/image/8b053ab9-ea65-420e-4d62-b31a36560a0b.jpg" 
-                        alt="Group of people standing in front of a banner holding boxes in a cooking demo event"
-                        class="w-full h-44 object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
-                    />
+                        <img 
+                            src="{{ $berita->foto ? asset('storage/' . $berita->foto) : 'https://via.placeholder.com/400x200?text=No+Image' }}" 
+                            alt="{{ $berita->judul }}"
+                            class="w-full h-44 object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
+                        />
                     </div>
                 </a>
                 <div class="flex items-center text-xs text-gray-500 mb-1">
                     <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 4h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 4h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2z" />
                     </svg>
-                    Rabu, 21 Mei 2025
+                    {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('l, d F Y') }}
                 </div>
                 <h3 class="font-bold text-gray-900 text-base leading-snug mb-1 group-hover:text-[#2f318d] transition-colors duration-200">
-                    <a href="" class="hover:underline">
-                    Final Day INSPIRA 4C Fest: Cake Decoration Competition
+                    <a href="{{ route('user.berita.show', $berita->id) }}" class="hover:underline">
+                        {{ $berita->judul }}
                     </a>
                 </h3>
                 <p class="text-sm text-gray-600 font-medium leading-relaxed">
-                    NaZMa Office, Yogyakarta, 18 Mei 2025
-                    <span class="font-normal"> - Inspira Food Festival</span>
+                    {{ Str::limit(strip_tags($berita->isi), 80) }}
                 </p>
             </div>
+            @endforeach
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -16,11 +17,21 @@ class Berita extends Model
         'judul',
         'foto',
         'isi',
+        'slug',
     ];
 
-    public function getFotoAttribute($value)
+    public function getFotoUrlAttribute()
     {
-        return asset('storage/' . $value);
+        return $this->foto ? asset('storage/' . $this->foto) : null;
     }
     
+    // Membuat slug otomatis dari judul
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            $model->slug = Str::slug($model->judul);
+        });
+    }
 }

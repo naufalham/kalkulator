@@ -15,7 +15,7 @@
     <!-- Menu -->
     <ul class="hidden md:flex space-x-10 font-semibold text-black text-sm items-center">
         <li><a class="hover:underline" href="/">Beranda</a></li>
-        <li><a class="hover:underline" href="/berita">Berita</a></li>
+        <li><a class="hover:underline" href="{{ route ('user.berita') }}">Berita</a></li>
         <li><a class="hover:underline" href="/kalkulator">Kalkulator</a></li>
         <li><a class="hover:underline" href="{{ route ('user.usaha.index') }}">Usaha</a></li>
 
@@ -47,12 +47,12 @@
     <div x-show="open" @click.away="open = false" class="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg border-t z-50">
         <ul class="flex flex-col py-4 px-6 space-y-4 font-semibold text-black text-base">
             <li><a class="hover:underline" href="/">Beranda</a></li>
-            <li><a class="hover:underline" href="/berita">Berita</a></li>
+            <li><a class="hover:underline" href="{{ route ('user.berita') }}">Berita</a></li>
             <li><a class="hover:underline" href="/kalkulator">Kalkulator</a></li>
-            <li><a class="hover:underline" href="/usaha">Usaha</a></li>
+            <li><a class="hover:underline" href="{{ route ('user.usaha.index') }}">Usaha</a></li>
             @auth
             <li>
-                <a class="text-[#F97316] hover:underline" href="/profil">
+                <a class="text-[#F97316] hover:underline" href="{{ route('user.edit') }}">
                     {{ Auth::user()->name }}
                 </a>
             </li>

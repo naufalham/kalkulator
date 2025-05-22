@@ -39,14 +39,9 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
     Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create'); // Rute untuk form tambah berita
     Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store'); // Rute untuk menyimpan berita
     Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy'); // Rute untuk menghapus berita
+    Route::get('/berita/{id}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
+    Route::put('/berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
 
-    Route::prefix('berita')->name('berita.')->group(function(){
-        // Route::get('', [BeritaController::class, 'index'])->name('index');
-        Route::get('/create', [BeritaController::class, 'create'])->name('create');
-        Route::post('', [BeritaController::class, 'store'])->name('store');
-        Route::delete('/{id}', [BeritaController::class, 'destroy'])->name('destroy');
-    });
-    
 
     
     
@@ -64,6 +59,9 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
 
     Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha.index');
 
+    Route::get('/berita', [BeritaController::class, 'user_index'])->name('berita');
+    Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+
     
 });
 
@@ -73,9 +71,9 @@ Route::middleware(['auth'])->group(function () {
     //     return view('user.usaha');
     // });
 
-    Route::get('/berita', function () {
-        return view('user.berita');
-    });
+    // Route::get('/berita', function () {
+    //     return view('user.berita');
+    // });
 
     Route::get('/form_usaha', function () {
         return view('user.form_usaha');
