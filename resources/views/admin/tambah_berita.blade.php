@@ -11,8 +11,8 @@
 
 <x-navmin></x-navmin>
 
-<x-sidemin></x-sidemin>
-
+ <body class="bg-[#f5f8ff] text-gray-900 pt-16">
+    
 <!-- Form -->
 <section class="bg-white rounded-2xl flex-grow p-4 flex flex-col space-y-4">
    <form class="flex flex-col gap-6" method="POST" action="{{ route('admin.berita.store') }}" enctype="multipart/form-data">
@@ -44,6 +44,8 @@
     </form>
     
 </section>
+
+ </body>
 
 {{-- <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 <script>
