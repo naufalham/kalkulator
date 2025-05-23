@@ -1,6 +1,11 @@
 <x-navmin></x-navmin>
 
+<body class="bg-[#f5f8ff] text-gray-900 pt-16">
+
+<main class="flex flex-col sm:flex-row min-h-[calc(100vh-56px)]">
+
 <x-sidemin></x-sidemin>
+
 
 
 <section class="bg-white rounded-2xl flex-grow p-4 flex flex-col space-y-4">
@@ -142,6 +147,8 @@
 </section>
 
 </main>
+
+</body>
 
 <x-footer></x-footer>
 

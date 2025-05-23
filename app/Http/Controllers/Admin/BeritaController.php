@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Berita;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -103,6 +104,11 @@ class BeritaController extends Controller
         $berita->isi = $request->isi;
 
         if ($request->hasFile('foto')) {
+            // Hapus foto lama jika ada
+            if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
+                Storage::disk('public')->delete($berita->foto);
+            }
+            // Simpan foto baru
             $path = $request->file('foto')->store('foto', 'public');
             $berita->foto = $path;
         }
