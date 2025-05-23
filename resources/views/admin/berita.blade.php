@@ -42,6 +42,9 @@
         <!-- filepath: d:\APK\xampp\htdocs\kalkulator\resources\views\admin\berita.blade.php -->
         @foreach ($beritas as $index => $berita)
             <div class="bg-[#F5F8FF] rounded-xl flex justify-between items-center px-6 py-3 text-black font-semibold text-sm select-none">
+                @if($berita->foto)
+                    <img src="{{ asset('storage/' . $berita->foto) }}" alt="{{ $berita->judul }}" class="w-14 h-14 object-cover rounded-lg" />
+                @endif
                 <span>
                     {{ $berita->judul }}
                 </span>

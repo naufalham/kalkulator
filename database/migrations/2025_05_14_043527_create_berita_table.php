@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('judul');
             $table->string('slug')->unique();
             $table->string('foto')->nullable();
-            $table->string('isi');
+            $table->longText('isi');
             $table->timestamps();
         });
     }
