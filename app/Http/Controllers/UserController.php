@@ -63,6 +63,23 @@ class UserController extends Controller
         return view('admin.user', compact('users'));
     }
 
+    public function cari(Request $request)
+    {
+        $query = User::query();
+
+        if ($request->filled('q')) {
+            $q = $request->q;
+            $query->where(function($sub) use ($q) {
+                $sub->where('name', 'like', "%$q%")
+                    ->orWhere('email', 'like', "%$q%")
+                    ->orWhere('role', 'like', "%$q%");
+            });
+        }
+
+        $users = $query->get();
+        return view('admin.user', compact('users'));
+    }
+
 
     public function destroy($id)
     {

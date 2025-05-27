@@ -21,26 +21,31 @@
                     <label class="text-sm text-black mb-1 select-none" for="modal">
                         Modal (Rp)
                     </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="modal" name="modal" type="text"/>
+                    <input type="hidden" name="pendapatan_statis[0][label]" value="Modal">
+                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="modal" name="pendapatan_statis[0][value]" type="number"/>
                 </div>
                 <div class="flex flex-col">
                     <label class="text-sm text-black mb-1 select-none" for="jasa">
                         Jasa (Rp)
                     </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="jasa" name="jasa" type="text"/>
+                    <input type="hidden" name="pendapatan_statis[1][label]" value="Jasa">
+                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="jasa" name="pendapatan_statis[1][value]" type="number"/>
                 </div>
                 <div class="flex flex-col">
                     <label class="text-sm text-black mb-1 select-none" for="penjualan">
                         Penjualan (Rp)
                     </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="penjualan" name="penjualan" type="text"/>
+                    <input type="hidden" name="pendapatan_statis[2][label]" value="Penjualan">
+                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="penjualan" name="pendapatan_statis[2][value]" type="number"/>
                 </div>
-                <div class="flex flex-col">
-                    <label class="text-sm text-black mb-1 select-none" for="lainnya-pendapatan">
-                        Lainnya (Rp)
-                    </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="lainnya-pendapatan" name="lainnya-pendapatan" type="text"/>
+                <div id="dynamic-fields" class="space-y-4">
+                    <div class="flex gap-2">
+                        <input type="text" name="fields_pendapatan[0][label]" ...>
+                        <input type="number" name="fields_pendapatan[0][value]" ...>
+                        <button type="button" class="remove-field bg-red-500 text-white px-2 rounded">Hapus</button>
+                    </div>
                 </div>
+                <button type="button" id="add-field" class="bg-blue-500 text-white px-3 py-1 rounded mt-2">Tambah Field</button>
             </div>
         </section>
 
@@ -54,38 +59,46 @@
                     <label class="text-sm text-black mb-1 select-none" for="bahan">
                         Bahan (Rp)
                     </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="bahan" name="bahan" type="text"/>
+                    <input type="hidden" name="pengeluaran_statis[0][label]" value="Bahan">
+                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="bahan" name="pengeluaran_statis[0][value]" type="text"/>
                 </div>
                 <div class="flex flex-col">
                     <label class="text-sm text-black mb-1 select-none" for="gaji-karyawan">
                         Gaji Karyawan (Rp)
                     </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="gaji-karyawan" name="gaji-karyawan" type="text"/>
+                    <input type="hidden" name="pengeluaran_statis[1][label]" value="Gaji Karyawan">
+                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="gaji-karyawan" name="pengeluaran_statis[1][value]" type="text"/>
                 </div>
                 <div class="flex flex-col">
                     <label class="text-sm text-black mb-1 select-none" for="banyak-karyawan">
                         Banyak Karyawan
                     </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="banyak-karyawan" name="banyak-karyawan" type="text"/>
+                    <input type="hidden" name="pengeluaran_statis[2][label]" value="Banyak Karyawan">
+                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="banyak-karyawan" name="pengeluaran_statis[2][value]" type="text"/>
                 </div>
                 <div class="flex flex-col">
                     <label class="text-sm text-black mb-1 select-none" for="sewa-tempat">
                         Sewa Tempat (Rp)
                     </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="sewa-tempat" name="sewa-tempat" type="text"/>
+                    <input type="hidden" name="pengeluaran_statis[3][label]" value="Sewa Tempat">
+                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="sewa-tempat" name="pengeluaran_statis[3][value]" type="text"/>
                 </div>
                 <div class="flex flex-col">
                     <label class="text-sm text-black mb-1 select-none" for="listrik">
                         Listrik (Rp)
                     </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="listrik" name="listrik" type="text"/>
+                    <input type="hidden" name="pengeluaran_statis[4][label]" value="Listrik">
+                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="listrik" name="pengeluaran_statis[4][value]" type="text"/>
                 </div>
-                <div class="flex flex-col">
-                    <label class="text-sm text-black mb-1 select-none" for="lainnya-pengeluaran">
-                        Lainnya (Rp)
-                    </label>
-                    <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" id="lainnya-pengeluaran" name="lainnya-pengeluaran" type="text"/>
+                <!-- Pengeluaran Dinamis -->
+                <div id="dynamic-fields-pengeluaran" class="space-y-4">
+                    <div class="flex gap-2">
+                        <input type="text" name="fields_pengeluaran[0][label]" placeholder="Label" class="border rounded px-2 py-1" required>
+                        <input type="number" name="fields_pengeluaran[0][value]" placeholder="Nilai" class="border rounded px-2 py-1" required>
+                        <button type="button" class="remove-field-pengeluaran bg-red-500 text-white px-2 rounded">Hapus</button>
+                    </div>
                 </div>
+                <button type="button" id="add-field-pengeluaran" class="bg-blue-500 text-white px-3 py-1 rounded mt-2">Tambah Field</button>
             </div>
         </section>
 
@@ -96,6 +109,52 @@
         </div>
     </form>
 </main>
+
+{{-- Scripts for dynamic fields --}}
+<script>
+let fieldIndex = 1;
+document.getElementById('add-field').onclick = function() {
+    const container = document.getElementById('dynamic-fields');
+    const div = document.createElement('div');
+    div.className = 'flex gap-2 mt-2';
+    div.innerHTML = `
+        <input type="text" name="fields_pendapatan[${fieldIndex}][label]" placeholder="Label" class="border rounded px-2 py-1" required>
+        <input type="number" name="fields_pendapatan[${fieldIndex}][value]" placeholder="Nilai" class="border rounded px-2 py-1" required>
+        <button type="button" class="remove-field bg-red-500 text-white px-2 rounded">Hapus</button>
+    `;
+    container.appendChild(div);
+    fieldIndex++;
+};
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-field')) {
+        e.target.parentElement.remove();
+    }
+});
+</script>
+
+{{-- script dinamis pengeluaran --}}
+<script>
+let pengeluaranIndex = 1;
+document.getElementById('add-field-pengeluaran').onclick = function() {
+    const container = document.getElementById('dynamic-fields-pengeluaran');
+    const div = document.createElement('div');
+    div.className = 'flex gap-2 mt-2';
+    div.innerHTML = `
+        <input type="text" name="fields_pengeluaran[${pengeluaranIndex}][label]" placeholder="Label" class="border rounded px-2 py-1" required>
+        <input type="number" name="fields_pengeluaran[${pengeluaranIndex}][value]" placeholder="Nilai" class="border rounded px-2 py-1" required>
+        <button type="button" class="remove-field-pengeluaran bg-red-500 text-white px-2 rounded">Hapus</button>
+    `;
+    container.appendChild(div);
+    pengeluaranIndex++;
+};
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-field-pengeluaran')) {
+        e.target.parentElement.remove();
+    }
+});
+</script>
 
 <!-- Footer -->
 <div class="mt-10"></div>
