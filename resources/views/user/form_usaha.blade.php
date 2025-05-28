@@ -48,16 +48,11 @@
                 </div>
             </div>
             <div class="flex mt-6">
-                <div id="dynamic-fields" class="space-y-4">
-                    <div class="flex gap-2">
-                        <input type="text" name="fields_pendapatan[0][label]" ...>
-                        <input type="number" name="fields_pendapatan[0][value]" ...>
-                        <button type="button" class="remove-field bg-red-500 text-white px-2 rounded">Hapus</button>
-                    </div>
-                </div>
-                <button type="button" id="add-field" class="bg-[#F97316] text-white text-xs font-semibold rounded-xl px-4 py-2 hover:bg-[#e06f11] transition-colors mr-2">
-                    + Tambah Pendapatan
+                <button type="button" id="add-field" class="bg-[#F97316] text-white text-sm font-semibold rounded-lg px-4 py-3 hover:bg-[#e06f11] transition-colors mr-2">
+                    Tambah Pendapatan
                 </button>
+            </div>
+            <div id="dynamic-fields" class="space-y-4">
             </div>
         </section>
 
@@ -104,17 +99,11 @@
                 </div>
             </div>
             <div class="flex mt-6">
-                <!-- Pengeluaran Dinamis -->
-                <div id="dynamic-fields-pengeluaran" class="space-y-4">
-                    <div class="flex gap-2">
-                        <input type="text" name="fields_pengeluaran[0][label]" placeholder="Label" class="border rounded px-2 py-1" required>
-                        <input type="number" name="fields_pengeluaran[0][value]" placeholder="Nilai" class="border rounded px-2 py-1" required>
-                        <button type="button" class="remove-field-pengeluaran bg-red-500 text-white px-2 rounded">Hapus</button>
-                    </div>
-                </div>
-                <button type="button" id="add-field-pengeluaran" class="bg-[#F97316] text-white text-xs font-semibold rounded-xl px-4 py-2 hover:bg-[#e06f11] transition-colors mr-2">
-                    + Tambah Pengeluaran
+                <button type="button" id="add-field-pengeluaran" class="bg-[#F97316] text-white text-sm font-semibold rounded-lg px-4 py-3 hover:bg-[#e06f11] transition-colors mr-2">
+                    Tambah Pengeluaran
                 </button>
+            </div>
+            <div id="dynamic-fields" class="space-y-4">
             </div>
         </section>
 
@@ -126,7 +115,7 @@
     </form>
 </main>
 
-{{-- Scripts for dynamic fields --}}
+<!-- {{-- Scripts for dynamic fields --}}
 <script>
 let fieldIndex = 1;
 document.getElementById('add-field').onclick = function() {
@@ -170,17 +159,13 @@ document.addEventListener('click', function(e) {
         e.target.parentElement.remove();
     }
 });
-</script>
-
-<!-- Footer -->
-<div class="mt-10"></div>
-<x-footer></x-footer>
+</script> -->
 
 <script>
 // Pendapatan
 let pendapatanCount = 0;
-const maxPendapatan = 5;
-document.getElementById('add-pendapatan').onclick = function() {
+const maxPendapatan = 3;
+document.getElementById('add-field').onclick = function() {
     if (pendapatanCount < maxPendapatan) {
         pendapatanCount++;
         const container = document.getElementById('pendapatan-fields');
@@ -216,7 +201,7 @@ function updateRemovePendapatan() {
         btn.onclick = function() {
             this.closest('.flex.flex-col').remove();
             pendapatanCount--;
-            const addBtn = document.getElementById('add-pendapatan');
+            const addBtn = document.getElementById('add-field');
             addBtn.disabled = false;
             addBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }
@@ -226,7 +211,7 @@ function updateRemovePendapatan() {
 // Pengeluaran
 let pengeluaranCount = 0;
 const maxPengeluaran = 3;
-document.getElementById('add-pengeluaran').onclick = function() {
+document.getElementById('add-field-pengeluaran').onclick = function() {
     if (pengeluaranCount < maxPengeluaran) {
         pengeluaranCount++;
         const container = document.getElementById('pengeluaran-fields');
@@ -262,10 +247,13 @@ function updateRemovePengeluaran() {
         btn.onclick = function() {
             this.closest('.flex.flex-col').remove();
             pengeluaranCount--;
-            const addBtn = document.getElementById('add-pengeluaran');
+            const addBtn = document.getElementById('add-field-pengeluaran');
             addBtn.disabled = false;
             addBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }
     });
 }
 </script>
+<!-- Footer -->
+<div class="mt-10"></div>
+<x-footer></x-footer>
