@@ -10,7 +10,7 @@
         <div class="col-span-full mb-6 flex items-center justify-between relative">
             <div class="flex-1 flex justify-center">
                 <h1 class="font-extrabold text-black text-lg select-none text-center">
-                    Analisis Kelayakan Usaha Fesyen
+                    Analisis Kelayakan Usaha {{ $layanan->nama_layanan ?? '' }}
                 </h1>
             </div>
             <a href="{{ route('user.usaha.index') }}" class="absolute right-0 text-[#F97316] font-semibold hover:underline text-base">
@@ -20,6 +20,8 @@
 
         <hr>
         <!-- Pendapatan -->
+        <input type="hidden" name="layanan_id" value="{{ $layanan->id }}">
+        
         <section>
             <h2 class="font-extrabold text-black text-base mb-6 mt-6 select-none">
                 Pendapatan

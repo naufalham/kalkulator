@@ -10,37 +10,15 @@
     <!-- Right content -->
     <section class="bg-white rounded-2xl flex-grow p-6 flex flex-col space-y-6 overflow-x-auto">
       <!-- Contoh artikel, ulangi sesuai kebutuhan -->
+      @foreach($riwayat as $item)
         <article class="content-card">
           <div>
-            <h3 class="content-title">Hasil Analisis Kelayakan Usaha Fesyen</h3>
-            <p class="content-date">5 April 2004</p>
+            <h3 class="content-title">Hasil Analisis Kelayakan Usaha {{ $item->nama_layanan }}</h3>
+            <p class="content-date">{{ $item->recordPendapatan->first()->created_at->format('d M Y') ?? '-' }}</p>
           </div>
-          <a class="content-link" href="#">Lihat</a>
+          <a class="content-link" href="{{ route('user.usaha.download', ['layanan_id' => $item->id]) }}">Download</a>
         </article>
-
-        <article class="content-card">
-          <div>
-            <h3 class="content-title">Hasil Analisis Kelayakan Usaha Kuliner</h3>
-            <p class="content-date">5 April 2004</p>
-          </div>
-          <a class="content-link" href="#">Lihat</a>
-        </article>
-
-        <article class="content-card">
-          <div>
-            <h3 class="content-title">Hasil Analisis Kelayakan Usaha Jasa</h3>
-            <p class="content-date">5 April 2004</p>
-          </div>
-          <a class="content-link" href="#">Lihat</a>
-        </article>
-
-        <article class="content-card">
-          <div>
-            <h3 class="content-title">Hasil Analisis Kelayakan Usaha Kerajinan</h3>
-            <p class="content-date">5 April 2004</p>
-          </div>
-          <a class="content-link" href="#">Lihat</a>
-        </article>
+      @endforeach
     </section>
 </main>
  
