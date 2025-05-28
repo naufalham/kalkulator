@@ -61,6 +61,8 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha.index');
     Route::get('/usaha/form', [UsahaController::class, 'show'])->name('usaha.form');
 
+    Route::get('/form_usaha', [UsahaController::class, 'index'])->name('form_usaha');
+
     Route::get('/berita', [BeritaController::class, 'user_index'])->name('berita');
     Route::get('/berita', [BeritaController::class, 'cari'])->name('berita');
     Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
@@ -117,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/isi', function () {
         return view('user.isi_berita');
     });
+    
     
 
     // Route::get('/admin/tambah', function () {

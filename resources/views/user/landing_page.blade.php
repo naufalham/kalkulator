@@ -25,7 +25,7 @@
     </h2>
     <div class="main-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 max-w-6xl mx-auto place-items-center">
         <!-- Fesyen -->
-        <a href="/form_usaha" class="block w-full">
+        <a href="{{route ('user.form_usaha')}}"  class="block w-full">
             <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#F28C28] w-12 h-12 rounded-xl flex items-center justify-center">
                     <img alt="Icon representing fashion" class="w-9 h-9" src="{{ asset('icons/fesyen.png') }}" />
@@ -40,7 +40,7 @@
         </a>
             
         <!-- Kuliner -->
-        <a href="/form_usaha" class="block w-full">
+        <a href="{{route ('user.form_usaha')}}"  class="block w-full">
             <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#F28C28] w-12 h-12 rounded-xl flex items-center justify-center">
                     <img alt="Icon representing food business" class="w-9 h-9" src="{{ asset('icons/kuliner.png') }}" />
@@ -55,7 +55,7 @@
         </a>
 
         <!-- Jasa -->
-        <a href="/form_usaha" class="block w-full">
+        <a href="{{route ('user.form_usaha')}}"  class="block w-full">
             <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#F28C28] w-12 h-12 rounded-xl flex items-center justify-center">
                     <img alt="Icon representing services" class="w-9 h-9" src="{{ asset('icons/jasa.png') }}" />
@@ -70,7 +70,7 @@
         </a>
 
         <!-- Kerajinan -->
-        <a href="/form_usaha" class="block w-full">
+        <a href="{{route ('user.form_usaha')}}"  class="block w-full">
             <div class="relative bg-white rounded-2xl pt-12 pb-8 px-6 text-center shadow-sm transition-transform transform hover:-translate-y-2 hover:shadow-lg duration-300">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#F28C28] w-12 h-12 rounded-xl flex items-center justify-center">
                     <img alt="Icon representing crafts" class="w-9 h-9" src="{{ asset('icons/kerajinan.png') }}" />
@@ -86,7 +86,7 @@
     </div>
 
     <div class="flex justify-center mt-10">
-        <a href="/usaha">
+        <a href="{{ route ('user.usaha.index') }}">
             <button
                 class="border-none bg-[#F28C28] text-white font-semibold rounded-full px-8 py-3 text-sm sm:text-base shadow-md hover:bg-[#e07c1a] transition-all duration-200"
                 type="button">
