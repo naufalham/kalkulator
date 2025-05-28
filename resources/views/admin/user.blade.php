@@ -42,9 +42,10 @@
                     @endif
                 </div>
             </div>
-            <form class="bg-white rounded-lg px-4 py-3 max-w-xs w-full md:w-auto flex items-center space-x-2 shadow">
+            <form class="bg-white rounded-lg px-4 py-3 max-w-xs w-full md:w-auto flex items-center space-x-2 shadow"
+                method="GET" action="{{ route('admin.user') }}">
                 <i class="fas fa-search text-black text-sm"></i>
-                <input class="bg-transparent text-xs outline-none w-full" placeholder="Cari Pengguna" type="text"/>
+                <input class="bg-transparent text-xs outline-none w-full" placeholder="Cari Pengguna" type="text" name="q" value="{{ request('q') }}"/>
             </form>
     </div>
     <h2 class="font-semibold text-sm mb-2 mt-4">Daftar Pengguna</h2>

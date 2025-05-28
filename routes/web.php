@@ -33,6 +33,7 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
         Route::get('/{id}/edit', [UserController::class, 'edit'])->name('.edit');
         Route::put('/{id}', [UserController::class, 'update'])->name('.update');
         Route::delete('/{id}', [UserController::class, 'destroy'])->name('.destroy');
+        Route::get('', [UserController::class, 'cari'])->name('');
     });
 
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index'); // Rute untuk menampilkan daftar berita
