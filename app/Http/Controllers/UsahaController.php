@@ -12,8 +12,9 @@ class UsahaController extends Controller
         return view('user.usaha', compact('layanans'));
     }
 
-    public function show()
+    public function show($layanan)
     {
-        return view('user.form_usaha');
+        $layanan = \App\Models\Layanan::findOrFail($layanan);
+        return view('user.form_usaha', compact('layanan'));
     }
 }

@@ -16,27 +16,19 @@ class AnalisisUsahaExportController extends Controller
 {
     public function export(Request $request)
     {
-        // Ambil user_id (jika pakai auth)
-        $user_id = Auth::id() ?? 1; // fallback ke 1 jika belum login
-        $layanan_id = 1; // atau ambil dari request jika ada
+        $user_id = Auth::id() ?? 1;
+        // Ambil id layanan dari request
+        $layanan_id = $request->input('layanan_id');
+        // Ambil nama usaha dari database (misal dari id layanan)
+        $layanan = Layanan::find($layanan_id);
+        $namaUsaha = $layanan ? $layanan->nama_layanan : '';
 
-        $pendapatan_statis = [
-            ['label' => 'Modal', 'value' => $request->modal],
-            ['label' => 'Jasa', 'value' => $request->jasa],
-            ['label' => 'Penjualan', 'value' => $request->penjualan],
-            ['label' => 'Lainnya', 'value' => $request->{'lainnya-pendapatan'}],
-        ];
 
-        $pengeluaran_statis = [
-            ['label' => 'Bahan', 'value' => $request->bahan],
-            ['label' => 'Gaji Karyawan', 'value' => $request->{'gaji-karyawan'}],
-            ['label' => 'Banyak Karyawan', 'value' => $request->{'banyak-karyawan'}],
-            ['label' => 'Sewa Tempat', 'value' => $request->{'sewa-tempat'}],
-            ['label' => 'Listrik', 'value' => $request->listrik],
-            ['label' => 'Lainnya', 'value' => $request->{'lainnya-pengeluaran'}],
-        ];
+        // Ambil array statis dari form
+        $pendapatan_statis = $request->pendapatan_statis ?? [];
+        $pengeluaran_statis = $request->pengeluaran_statis ?? [];
 
-        // Simpan pendapatan statis
+        // Simpan pendapatan statis ke database
         foreach ($pendapatan_statis as $item) {
             $namaPendapatan = NamaPendapatan::firstOrCreate(
                 ['nama_pendapatan' => $item['label'], 'layanan_id' => $layanan_id]
@@ -49,7 +41,7 @@ class AnalisisUsahaExportController extends Controller
             ]);
         }
 
-        // Simpan pendapatan dinamis
+        // Simpan pendapatan dinamis ke database
         if ($request->has('fields_pendapatan')) {
             foreach ($request->fields_pendapatan as $field) {
                 $label = $field['label'] ?? '';
@@ -68,8 +60,8 @@ class AnalisisUsahaExportController extends Controller
             }
         }
 
-        // Simpan pengeluaran statis
-       foreach ($pengeluaran_statis as $item) {
+        // Simpan pengeluaran statis ke database
+        foreach ($pengeluaran_statis as $item) {
             if (!empty($item['label'])) {
                 $namaPengeluaran = NamaPengeluaran::firstOrCreate(
                     ['nama_pengeluaran' => $item['label'], 'layanan_id' => $layanan_id]
@@ -83,7 +75,7 @@ class AnalisisUsahaExportController extends Controller
             }
         }
 
-        // Simpan pengeluaran dinamis
+        // Simpan pengeluaran dinamis ke database
         if ($request->has('fields_pengeluaran')) {
             foreach ($request->fields_pengeluaran as $field) {
                 $label = $field['label'] ?? '';
@@ -104,45 +96,37 @@ class AnalisisUsahaExportController extends Controller
 
         $spreadsheet = IOFactory::load(storage_path('app/templates/template_analisis.xlsx'));
         $sheet = $spreadsheet->getActiveSheet();
-
-        // Format cell sebagai Rupiah (misal: F8 sampai F21 dan dinamis)
-        // $sheet->getStyle('F8:F21')->getNumberFormat()->setFormatCode($rupiahFormat);
         $rupiahFormat = '"Rp" #,##0;[Red]"Rp" -#,##0';
 
-        // Hitung jumlah field pendapatan dinamis
-        $jumlahPendapatanDinamis = $request->has('fields_pendapatan') ? count($request->fields_pendapatan) : 0;
+        // Judul utama di atas tabel
+        $sheet->setCellValue('E3', 'Analisis Kelayakan Usaha ' . ($namaUsaha ? "($namaUsaha)" : ''));
+        $sheet->mergeCells('E3:F3');
+        $sheet->getStyle('E3')->getFont()->setBold(true)->setSize(14);
+        $sheet->getStyle('E3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-        // Sisipkan row sebelum baris pendapatan statis (baris 8)
-        if ($jumlahPendapatanDinamis > 0) {
-            $sheet->insertNewRowBefore(8, $jumlahPendapatanDinamis);
-        }
+        // Header tabel
+        $sheet->setCellValue('E6', 'Modal Belanja');
+        $sheet->setCellValue('F6', 'Total Biaya');
+        $sheet->getStyle('E6:F6')->getFont()->setBold(true);
+        $sheet->getStyle('E6:F6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-        // Tulis pendapatan statis mulai baris 8
+
+        // Tulis pendapatan ke Excel
         $startRowPendapatan = 8;
         $total_pendapatan = 0;
-
         $sheet->setCellValue('E7', 'Pendapatan');
         $sheet->getStyle('E7')->getFont()->setBold(true);
 
-        $sheet->setCellValue('E' . $startRowPendapatan, 'Modal');
-        $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($request->modal) ? $request->modal : 0);
-        $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $total_pendapatan += is_numeric($request->modal) ? $request->modal : 0;
-        $startRowPendapatan++;
+        // Tulis pendapatan statis
+        foreach ($pendapatan_statis as $item) {
+            $sheet->setCellValue('E' . $startRowPendapatan, $item['label']);
+            $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($item['value']) ? $item['value'] : 0);
+            $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
+            $total_pendapatan += is_numeric($item['value']) ? $item['value'] : 0;
+            $startRowPendapatan++;
+        }
 
-        $sheet->setCellValue('E' . $startRowPendapatan, 'Jasa');
-        $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($request->jasa) ? $request->jasa : 0);
-        $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $total_pendapatan += is_numeric($request->jasa) ? $request->jasa : 0;
-        $startRowPendapatan++;
-
-        $sheet->setCellValue('E' . $startRowPendapatan, 'Penjualan');
-        $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($request->penjualan) ? $request->penjualan : 0);
-        $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $total_pendapatan += is_numeric($request->penjualan) ? $request->penjualan : 0;
-        $startRowPendapatan++;
-
-        // Tulis field pendapatan dinamis setelah statis
+        // Tulis pendapatan dinamis
         if ($request->has('fields_pendapatan')) {
             foreach ($request->fields_pendapatan as $field) {
                 $label = $field['label'] ?? '';
@@ -155,12 +139,12 @@ class AnalisisUsahaExportController extends Controller
             }
         }
 
-        // Tambahkan satu baris kosong sebelum total pendapatan
+        // Baris kosong sebelum total pendapatan
         $sheet->setCellValue('E' . $startRowPendapatan, '');
         $sheet->setCellValue('F' . $startRowPendapatan, '');
         $startRowPendapatan++;
 
-        // Total pendapatan di baris setelah semua pendapatan
+        // Total pendapatan
         $sheet->setCellValue('E' . $startRowPendapatan, 'Total Pendapatan');
         $sheet->setCellValue('F' . $startRowPendapatan, $total_pendapatan);
         $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
@@ -168,67 +152,28 @@ class AnalisisUsahaExportController extends Controller
         $rowTotalPendapatan = $startRowPendapatan;
         $startRowPendapatan++;
 
-        // Tambahkan satu baris kosong setelah total pendapatan
+        // Baris kosong setelah total pendapatan
         $sheet->setCellValue('E' . $startRowPendapatan, '');
         $sheet->setCellValue('F' . $startRowPendapatan, '');
         $startRowPendapatan++;
-        
 
-        // Hitung jumlah field pengeluaran dinamis
-        $jumlahPengeluaranDinamis = $request->has('fields_pengeluaran') ? count($request->fields_pengeluaran) : 0;
-        $total_pengeluaran = 0;
-
-        // Sisipkan row sebelum baris pengeluaran statis (baris 16)
-        if ($jumlahPengeluaranDinamis > 0) {
-            $sheet->insertNewRowBefore(16, $jumlahPengeluaranDinamis);
-        }
-
-        // Tulis pengeluaran statis mulai baris 16
+        // Pengeluaran
         $startRowPengeluaran = $startRowPendapatan;
         $total_pengeluaran = 0;
-
-        // Tambahkan row sebelum bahan bertuliskan "Pengeluaran" dan bold
-        $sheet->setCellValue('E' . ($startRowPengeluaran), 'Pengeluaran');
-        $sheet->getStyle('E' . ($startRowPengeluaran))->getFont()->setBold(true);
+        $sheet->setCellValue('E' . $startRowPengeluaran, 'Pengeluaran');
+        $sheet->getStyle('E' . $startRowPengeluaran)->getFont()->setBold(true);
         $startRowPengeluaran++;
 
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Bahan');
-        $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($request->bahan) ? $request->bahan : 0);
-        $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $total_pengeluaran += is_numeric($request->bahan) ? $request->bahan : 0;
-        $startRowPengeluaran++;
+        // Tulis pengeluaran statis
+        foreach ($pengeluaran_statis as $item) {
+            $sheet->setCellValue('E' . $startRowPengeluaran, $item['label']);
+            $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($item['value']) ? $item['value'] : 0);
+            $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
+            $total_pengeluaran += is_numeric($item['value']) ? $item['value'] : 0;
+            $startRowPengeluaran++;
+        }
 
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Gaji Karyawan');
-        $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($request->{'gaji-karyawan'}) ? $request->{'gaji-karyawan'} : 0);
-        $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $total_pengeluaran += is_numeric($request->{'gaji-karyawan'}) ? $request->{'gaji-karyawan'} : 0;
-        $startRowPengeluaran++;
-
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Banyak Karyawan');
-        $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($request->{'banyak-karyawan'}) ? $request->{'banyak-karyawan'} : 0);
-        $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $total_pengeluaran += is_numeric($request->{'banyak-karyawan'}) ? $request->{'banyak-karyawan'} : 0;
-        $startRowPengeluaran++;
-
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Sewa Tempat');
-        $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($request->{'sewa-tempat'}) ? $request->{'sewa-tempat'} : 0);
-        $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $total_pengeluaran += is_numeric($request->{'sewa-tempat'}) ? $request->{'sewa-tempat'} : 0;
-        $startRowPengeluaran++;
-
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Listrik');
-        $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($request->listrik) ? $request->listrik : 0);
-        $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $total_pengeluaran += is_numeric($request->listrik) ? $request->listrik : 0;
-        $startRowPengeluaran++;
-
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Lainnya');
-        $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($request->{'lainnya-pengeluaran'}) ? $request->{'lainnya-pengeluaran'} : 0);
-        $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $total_pengeluaran += is_numeric($request->{'lainnya-pengeluaran'}) ? $request->{'lainnya-pengeluaran'} : 0;
-        $startRowPengeluaran++;
-
-        // Tulis field pengeluaran dinamis setelah statis
+        // Tulis pengeluaran dinamis
         if ($request->has('fields_pengeluaran')) {
             foreach ($request->fields_pengeluaran as $field) {
                 $label = $field['label'] ?? '';
@@ -241,20 +186,20 @@ class AnalisisUsahaExportController extends Controller
             }
         }
 
-        // Tambahkan satu baris kosong setelah total pengeluaran
+        // Baris kosong setelah pengeluaran
         $sheet->setCellValue('E' . $startRowPengeluaran, '');
         $sheet->setCellValue('F' . $startRowPengeluaran, '');
         $startRowPengeluaran++;
 
-        // Total pengeluaran di baris setelah semua pengeluaran
+        // Total pengeluaran
         $sheet->setCellValue('E' . $startRowPengeluaran, 'Total Pengeluaran');
         $sheet->setCellValue('F' . $startRowPengeluaran, $total_pengeluaran);
         $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
         $sheet->getStyle('E' . $startRowPengeluaran . ':F' . $startRowPengeluaran)->getFont()->setBold(true);
-        $rowTotalPengeluaran = $startRowPengeluaran; // SIMPAN BARIS INI!
+        $rowTotalPengeluaran = $startRowPengeluaran;
         $startRowPengeluaran++;
 
-        // Tambahkan satu baris kosong sebelum laba rugi
+        // Baris kosong sebelum laba rugi
         $sheet->setCellValue('E' . $startRowPengeluaran, '');
         $sheet->setCellValue('F' . $startRowPengeluaran, '');
         $startRowPengeluaran++;
@@ -266,22 +211,44 @@ class AnalisisUsahaExportController extends Controller
         $sheet->getStyle('E' . $startRowPengeluaran . ':F' . $startRowPengeluaran)->getFont()->setBold(true);
         $startRowPengeluaran++;
 
-
-        // Hitung margin laba terhadap omset (maksimal 100%)
+        // Margin Laba terhadap Omset
         $margin = ($total_pendapatan > 0) ? (($total_pendapatan - $total_pengeluaran) / $total_pendapatan) * 100 : 0;
-        $margin = min($margin, 100); // batasi maksimal 100%
-
-        // Tulis Margin Laba terhadap Omset
+        $margin = min($margin, 100);
         $sheet->setCellValue('E' . $startRowPengeluaran, 'Margin Laba terhadap Omset (%)');
-        $sheet->setCellValue('F' . $startRowPengeluaran, round($margin / 100, 4)); // Excel expects 0.12 for 12%
+        $sheet->setCellValue('F' . $startRowPengeluaran, round($margin / 100, 4));
         $sheet->getStyle('E' . $startRowPengeluaran . ':F' . $startRowPengeluaran)->getFont()->setBold(true);
         $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode('0.00%');
 
+
+        // Tambahkan border pada area tabel (misal dari E6:F{baris terakhir})
+        $lastRow = $startRowPengeluaran; // baris terakhir yang terisi
+        $sheet->getStyle('E6:F' . $lastRow)->applyFromArray([
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['argb' => 'FF000000'],
+                ],
+            ],
+        ]);
 
         $filename = 'analisis_usaha_' . date('Ymd_His') . '.xlsx';
         $tempFile = storage_path('app/' . $filename);
         (new Xlsx($spreadsheet))->save($tempFile);
 
         return response()->download($tempFile)->deleteFileAfterSend(true);
+    }
+
+    public function download($layanan_id)
+    {
+        // Cari file hasil analisis sesuai layanan_id dan user_id
+        $user_id = Auth::id();
+        $filename = 'analisis_usaha_' . $user_id . '_' . $layanan_id . '.xlsx';
+        $path = storage_path('app/' . $filename);
+
+        if (!file_exists($path)) {
+            abort(404, 'File tidak ditemukan');
+        }
+
+        return response()->download($path);
     }
 }

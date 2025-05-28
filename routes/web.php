@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\UsahaController;
+use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\BeritaController;
@@ -59,9 +60,12 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     Route::post('/profil', [UserController::class, 'update'])->name('update');
 
     Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha.index');
-    Route::get('/usaha/form', [UsahaController::class, 'show'])->name('usaha.form');
+    Route::get('/usaha/form/{layanan}', [UsahaController::class, 'show'])->name('usaha.form');
 
     Route::get('/form_usaha', [UsahaController::class, 'index'])->name('form_usaha');
+
+    Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat');
+    Route::get('/download/{layanan_id}', [AnalisisUsahaExportController::class, 'download'])->name('usaha.download');
 
     Route::get('/berita', [BeritaController::class, 'user_index'])->name('berita');
     Route::get('/berita', [BeritaController::class, 'cari'])->name('berita');
@@ -88,9 +92,9 @@ Route::middleware(['auth'])->group(function () {
         return view('user.kalkulator');
     });
 
-    Route::get('/riwayat', function () {
-        return view('user.riwayat');
-    });
+    // Route::get('/riwayat', function () {
+    //     return view('user.riwayat');
+    // });
 
     Route::get('/tanya', function () {
         return view('user.tanya');
