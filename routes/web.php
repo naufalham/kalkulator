@@ -59,6 +59,7 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     Route::post('/profil', [UserController::class, 'update'])->name('update');
 
     Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha.index');
+    Route::get('/usaha/form', [UsahaController::class, 'show'])->name('usaha.form');
 
     Route::get('/berita', [BeritaController::class, 'user_index'])->name('berita');
     Route::get('/berita', [BeritaController::class, 'cari'])->name('berita');
@@ -77,9 +78,9 @@ Route::middleware(['auth'])->group(function () {
     //     return view('user.berita');
     // });
 
-    Route::get('/form_usaha', function () {
-        return view('user.form_usaha');
-    });
+    // Route::get('/form_usaha', function () {
+    //     return view('user.form_usaha');
+    // });
 
     Route::get('/kalkulator', function () {
         return view('user.kalkulator');

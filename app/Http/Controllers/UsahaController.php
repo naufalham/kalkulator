@@ -11,4 +11,9 @@ class UsahaController extends Controller
         $layanans = Layanan::all();
         return view('user.usaha', compact('layanans'));
     }
+
+    public function show()
+    {
+        return view('user.form_usaha');
+    }
 }
