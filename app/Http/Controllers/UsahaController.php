@@ -14,7 +14,7 @@ class UsahaController extends Controller
 
     public function show($layanan)
     {
-        $layanan = \App\Models\Layanan::findOrFail($layanan);
+        $layanan = Layanan::findOrFail($layanan);
         return view('user.form_usaha', compact('layanan'));
     }
 }

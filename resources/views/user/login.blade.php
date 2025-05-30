@@ -40,6 +40,8 @@
   </section>
 </main>
 
+<x-wa />
+
 <!-- Footer -->
 <div class="mt-10"></div>
 <x-footer></x-footer>
