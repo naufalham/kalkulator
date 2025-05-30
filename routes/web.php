@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\checkRoll;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\UsahaController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\FaqAdminController;
 use App\Http\Controllers\AnalisisUsahaExportController;
 
 // register
@@ -45,6 +47,7 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
     Route::put('/berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
 
 
+    Route::resource('faq', FaqAdminController::class)->middleware('auth'); // atau middleware admin
     
     
 });
@@ -65,11 +68,16 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     Route::get('/form_usaha', [UsahaController::class, 'index'])->name('form_usaha');
 
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat');
+    Route::post('/usaha/pay', [AnalisisUsahaExportController::class, 'checkout'])->name('usaha.pay');
+    Route::get('/download-after-pay', [AnalisisUsahaExportController::class, 'downloadAfterPay'])->name('usaha.downloadAfterPay');
     Route::get('/download/{layanan_id}', [AnalisisUsahaExportController::class, 'download'])->name('usaha.download');
+    Route::post('/usaha/export', [AnalisisUsahaExportController::class, 'export'])->name('usaha.export');
 
     Route::get('/berita', [BeritaController::class, 'user_index'])->name('berita');
     Route::get('/berita', [BeritaController::class, 'cari'])->name('berita');
     Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+
+    Route::get('/tanya', [FaqController::class, 'index'])->name('tanya');
 
     
 });

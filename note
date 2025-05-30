@@ -42,3 +42,18 @@ tampilkan foto berita di view
 Atau jika pakai accessor:
 
 <img src="{{ $berita->foto_url }}" alt="Foto Berita" width="120">
+
+
+
+
+tambah midtrans_pay
+
+jalankan perintah berikut di terminal untuk menginstal Midtrans PHP SDK:
+composer require midtrans/midtrans-php
+
+tambahkan kode berikut di file .env Anda:
+MIDTRANS_SERVER_KEY=SB-Mid-server-sruYDj9slsdNdyOTRPVYW--x
+MIDTRANS_CLIENT_KEY=SB-Mid-client-VTWBlTutTI-xHzOF
+MIDTRANS_IS_PRODUCTION=false
+
+

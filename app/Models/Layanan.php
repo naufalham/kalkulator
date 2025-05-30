@@ -11,4 +11,15 @@ class Layanan extends Model
 
     protected $table = 'layanans';
     protected $fillable = ['nama_layanan', 'deskripsi'];
+
+    public function recordPendapatan()
+    {
+        return $this->hasMany(RecordPendapatan::class, 'layanan_id');
+    }
+
+    public function recordPengeluaran()
+    {
+        return $this->hasMany(RecordPengeluaran::class, 'layanan_id');
+    }
 }
+ 
