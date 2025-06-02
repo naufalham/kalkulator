@@ -16,7 +16,7 @@
     <ul class="hidden md:flex space-x-10 font-semibold text-black text-sm items-center">
         <li><a class="hover:underline" href="/">Beranda</a></li>
         <li><a class="hover:underline" href="{{ route ('user.berita') }}">Berita</a></li>
-        <li><a class="hover:underline" href="/kalkulator">Kalkulator</a></li>
+        <li><a class="hover:underline" href="{{ route ('user.hitung.index') }}">Kalkulator</a></li>
         <li><a class="hover:underline" href="{{ route ('user.usaha.index') }}">Usaha</a></li>
 
         @auth
@@ -48,7 +48,7 @@
         <ul class="flex flex-col py-4 px-6 space-y-4 font-semibold text-black text-base">
             <li><a class="hover:underline" href="/">Beranda</a></li>
             <li><a class="hover:underline" href="{{ route ('user.berita') }}">Berita</a></li>
-            <li><a class="hover:underline" href="/kalkulator">Kalkulator</a></li>
+            <li><a class="hover:underline" href="{{ route ('user.hitung.index') }}">Kalkulator</a></li>
             <li><a class="hover:underline" href="{{ route ('user.usaha.index') }}">Usaha</a></li>
             @auth
             <li>

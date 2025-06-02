@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Kalkulator;
+use App\Models\KalkulatorField;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,19 +22,21 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             UserSeeder::class,
-            // BeritaSeeder::class,
-            // LayananSeeder::class,
-            // DummyUser::class,
-            // CategorySeeder::class,
+            LayananSeeder::class,
+            PendapatanPengeluaranSeeder::class,
+            BeritaSeeder::class,
+            FaqSeeder::class,
+            KalkulatorSeeder::class,
             // ProductSeeder::class,
             // // OrderSeeder::class,
             // // TransactionSeeder::class,
             // RajaOngkirSeeder::class
         ]);
 
-        $this->call(LayananSeeder::class);
-        $this->call(PendapatanPengeluaranSeeder::class);
-        $this->call(BeritaSeeder::class);
-        $this->call(FaqSeeder::class);
+        // $this->call(LayananSeeder::class);
+        // $this->call(PendapatanPengeluaranSeeder::class);
+        // $this->call(BeritaSeeder::class);
+        // $this->call(FaqSeeder::class);
+        // $this->call(KalkulatorSeeder::class);
     }
 }
