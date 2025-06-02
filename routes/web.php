@@ -48,6 +48,8 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
 
 
     Route::resource('faq', FaqAdminController::class)->middleware('auth'); // atau middleware admin
+    // Route::get('/faq', [FaqAdminController::class, 'index'])->name('faq.index'); // Rute untuk menampilkan daftar berita
+
     
     
 });
@@ -104,9 +106,9 @@ Route::middleware(['auth'])->group(function () {
     //     return view('user.riwayat');
     // });
 
-    Route::get('/tanya', function () {
-        return view('user.tanya');
-    });    
+    // Route::get('/tanya', function () {
+    //     return view('user.tanya');
+    // });    
 
     Route::get('/kalkulator/modal', function () {
         return view('user.hitung.modal');

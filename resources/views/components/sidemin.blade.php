@@ -38,6 +38,14 @@
             Penggunaan Kalkulator
         </a>
      </li>
+     </li>
+     <li class="flex items-center space-x-2 cursor-pointer">
+      <i class="fas fa-users text-orange-500">
+      </i>
+        <a href="{{ route('admin.faq.index') }}">
+            Fuck
+        </a>
+     </li>
      {{-- <li>
       <button aria-expanded="true" class="flex items-center justify-between w-full bg-orange-100 rounded-md px-3 py-2 font-semibold text-orange-600" type="button">
        <span class="flex items-center space-x-2">

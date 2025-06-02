@@ -7,7 +7,7 @@
        class="{{ Request::is('riwayat') ? 'bg-[#f97316] text-white' : 'bg-[#f9faff] text-[#f97316]' }} rounded-lg py-2 text-center text-sm font-semibold block">
         Riwayat
     </a>
-    <a href="/tanya"
+    <a href="{{ route('user.tanya') }}"
        class="{{ Request::is('tanya') ? 'bg-[#f97316] text-white' : 'bg-[#f9faff] text-[#f97316]' }} rounded-lg py-2 text-center text-sm font-semibold block">
         FAQ
     </a>

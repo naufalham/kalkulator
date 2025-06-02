@@ -10,7 +10,20 @@
         
     <!-- FAQ content -->
    <section aria-label="Frequently Asked Questions" class="bg-white rounded-xl w-full md:flex-1 p-6 space-y-4">
-    <details class="faq-item border border-gray-300 rounded-lg p-3">
+
+        @foreach($faqs as $faq)
+            <details class="faq-item border border-gray-300 rounded-lg p-3">
+                <summary class="cursor-pointer flex justify-between items-center text-sm">
+                    {{ $faq->question }}
+                    <i class="fas fa-chevron-down ml-2 text-gray-600"></i>
+                </summary>
+                <div class="mt-2 text-sm leading-relaxed">
+                    {!! nl2br(e($faq->answer)) !!}
+                </div>
+            </details>
+        @endforeach
+
+    {{-- <details class="faq-item border border-gray-300 rounded-lg p-3">
         <summary class="cursor-pointer flex justify-between items-center text-sm">
             Apa itu AKUNaZMa?
             <i class="fas fa-chevron-down ml-2 text-gray-600"></i>
@@ -65,7 +78,7 @@
             Untuk fitur ekspor penuh, silakan melakukan pembayaran.
             </p>
         </div>
-    </details>
+    </details> --}}
    </section>
 </main>
 
