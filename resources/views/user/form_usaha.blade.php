@@ -69,6 +69,7 @@
                 @endforeach
             </div>
             <div class="flex mt-6">
+
                 <button type="button" id="add-field-pengeluaran" class="bg-[#F97316] text-white text-sm font-semibold rounded-lg px-4 py-3 hover:bg-[#e06f11] transition-colors mr-2">
                     Tambah Pengeluaran
                 </button>
@@ -93,12 +94,12 @@ document.getElementById('add-field').onclick = function() {
     if (pendapatanCount < maxPendapatan) {
         pendapatanCount++;
         const container = document.getElementById('pendapatan-fields');
-        const div = document.createElement('div');
-        div.className = "flex flex-col";
-        div.innerHTML = `
-            <div class="flex items-center mb-1">
-                <input class="border border-gray-300 rounded-md px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-[#F97316]" 
-                    name="pendapatan_tambahan_label[]" 
+    const div = document.createElement('div');
+    div.className = "flex flex-col";
+    div.innerHTML = `
+        <div class="flex items-center mb-1">
+            <input class="border border-gray-300 rounded-md px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-[#F97316]" 
+                name="pendapatan_tambahan_label[]" 
                     type="text" 
                     placeholder="Nama Pendapatan (misal: Pendapatan Lain)" 
                     required
@@ -108,17 +109,21 @@ document.getElementById('add-field').onclick = function() {
             <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" 
                 name="pendapatan_tambahan[]" 
                 type="text" 
-                placeholder="Nominal (Rp)" 
+                placeholder="Nama Pendapatan (misal: Pendapatan Lain)" 
                 required
             />
-        `;
-        container.appendChild(div);
-        updateRemovePendapatan();
-    }
-    if (pendapatanCount >= maxPendapatan) {
-        this.disabled = true;
-        this.classList.add('opacity-50', 'cursor-not-allowed');
-    }
+            <button type="button" class="ml-2 text-red-500 font-bold remove-pendapatan">×</button>
+        </div>
+        <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" 
+            name="pendapatan_tambahan[]" 
+            type="text" 
+            placeholder="Nominal (Rp)" 
+            required
+        />
+    `;
+    container.appendChild(div);
+    pendapatanCount++;
+    updateRemovePendapatan();
 };
 function updateRemovePendapatan() {
     document.querySelectorAll('.remove-pendapatan').forEach(btn => {
@@ -138,13 +143,13 @@ const maxPengeluaran = 3;
 document.getElementById('add-field-pengeluaran').onclick = function() {
     if (pengeluaranCount < maxPengeluaran) {
         pengeluaranCount++;
-        const container = document.getElementById('pengeluaran-fields');
-        const div = document.createElement('div');
-        div.className = "flex flex-col";
-        div.innerHTML = `
-            <div class="flex items-center mb-1">
-                <input class="border border-gray-300 rounded-md px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-[#F97316]" 
-                    name="pengeluaran_tambahan_label[]" 
+            const container = document.getElementById('pengeluaran-fields');
+    const div = document.createElement('div');
+    div.className = "flex flex-col";
+    div.innerHTML = `
+        <div class="flex items-center mb-1">
+            <input class="border border-gray-300 rounded-md px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-[#F97316]" 
+                name="pengeluaran_tambahan_label[]" 
                     type="text" 
                     placeholder="Nama Pengeluaran (misal: Biaya Lain)" 
                     required
@@ -154,17 +159,21 @@ document.getElementById('add-field-pengeluaran').onclick = function() {
             <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" 
                 name="pengeluaran_tambahan[]" 
                 type="text" 
-                placeholder="Nominal (Rp)" 
+                placeholder="Nama Pengeluaran (misal: Biaya Lain)" 
                 required
             />
-        `;
-        container.appendChild(div);
-        updateRemovePengeluaran();
-    }
-    if (pengeluaranCount >= maxPengeluaran) {
-        this.disabled = true;
-        this.classList.add('opacity-50', 'cursor-not-allowed');
-    }
+            <button type="button" class="ml-2 text-red-500 font-bold remove-pengeluaran">×</button>
+        </div>
+        <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]" 
+            name="pengeluaran_tambahan[]" 
+            type="text" 
+            placeholder="Nominal (Rp)" 
+            required
+        />
+    `;
+    container.appendChild(div);
+    pengeluaranCount++;
+    updateRemovePengeluaran();
 };
 function updateRemovePengeluaran() {
     document.querySelectorAll('.remove-pengeluaran').forEach(btn => {
@@ -179,6 +188,7 @@ function updateRemovePengeluaran() {
 }
 </script>
 
+<x-wa />
 
 <!-- Footer -->
 <div class="mt-10"></div>

@@ -65,6 +65,8 @@ document.getElementById('calcForm').addEventListener('submit', function(e) {
 });
 </script>
 
+<x-wa />
+
 <!-- Footer -->
 <div class="mt-10"></div>
 <x-footer></x-footer>

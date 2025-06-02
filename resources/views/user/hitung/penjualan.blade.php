@@ -77,6 +77,8 @@ document.getElementById('formPenjualan').addEventListener('submit', function(e) 
 });
 </script>
 
+<x-wa />
+
 <!-- Footer -->
 <div class="mt-10"></div>
 <x-footer></x-footer>
