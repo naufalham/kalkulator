@@ -26,41 +26,6 @@ class AnalisisUsahaExportController extends Controller
         Config::$is3ds = config('midtrans.is_3ds');
     }
 
-    // public function checkout(Request $request)
-    // {
-    //     $params = [
-    //         'transaction_details' => [
-    //             'order_id' => uniqid(),
-    //             'gross_amount' => 10000,
-    //         ],
-    //         'customer_details' => [
-    //             'email' => Auth::user()->email,
-    //         ],
-    //     ];
-
-    //     $snapToken = Snap::getSnapToken($params);
-
-    //     return view('user.midtrans_pay', compact('snapToken'));
-    // }
-
-
-    // public function downloadAfterPay(Request $request)
-    // {
-    //     // Ambil data form dari session
-    //     $formData = $request->session()->get('form_usaha');
-    //     if (!$formData) {
-    //         return redirect()->route('user.usaha.index')->with('error', 'Data form tidak ditemukan.');
-    //     }
-
-    //     // Buat request palsu dari data session untuk diteruskan ke export
-    //     $exportRequest = new Request($formData);
-
-    //     // Jalankan function export dan return hasilnya (file download)
-    //     return $this->export($exportRequest);
-    // }
-
-
-
     public function export(Request $request)
     {
 

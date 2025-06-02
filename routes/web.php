@@ -8,6 +8,7 @@ use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\UsahaController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\KalkulatorController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -81,6 +82,9 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
 
     Route::get('/tanya', [FaqController::class, 'index'])->name('tanya');
 
+    Route::get('/kalkulator', [KalkulatorController::class, 'index'])->name('hitung.index');
+    Route::get('/kalkulator/{slug}', [KalkulatorController::class, 'show'])->name('hitung.show');
+
     
 });
 
@@ -98,9 +102,9 @@ Route::middleware(['auth'])->group(function () {
     //     return view('user.form_usaha');
     // });
 
-    Route::get('/kalkulator', function () {
-        return view('user.kalkulator');
-    });
+    // Route::get('/kalkulator', function () {
+    //     return view('user.kalkulator');
+    // });
 
     // Route::get('/riwayat', function () {
     //     return view('user.riwayat');
