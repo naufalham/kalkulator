@@ -10,14 +10,15 @@
     <!-- Right content -->
     <section class="bg-white rounded-2xl flex-grow p-6 flex flex-col space-y-6 overflow-x-auto">
       <!-- Contoh artikel, ulangi sesuai kebutuhan -->
-      @foreach($riwayat as $item)
-        <article class="content-card">
-          <div>
-            <h3 class="content-title">Hasil Analisis Kelayakan Usaha {{ $item->nama_layanan }}</h3>
-            <p class="content-date">{{ $item->recordPendapatan->first()->created_at->format('d M Y') ?? '-' }}</p>
-          </div>
-          <a class="content-link" href="{{ route('user.usaha.download', ['layanan_id' => $item->id]) }}">Download</a>
-        </article>
+      @foreach($riwayat as $group)
+          @php $item = $group->first(); @endphp
+          <article class="content-card">
+            <div>
+              <h3 class="content-title">Hasil Analisis Kelayakan Usaha {{ $item->layanan->nama_layanan }}</h3>
+              <p class="content-date">{{ $item->created_at->format('d M Y') }}</p>
+            </div>
+            <a class="content-link" href="{{ route('user.usaha.download', ['layanan_id' => $item->layanan_id]) }}">Download</a>
+          </article>
       @endforeach
     </section>
 </main>

@@ -1,5 +1,5 @@
 <aside class="bg-white rounded-xl w-full md:w-72 flex flex-col gap-3 p-4 select-none">
-    <a href="user/profil"
+    <a href="{{ route('user.edit') }}"
        class="{{ request()->is('profil') || request()->is('user/profil') ? 'bg-[#f97316] text-white' : 'bg-[#f9faff] text-[#f97316]' }} rounded-lg py-2 text-center text-sm font-semibold block">
         Akun
     </a>
@@ -7,7 +7,7 @@
        class="{{ Request::is('riwayat') ? 'bg-[#f97316] text-white' : 'bg-[#f9faff] text-[#f97316]' }} rounded-lg py-2 text-center text-sm font-semibold block">
         Riwayat
     </a>
-    <a href="/tanya"
+    <a href="{{ route('user.tanya') }}"
        class="{{ Request::is('tanya') ? 'bg-[#f97316] text-white' : 'bg-[#f9faff] text-[#f97316]' }} rounded-lg py-2 text-center text-sm font-semibold block">
         FAQ
     </a>

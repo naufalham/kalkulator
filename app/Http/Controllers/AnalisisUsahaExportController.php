@@ -11,42 +11,127 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class AnalisisUsahaExportController extends Controller
 {
+
+    public function __construct()
+    {
+        // Konfigurasi Midtrans
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = config('midtrans.is_sanitized');
+        Config::$is3ds = config('midtrans.is_3ds');
+    }
+
+    // public function checkout(Request $request)
+    // {
+    //     $params = [
+    //         'transaction_details' => [
+    //             'order_id' => uniqid(),
+    //             'gross_amount' => 10000,
+    //         ],
+    //         'customer_details' => [
+    //             'email' => Auth::user()->email,
+    //         ],
+    //     ];
+
+    //     $snapToken = Snap::getSnapToken($params);
+
+    //     return view('user.midtrans_pay', compact('snapToken'));
+    // }
+
+
+    // public function downloadAfterPay(Request $request)
+    // {
+    //     // Ambil data form dari session
+    //     $formData = $request->session()->get('form_usaha');
+    //     if (!$formData) {
+    //         return redirect()->route('user.usaha.index')->with('error', 'Data form tidak ditemukan.');
+    //     }
+
+    //     // Buat request palsu dari data session untuk diteruskan ke export
+    //     $exportRequest = new Request($formData);
+
+    //     // Jalankan function export dan return hasilnya (file download)
+    //     return $this->export($exportRequest);
+    // }
+
+
+
     public function export(Request $request)
     {
+
         $user_id = Auth::id() ?? 1;
-        // Ambil id layanan dari request
         $layanan_id = $request->input('layanan_id');
-        // Ambil nama usaha dari database (misal dari id layanan)
+
+         // Jika belum bayar, tampilkan Snap Midtrans
+        if (!$request->has('is_paid')) {
+            $params = [
+                'transaction_details' => [
+                    'order_id' => uniqid(),
+                    'gross_amount' => 10000,
+                ],
+                'customer_details' => [
+                    'email' => Auth::user()->email,
+                ],
+            ];
+            $snapToken = Snap::getSnapToken($params);
+
+            // Simpan data form ke session
+            $request->session()->put('form_usaha', $request->all());
+
+            // Tampilkan view Snap
+            return view('user.pay_snap', compact('snapToken'));
+        }
+
+        // Jika sudah bayar, ambil data form dari session dan proses download
+        $formData = $request->session()->get('form_usaha');
+        if ($formData) {
+            $request = new Request($formData);
+        }
+        $layanan_id = $request->input('layanan_id');
         $layanan = Layanan::find($layanan_id);
         $namaUsaha = $layanan ? $layanan->nama_layanan : '';
 
-
         // Ambil array statis dari form
-        $pendapatan_statis = $request->pendapatan_statis ?? [];
         $pengeluaran_statis = $request->pengeluaran_statis ?? [];
+        $pendapatan_statis = $request->pendapatan_statis ?? [];
+
+        // Ambil label statis dari database (hanya yang created_at dan updated_at NULL)
+        $fieldsPendapatan = \App\Models\NamaPendapatan::where('layanan_id', $layanan_id)
+            ->whereNull('created_at')
+            ->whereNull('updated_at')
+            ->get();
+
+        $fieldsPengeluaran = \App\Models\NamaPengeluaran::where('layanan_id', $layanan_id)
+            ->whereNull('created_at')
+            ->whereNull('updated_at')
+            ->get();
 
         // Simpan pendapatan statis ke database
         foreach ($pendapatan_statis as $item) {
-            $namaPendapatan = NamaPendapatan::firstOrCreate(
-                ['nama_pendapatan' => $item['label'], 'layanan_id' => $layanan_id]
-            );
-            RecordPendapatan::create([
-                'user_id' => $user_id,
-                'layanan_id' => $layanan_id,
-                'nama_pendapatan_id' => $namaPendapatan->id,
-                'value' => is_numeric($item['value']) ? $item['value'] : 0,
-            ]);
+            if (!empty($item['label'])) {
+                $namaPendapatan = NamaPendapatan::firstOrCreate(
+                    ['nama_pendapatan' => $item['label'], 'layanan_id' => $layanan_id]
+                );
+                RecordPendapatan::create([
+                    'user_id' => $user_id,
+                    'layanan_id' => $layanan_id,
+                    'nama_pendapatan_id' => $namaPendapatan->id,
+                    'value' => is_numeric($item['value']) ? $item['value'] : 0,
+                ]);
+            }
         }
 
-        // Simpan pendapatan dinamis ke database
-        if ($request->has('fields_pendapatan')) {
-            foreach ($request->fields_pendapatan as $field) {
-                $label = $field['label'] ?? '';
-                $value = $field['value'] ?? 0;
-                if ($label !== '') {
+        // Simpan pendapatan tambahan ke database
+        if ($request->has('pendapatan_tambahan_label')) {
+            foreach ($request->pendapatan_tambahan_label as $idx => $label) {
+                $label = trim($label);
+                $value = $request->pendapatan_tambahan[$idx] ?? 0;
+                if (!empty($label)) {
                     $namaPendapatan = NamaPendapatan::firstOrCreate(
                         ['nama_pendapatan' => $label, 'layanan_id' => $layanan_id]
                     );
@@ -75,11 +160,11 @@ class AnalisisUsahaExportController extends Controller
             }
         }
 
-        // Simpan pengeluaran dinamis ke database
-        if ($request->has('fields_pengeluaran')) {
-            foreach ($request->fields_pengeluaran as $field) {
-                $label = $field['label'] ?? '';
-                $value = $field['value'] ?? 0;
+        // Simpan pengeluaran tambahan ke database
+        if ($request->has('pengeluaran_tambahan_label')) {
+            foreach ($request->pengeluaran_tambahan_label as $idx => $label) {
+                $label = trim($label);
+                $value = $request->pengeluaran_tambahan[$idx] ?? 0;
                 if (!empty($label)) {
                     $namaPengeluaran = NamaPengeluaran::firstOrCreate(
                         ['nama_pengeluaran' => $label, 'layanan_id' => $layanan_id]
@@ -117,25 +202,28 @@ class AnalisisUsahaExportController extends Controller
         $sheet->setCellValue('E7', 'Pendapatan');
         $sheet->getStyle('E7')->getFont()->setBold(true);
 
-        // Tulis pendapatan statis
-        foreach ($pendapatan_statis as $item) {
-            $sheet->setCellValue('E' . $startRowPendapatan, $item['label']);
-            $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($item['value']) ? $item['value'] : 0);
+        // Tulis pendapatan statis dari database
+        foreach ($fieldsPendapatan as $i => $field) {
+            $value = $pendapatan_statis[$i]['value'] ?? 0;
+            $sheet->setCellValue('E' . $startRowPendapatan, $field->nama_pendapatan);
+            $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($value) ? $value : 0);
             $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
-            $total_pendapatan += is_numeric($item['value']) ? $item['value'] : 0;
+            $total_pendapatan += is_numeric($value) ? $value : 0;
             $startRowPendapatan++;
         }
 
-        // Tulis pendapatan dinamis
-        if ($request->has('fields_pendapatan')) {
-            foreach ($request->fields_pendapatan as $field) {
-                $label = $field['label'] ?? '';
-                $value = isset($field['value']) && is_numeric($field['value']) ? (float)$field['value'] : 0;
-                $sheet->setCellValue('E' . $startRowPendapatan, $label);
-                $sheet->setCellValue('F' . $startRowPendapatan, $value);
-                $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
-                $total_pendapatan += $value;
-                $startRowPendapatan++;
+        // Tulis pendapatan dinamis (tambahan)
+        if ($request->has('pendapatan_tambahan_label')) {
+            foreach ($request->pendapatan_tambahan_label as $idx => $label) {
+                $label = trim($label);
+                $value = $request->pendapatan_tambahan[$idx] ?? 0;
+                if (!empty($label)) {
+                    $sheet->setCellValue('E' . $startRowPendapatan, $label);
+                    $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($value) ? $value : 0);
+                    $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
+                    $total_pendapatan += is_numeric($value) ? $value : 0;
+                    $startRowPendapatan++;
+                }
             }
         }
 
@@ -164,25 +252,28 @@ class AnalisisUsahaExportController extends Controller
         $sheet->getStyle('E' . $startRowPengeluaran)->getFont()->setBold(true);
         $startRowPengeluaran++;
 
-        // Tulis pengeluaran statis
-        foreach ($pengeluaran_statis as $item) {
-            $sheet->setCellValue('E' . $startRowPengeluaran, $item['label']);
-            $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($item['value']) ? $item['value'] : 0);
+        // Tulis pengeluaran statis dari database
+        foreach ($fieldsPengeluaran as $i => $field) {
+            $value = $pengeluaran_statis[$i]['value'] ?? 0;
+            $sheet->setCellValue('E' . $startRowPengeluaran, $field->nama_pengeluaran);
+            $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($value) ? $value : 0);
             $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-            $total_pengeluaran += is_numeric($item['value']) ? $item['value'] : 0;
+            $total_pengeluaran += is_numeric($value) ? $value : 0;
             $startRowPengeluaran++;
         }
 
-        // Tulis pengeluaran dinamis
-        if ($request->has('fields_pengeluaran')) {
-            foreach ($request->fields_pengeluaran as $field) {
-                $label = $field['label'] ?? '';
-                $value = isset($field['value']) && is_numeric($field['value']) ? (float)$field['value'] : 0;
-                $sheet->setCellValue('E' . $startRowPengeluaran, $label);
-                $sheet->setCellValue('F' . $startRowPengeluaran, $value);
-                $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-                $total_pengeluaran += $value;
-                $startRowPengeluaran++;
+        // Tulis pengeluaran dinamis (tambahan)
+        if ($request->has('pengeluaran_tambahan_label')) {
+            foreach ($request->pengeluaran_tambahan_label as $idx => $label) {
+                $label = trim($label);
+                $value = $request->pengeluaran_tambahan[$idx] ?? 0;
+                if (!empty($label)) {
+                    $sheet->setCellValue('E' . $startRowPengeluaran, $label);
+                    $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($value) ? $value : 0);
+                    $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
+                    $total_pengeluaran += is_numeric($value) ? $value : 0;
+                    $startRowPengeluaran++;
+                }
             }
         }
 
@@ -198,6 +289,7 @@ class AnalisisUsahaExportController extends Controller
         $sheet->getStyle('E' . $startRowPengeluaran . ':F' . $startRowPengeluaran)->getFont()->setBold(true);
         $rowTotalPengeluaran = $startRowPengeluaran;
         $startRowPengeluaran++;
+
 
         // Baris kosong sebelum laba rugi
         $sheet->setCellValue('E' . $startRowPengeluaran, '');
@@ -231,16 +323,15 @@ class AnalisisUsahaExportController extends Controller
             ],
         ]);
 
-        $filename = 'analisis_usaha_' . date('Ymd_His') . '.xlsx';
+        $filename = 'analisis_usaha_' . $user_id . '_' . $layanan_id . '.xlsx';
         $tempFile = storage_path('app/' . $filename);
         (new Xlsx($spreadsheet))->save($tempFile);
 
-        return response()->download($tempFile)->deleteFileAfterSend(true);
+        return response()->download($tempFile);
     }
 
     public function download($layanan_id)
     {
-        // Cari file hasil analisis sesuai layanan_id dan user_id
         $user_id = Auth::id();
         $filename = 'analisis_usaha_' . $user_id . '_' . $layanan_id . '.xlsx';
         $path = storage_path('app/' . $filename);
