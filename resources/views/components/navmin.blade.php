@@ -1,7 +1,7 @@
 <nav x-data="{ open: false }" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-16 px-4 sm:px-8 md:px-12 bg-white shadow font-['Poppins',sans-serif]">
     <div class="flex items-center space-x-2">
         <img alt="NaZMaLogy logo" class="w-8 h-8" height="32" src="{{ asset('asset/logo.png') }}"/>
-        <span class="font-black text-xl text-black select-none tracking-tight">
+        <span class="font-bold text-xl text-black select-none tracking-tight">
             AKUNaZMa
         </span>
     </div>

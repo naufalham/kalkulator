@@ -1,0 +1,98 @@
+/* Font utama */
+body {
+    font-family: 'Poppins', 'Inter', Arial, sans-serif;
+    background: #f5f8ff;
+    color: #22223b;
+    font-size: 15px;
+}
+
+/* Judul dashboard */
+h1, h2 {
+    font-weight: 600;
+    color: #22223b;
+    margin-bottom: 0.75rem;
+}
+
+/* Card dan form */
+.bg-white {
+    background: #fff;
+}
+.rounded-lg {
+    border-radius: 0.75rem;
+}
+.shadow {
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+}
+
+/* Tabel */
+table {
+    font-size: 15px;
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+}
+th {
+    background: #f5f8ff;
+    font-weight: 600;
+    color: #22223b;
+}
+tr:nth-child(even) {
+    background: #f8fafc;
+}
+tr:hover {
+    background: #f1f5f9;
+}
+
+/* Tombol */
+button, .btn, a.bg-yellow-400, button.bg-red-600 {
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-weight: 600;
+    transition: background 0.2s;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.bg-red-600 {
+    background: #dc2626;
+    color: #fff;
+}
+.bg-red-600:hover {
+    background: #b91c1c;
+}
+.bg-yellow-400 {
+    background: #facc15;
+    color: #22223b;
+    text-decoration: none;
+}
+.bg-yellow-400:hover {
+    background: #eab308;
+    color: #fff;
+}
+
+/* Input */
+input[type="text"] {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 14px;
+    transition: border 0.2s;
+}
+input[type="text"]:focus {
+    border-color: #f97316;
+    outline: none;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    table, thead, tbody, th, td, tr {
+        font-size: 13px;
+    }
+    .rounded-lg {
+        border-radius: 0.5rem;
+    }
+}
