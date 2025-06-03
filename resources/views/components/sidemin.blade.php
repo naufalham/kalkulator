@@ -13,24 +13,32 @@
 
     <!-- Sidebar -->
     <nav :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-         class="fixed sm:relative z-40 sm:z-auto bg-white w-64 h-full border-r border-gray-200 px-4 py-6 space-y-4 transition-transform transform sm:translate-x-0 duration-300 ease-in-out">
+         class="fixed sm:relative sm:z-auto bg-white w-64 h-full border-r border-gray-200 px-4 py-6 space-y-2 transition-transform transform sm:translate-x-0 duration-300 ease-in-out">
 
         <ul class="space-y-4 text-sm font-semibold text-gray-900">
-            <li class="flex items-center space-x-2 cursor-pointer">
-                <i class="fas fa-users text-orange-500"></i>
-                <a href="/admin/user" class="hover:text-orange-500 transition duration-200">Pengguna</a>
+            <li>
+                <a href="/admin/user" class="flex items-center space-x-3 hover:text-orange-500 transition duration-200 py-2">
+                    <i class="fas fa-users text-orange-500 text-2xl"></i>
+                    <span>Pengguna</span>
+                </a>
             </li>
-            <li class="flex items-center space-x-2 cursor-pointer">
-                <i class="fas fa-newspaper text-orange-500"></i>
-                <a href="/admin/berita" class="hover:text-orange-500 transition duration-200">Berita</a>
+            <li>
+                <a href="/admin/berita" class="flex items-center space-x-3 hover:text-orange-500 transition duration-200 py-2">
+                    <i class="fas fa-newspaper text-orange-500 text-2xl"></i>
+                    <span>Berita</span>
+                </a>
             </li>
-            <li class="flex items-center space-x-2 cursor-pointer">
-                <i class="fas fa-calculator text-orange-500"></i>
-                <a href="/admin/kalkulator" class="hover:text-orange-500 transition duration-200">Penggunaan Kalkulator</a>
+            <li>
+                <a href="/admin/kalkulator" class="flex items-center space-x-4 hover:text-orange-500 transition duration-200 py-2">
+                    <i class="fas fa-calculator text-orange-500 text-2xl"></i>
+                    <span>Penggunaan Kalkulator</span>
+                </a>
             </li>
-            <li class="flex items-center space-x-2 cursor-pointer">
-                <i class="fas fa-question-circle text-orange-500"></i>
-                <a href="{{ route('admin.faq.index') }}" class="hover:text-orange-500 transition duration-200">FAQ</a>
+            <li>
+                <a href="{{ route('admin.faq.index') }}" class="flex items-center space-x-4 hover:text-orange-500 transition duration-200 py-2">
+                    <i class="fas fa-question-circle text-orange-500 text-2xl"></i>
+                    <span>FAQ</span>
+                </a>
             </li>
         </ul>
     </nav>

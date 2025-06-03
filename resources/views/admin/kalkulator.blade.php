@@ -1,55 +1,57 @@
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>AKUNaZma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
 <x-navmin></x-navmin>
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/data.js"></script>
-<script src="https://code.highcharts.com/modules/drilldown.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
 
 <body class="bg-[#f5f8ff] text-gray-900 pt-16">
 
-<main class="flex flex-col sm:flex-row min-h-[calc(100vh-56px)]">
-
-<x-sidemin></x-sidemin>
-
-
-
-<section class="bg-white rounded-2xl flex-grow p-4 flex flex-col space-y-4">
-    
-    <figure class="highcharts-figure">
-        <div id="container"></div>
-        <p class="highcharts-description">
-            Banyaknya Penggunaan Kalkulator Setiap Usaha per Bulan
-        </p>
-    </figure>
-
-    <figure class="highcharts-figure">
-        <div id="pie"></div>
-        <p class="highcharts-description">
-            Pie chart where the individual slices can be clicked to expose more
-            detailed data.
-        </p>
-    </figure>
-  
+    <main class="flex flex-col sm:flex-row min-h-[calc(100vh-56px)]">
+        <!-- Sidebar -->
+            <aside class="h-full">
+                <x-sidemin />
+            </aside>
+        <section class="bg-white flex-1 p-4 flex flex-col gap-8 justify-center">
+    <div class="w-full max-w-3xl mx-auto">
+        <div class="bg-[#f5f8ff] rounded-xl shadow p-4 mb-8">
+            <div id="container" class="w-full min-h-[320px]"></div>
+        </div>
+        <div class="bg-[#f5f8ff] rounded-xl shadow p-4">
+            <div id="pie" class="w-full min-h-[320px]"></div>
+        </div>
+    </div>
 </section>
-
-</main>
-
+    </main>
 </body>
 
-<x-footer></x-footer>
 
-
-//script untuk grafik kolom
+<!-- //script untuk grafik kolom -->
 <script>
     Highcharts.chart('container', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Statistik Download Kalkulator Setiap Usaha per Bulan'
+            text: 'Statistik Download Kalkulator Setiap Usaha per Bulan',
+            style: {
+                fontFamily: 'Poppins, sans-serif',
+            }
         },
         subtitle: {
             text:
@@ -65,8 +67,13 @@
         },
         yAxis: {
             min: 0,
+            max: 100,
+            tickInterval: 20,
             title: {
-                text: 'Jumlah Download'
+                text: 'Jumlah Download',
+                style: {
+                fontFamily: 'Poppins, sans-serif',
+            }
             }
         },
         tooltip: {
@@ -87,17 +94,23 @@
 
 
 
-//script untuk pie chart
+<!-- //script untuk pie chart -->
 <script>
     Highcharts.chart('pie', {
         chart: {
             type: 'pie'
         },
         title: {
-            text: 'Total Download Kalkulator per Usaha (Sejak Awal)'
+            text: 'Total Download Kalkulator per Usaha (Sejak Awal)',
+            style: {
+                fontFamily: 'Poppins, sans-serif',
+            }
         },
         subtitle: {
-            text: 'Persentase dan jumlah download seluruh layanan'
+            text: 'Persentase dan jumlah download seluruh layanan',
+            style: {
+                fontFamily: 'Poppins, sans-serif',
+            }
         },
         accessibility: {
             announceNewData: {
