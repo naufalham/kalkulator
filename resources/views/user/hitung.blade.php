@@ -10,7 +10,7 @@
                 {{ $kalkulator->nama }}
             </h1>
             <a href="{{ route ('user.hitung.index') }}" class="text-[#F97316] font-semibold hover:underline text-base">
-                Keluar
+                &times;
             </a>
         </div>
         @foreach($kalkulator->fields as $field)

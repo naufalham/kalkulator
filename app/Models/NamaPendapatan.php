@@ -10,4 +10,8 @@ class NamaPendapatan extends Model
         'nama_pendapatan',
         'layanan_id'
     ];
+
+    public function layanan() {
+        return $this->belongsTo(Layanan::class, 'layanan_id');
+    }
 }

@@ -7,6 +7,7 @@ use App\Models\NamaPendapatan;
 use App\Models\RecordPengeluaran;
 use App\Models\NamaPengeluaran;
 use App\Models\Layanan;
+use App\Models\Download;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -60,21 +61,39 @@ class AnalisisUsahaExportController extends Controller
         $layanan_id = $request->input('layanan_id');
         $layanan = Layanan::find($layanan_id);
         $namaUsaha = $layanan ? $layanan->nama_layanan : '';
+        $tipeUsaha = $layanan ? $layanan->tipe : '';
 
         // Ambil array statis dari form
         $pengeluaran_statis = $request->pengeluaran_statis ?? [];
         $pendapatan_statis = $request->pendapatan_statis ?? [];
 
         // Ambil label statis dari database (hanya yang created_at dan updated_at NULL)
-        $fieldsPendapatan = \App\Models\NamaPendapatan::where('layanan_id', $layanan_id)
-            ->whereNull('created_at')
-            ->whereNull('updated_at')
-            ->get();
+        if ($tipeUsaha === 'campuran') {
+            // Ambil semua field dari semua layanan, join ke tabel layanan
+            $fieldsPendapatan = \App\Models\NamaPendapatan::whereNull('created_at')
+                ->whereNull('updated_at')
+                ->with('layanan') // pastikan relasi 'layanan' ada di model NamaPendapatan
+                ->orderBy('layanan_id')
+                ->get();
 
-        $fieldsPengeluaran = \App\Models\NamaPengeluaran::where('layanan_id', $layanan_id)
-            ->whereNull('created_at')
-            ->whereNull('updated_at')
-            ->get();
+            $fieldsPengeluaran = \App\Models\NamaPengeluaran::whereNull('created_at')
+                ->whereNull('updated_at')
+                ->with('layanan') // pastikan relasi 'layanan' ada di model NamaPengeluaran
+                ->orderBy('layanan_id')
+                ->get();
+        } else {
+            // Ambil field sesuai layanan
+            $fieldsPendapatan = \App\Models\NamaPendapatan::where('layanan_id', $layanan_id)
+                ->whereNull('created_at')
+                ->whereNull('updated_at')
+                ->with('layanan')
+                ->get();
+            $fieldsPengeluaran = \App\Models\NamaPengeluaran::where('layanan_id', $layanan_id)
+                ->whereNull('created_at')
+                ->whereNull('updated_at')
+                ->with('layanan')
+                ->get();
+        }
 
         // Simpan pendapatan statis ke database
         foreach ($pendapatan_statis as $item) {
@@ -170,12 +189,14 @@ class AnalisisUsahaExportController extends Controller
         // Tulis pendapatan statis dari database
         foreach ($fieldsPendapatan as $i => $field) {
             $value = $pendapatan_statis[$i]['value'] ?? 0;
-            $sheet->setCellValue('E' . $startRowPendapatan, $field->nama_pendapatan);
+            $namaLayanan = ($tipeUsaha === 'campuran' && $field->layanan) ? '[' . $field->layanan->nama_layanan . '] ' : '';
+            $sheet->setCellValue('E' . $startRowPendapatan, $namaLayanan . $field->nama_pendapatan);
             $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($value) ? $value : 0);
             $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
             $total_pendapatan += is_numeric($value) ? $value : 0;
             $startRowPendapatan++;
         }
+
 
         // Tulis pendapatan dinamis (tambahan)
         if ($request->has('pendapatan_tambahan_label')) {
@@ -220,7 +241,8 @@ class AnalisisUsahaExportController extends Controller
         // Tulis pengeluaran statis dari database
         foreach ($fieldsPengeluaran as $i => $field) {
             $value = $pengeluaran_statis[$i]['value'] ?? 0;
-            $sheet->setCellValue('E' . $startRowPengeluaran, $field->nama_pengeluaran);
+            $namaLayanan = ($tipeUsaha === 'campuran' && $field->layanan) ? '[' . $field->layanan->nama_layanan . '] ' : '';
+            $sheet->setCellValue('E' . $startRowPengeluaran, $namaLayanan . $field->nama_pengeluaran);
             $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($value) ? $value : 0);
             $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
             $total_pengeluaran += is_numeric($value) ? $value : 0;
@@ -291,6 +313,13 @@ class AnalisisUsahaExportController extends Controller
         $filename = 'analisis_usaha_' . $user_id . '_' . $layanan_id . '.xlsx';
         $tempFile = storage_path('app/' . $filename);
         (new Xlsx($spreadsheet))->save($tempFile);
+        
+        // Catat download
+        Download::create([
+            'user_id' => Auth::id(),
+            'layanan_id' => $layanan_id,
+            'downloaded_at' => now(),
+        ]);
 
         return response()->download($tempFile);
     }
