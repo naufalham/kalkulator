@@ -46,7 +46,6 @@
                             <td class="border px-3 py-2">{{ $faq->question }}</td>
                             <td class="border px-3 py-2">{{ $faq->answer }}</td>
                             <td class="border px-3 py-2">
-                                <div class="flex gap-2">
                                     <a href="{{ route('admin.faq.edit', $faq) }}" class="bg-yellow-400 text-black font-semibold text-sm px-2 py-1 rounded hover:bg-yellow-500 mr-3">
                                         Edit
                                     </a>
@@ -55,7 +54,6 @@
                                         @method('DELETE')
                                         <button class="bg-red-600 text-white text-sm font-semibold px-2 py-1 rounded hover:bg-red-700" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
                                     </form>
-                                </div>
                             </td>
                         </tr>
                         @endforeach

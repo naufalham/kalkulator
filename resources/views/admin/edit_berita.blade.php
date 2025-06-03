@@ -71,5 +71,3 @@
     });
   });
 </script>
-
-<x-footer></x-footer>
