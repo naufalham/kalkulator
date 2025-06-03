@@ -84,10 +84,6 @@
                                             Hapus
                                         </button>
                                     </form>
-                                    <a href="{{ route('admin.user.edit', $user->id) }}"
-                                       class="bg-yellow-400 text-black text-sm font-semibold rounded px-2 py-0.5 ml-1">
-                                        Update
-                                    </a>
                                 </td>
                             </tr>
                         @endforeach

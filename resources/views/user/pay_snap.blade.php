@@ -1,14 +1,22 @@
+
 <x-navbar></x-navbar>
 
-<div class="container mt-5">
-    <div class="card mx-auto" style="max-width: 400px;">
-        <div class="card-body text-center">
-            <h4 class="card-title mb-3">Pembayaran</h4>
-            <p class="card-text mb-4">Klik tombol di bawah untuk melanjutkan pembayaran melalui Midtrans.</p>
-            <button id="pay-button" class="btn btn-primary btn-block">Bayar Sekarang</button>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    body, .font-poppins {
+        font-family: 'Poppins', Arial, sans-serif !important;
+    }
+</style>
+
+<main class="flex flex-col justify-center items-center min-h-[70vh] px-2 sm:px-4 pt-12 font-poppins">
+    <div class="w-full max-w-xs">
+        <div class="bg-white rounded-2xl shadow-sm p-6 flex flex-col items-center">
+            <h1 class="font-semibold text-center text-lg mb-2">Pembayaran!</h1>
+            <p class="card-text text-sm mb-4 text-center">Klik tombol di bawah untuk melanjutkan pembayaran melalui Midtrans.</p>
+            <button id="pay-button" class="bg-[#F97316] text-white font-semibold rounded-lg py-3 px-8 hover:bg-[#e06f11] transition-colors text-sm">Bayar Sekarang</button>
         </div>
     </div>
-</div>
+</main>
 
 
 <x-footer></x-footer>
