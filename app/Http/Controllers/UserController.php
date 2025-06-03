@@ -57,13 +57,13 @@ class UserController extends Controller
     }
 
 
-    public function tampil()
+    public function admin_tampil()
     {
         $users = User::all();
         return view('admin.user', compact('users'));
     }
 
-    public function cari(Request $request)
+    public function admin_cari(Request $request)
     {
         $query = User::query();
 
@@ -81,7 +81,7 @@ class UserController extends Controller
     }
 
 
-    public function destroy($id)
+    public function admin_destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
