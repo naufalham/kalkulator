@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\UsahaController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\KalkulatorController;
 use App\Http\Controllers\Auth\GoogleController;
@@ -47,8 +48,8 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
 
 
     Route::resource('faq', FaqAdminController::class)->middleware('auth'); // atau middleware admin
-    // Route::get('/faq', [FaqAdminController::class, 'index'])->name('faq.index'); // Rute untuk menampilkan daftar berita
 
+    Route::get('/kalkulator', [DownloadController::class, 'statistikDownload'])->name('kalkulator');
     
     
 });
@@ -93,9 +94,9 @@ Route::middleware(['auth'])->group(function () {
         return view('user.isi_berita');
     });
 
-    Route::get('/admin/kalkulator', function () {
-        return view('admin.kalkulator');
-    });
+    // Route::get('/admin/kalkulator', function () {
+    //     return view('admin.kalkulator');
+    // });
     
 
     

@@ -7,6 +7,7 @@ use App\Models\NamaPendapatan;
 use App\Models\RecordPengeluaran;
 use App\Models\NamaPengeluaran;
 use App\Models\Layanan;
+use App\Models\Download;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -312,6 +313,13 @@ class AnalisisUsahaExportController extends Controller
         $filename = 'analisis_usaha_' . $user_id . '_' . $layanan_id . '.xlsx';
         $tempFile = storage_path('app/' . $filename);
         (new Xlsx($spreadsheet))->save($tempFile);
+        
+        // Catat download
+        Download::create([
+            'user_id' => Auth::id(),
+            'layanan_id' => $layanan_id,
+            'downloaded_at' => now(),
+        ]);
 
         return response()->download($tempFile);
     }
