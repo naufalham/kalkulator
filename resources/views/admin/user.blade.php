@@ -2,13 +2,12 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   AKUNaZma
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
+    <title>
+    AKUNaZma
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
   <style>
    body {
       font-family: 'Poppins', sans-serif;
@@ -18,8 +17,6 @@
 <!-- Navbar -->
 <x-navmin></x-navmin>
 <body class="bg-white text-gray-900 pt-16 min-h-screen flex flex-col">
-
-
     <!-- Main Layout -->
     <main class="flex flex-1 sm:flex-row min-h-0">
 
@@ -30,10 +27,9 @@
 
         <!-- Page Content -->
         <section class="flex-1 flex flex-col p-4 sm:p-6 overflow-x-auto">
-            <h1 class="text-base font-semibold mb-4">Admin Dashboard</h1>
 
             <!-- Header Section -->
-            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-10">
 
                 <!-- Card Total Pengguna -->
                 <div class="bg-white rounded-lg px-4 py-3 flex items-center gap-3 max-w-xs shadow">
@@ -80,14 +76,10 @@
                                         @csrf
                                         @method('DELETE')
                                         <button onclick="return confirm('Yakin ingin menghapus user ini?')"
-                                            class="bg-red-600 text-white text-sm font-semibold rounded px-2 py-0.5">
+                                            class="bg-red-600 text-white text-sm font-semibold rounded px-2 py-1">
                                             Hapus
                                         </button>
                                     </form>
-                                    <a href="{{ route('admin.user.edit', $user->id) }}"
-                                       class="bg-yellow-400 text-black text-sm font-semibold rounded px-2 py-0.5 ml-1">
-                                        Update
-                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -97,4 +89,3 @@
         </section>
     </main>
 </body>
-

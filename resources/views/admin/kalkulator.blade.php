@@ -9,7 +9,7 @@
 
 
 <section class="bg-white rounded-2xl flex-grow p-4 flex flex-col space-y-4">
-    <div class="max-w-sm w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
+    <div class="max-w-sm w-full bg-white shadow-sm dark:bg-gray-800 p-4 md:p-6">
 
     <div class="flex justify-between items-start w-full">
         <div class="flex-col items-center">
