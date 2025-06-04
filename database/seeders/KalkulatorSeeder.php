@@ -11,27 +11,27 @@ class KalkulatorSeeder extends Seeder
     {
         $bep = Kalkulator::create([
             'slug' => 'bep',
-            'nama' => 'Kalkulator Break Even Point',
+            'nama' => 'Break Even Point',
             'deskripsi' => 'Menghitung titik impas usaha Anda.'
         ]);
         $modal = Kalkulator::create([
             'slug' => 'modal',
-            'nama' => 'Kalkulator Modal Usaha',
+            'nama' => 'Modal Usaha',
             'deskripsi' => 'Menghitung modal yang dibutuhkan untuk memulai usaha.'
         ]);
         $laba = Kalkulator::create([
             'slug' => 'laba',
-            'nama' => 'Kalkulator Laba Usaha',
+            'nama' => 'Laba Usaha',
             'deskripsi' => 'Menghitung laba bersih usaha Anda.'
         ]);
         $hargaJual = Kalkulator::create([
             'slug' => 'harga-jual',
-            'nama' => 'Kalkulator Harga Jual',
+            'nama' => 'Harga Jual',
             'deskripsi' => 'Menghitung harga jual produk berdasarkan biaya dan margin yang diinginkan.'
         ]);
         $stok = Kalkulator::create([
             'slug' => 'stok',
-            'nama' => 'Kalkulator Estimasi Modal Stok',
+            'nama' => 'Estimasi Modal Stok',
             'deskripsi' => 'Menghitung total modal yang diperlukan untuk membeli stok barang berdasarkan jumlah unit dan harga beli per unit.'
         ]);
 

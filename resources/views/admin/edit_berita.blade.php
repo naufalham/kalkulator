@@ -30,10 +30,6 @@
             <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul', $berita->judul) }}" required>
         </div>
         <div class="mb-3">
-            <label for="isi" class="form-label">Isi Berita</label>
-            <textarea class="form-control" id="isi" name="isi" rows="6" required>{{ old('isi', $berita->isi) }}</textarea>
-        </div>
-        <div class="mb-3">
             <label for="foto" class="form-label">Gambar Berita</label>
             {{-- Menampilkan pesan kesalahan jika ada --}}
             @if ($errors->any())
@@ -53,6 +49,10 @@
             @endif
             <input class="form-control" type="file" id="foto" name="foto">
             <small class="text-muted">Kosongkan jika tidak ingin mengubah gambar.</small>
+        </div>
+        <div class="mb-3">
+            <label for="isi" class="form-label">Isi Berita</label>
+            <textarea class="form-control" id="isi" name="isi" rows="6" required>{{ old('isi', $berita->isi) }}</textarea>
         </div>
         <button type="submit" class="btn btn-primary">Update Berita</button>
         <a href="{{ route('admin.berita.index') }}" class="btn btn-secondary">Batal</a>

@@ -7,6 +7,8 @@ use App\Models\Berita;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Factory as FakerFactory;
+
 
 class BeritaSeeder extends Seeder
 {
@@ -15,25 +17,17 @@ class BeritaSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('berita')->insert([
-            [
-                'judul' => 'anu',
-                'slug' => Str::slug('anu'),
-                'foto' => 'aksbdn.jpg',
-                'isi' => 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-            ],
-            [
-                'judul' => 'una',
-                'slug' => Str::slug('una'),
-                'foto' => 'asdgfh.jpg',
-                'isi' => 'alorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-            ],
-            [
-                'judul' => 'aku',
-                'slug' => Str::slug('aku'),
-                'foto' => 'tyref.jpg',
-                'isi' => 'blorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-            ],
-        ]);
+        $faker = FakerFactory::create('id_ID');
+        
+        // Contoh membuat data manual dengan faker Indonesia
+        foreach(range(1, 100) as $i) {
+            \App\Models\Berita::create([
+                'judul' => $faker->sentence(3),
+                'slug' => \Illuminate\Support\Str::slug($faker->sentence(3)),
+                'foto' => $faker->imageUrl(640, 480, 'news', true, 'Berita'),
+                'isi' => $faker->paragraphs(3, true),
+            ]);
+        }
     }
+
 }

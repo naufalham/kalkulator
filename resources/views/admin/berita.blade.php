@@ -49,7 +49,7 @@
                                     @endif
                                 </td>
                                 <td class="border px-3 py-2">{{ $berita->judul }}</td>
-                                <td class="border px-3 py-2">{{ $berita->isi }}</td>
+                                <td class="border px-3 py-2">{{ Str::words(strip_tags($berita->isi), 20, '...') }}</td>
                                 <td class="border px-3 py-2">
                                     <a href="{{ route('admin.berita.edit', $berita->id) }}" class="bg-yellow-400 text-black font-semibold text-sm px-2 py-1 rounded hover:bg-yellow-500 mr-3">
                                         Edit

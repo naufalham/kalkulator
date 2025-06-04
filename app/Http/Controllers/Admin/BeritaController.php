@@ -40,7 +40,9 @@ class BeritaController extends Controller
     public function show($slug)
     {
         $berita = Berita::where('slug', $slug)->firstOrFail();
-        return view('user.isi_berita', compact('berita'));
+        $rekomendasi = $berita->rekomendasi();
+
+        return view('user.isi_berita', compact('berita', 'rekomendasi'));
     }
 
     /**
