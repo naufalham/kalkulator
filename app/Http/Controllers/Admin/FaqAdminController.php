@@ -8,8 +8,18 @@ use App\Http\Controllers\Controller;
 
 class FaqAdminController extends Controller
 {
-    public function index() {
-        $faqs = Faq::all();
+    public function index(Request $request)
+    {
+        $query = Faq::query();
+
+        if ($request->filled('q')) {
+            $q = $request->q;
+            $query->where('question', 'like', "%$q%")
+                ->orWhere('answer', 'like', "%$q%");
+        }
+
+        $faqs = $query->latest()->paginate(10)->withQueryString();
+
         return view('admin.tanya', compact('faqs'));
     }
 

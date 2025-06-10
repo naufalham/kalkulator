@@ -22,7 +22,16 @@
         </aside>
         <!-- Page Content -->
         <section class="flex-1 flex flex-col p-4 sm:p-6 overflow-x-auto">
-            <div class="flex justify-end mb-10">
+            <div class="flex justify-between items-center mb-10 flex-wrap gap-4">
+                <form method="GET" action="{{ route('admin.berita.index') }}"
+                    class="bg-white rounded-lg px-4 py-3 max-w-md w-full flex items-center gap-2 shadow">
+                    <i class="fas fa-search text-black text-bs"></i>
+                    <input type="text" name="q" value="{{ request('q') }}"
+                        placeholder="Cari Berita"
+                        class="bg-transparent text-sm outline-none w-full"
+                    />
+                </form>
+
                 <a href="{{ route('admin.berita.create') }}" class="bg-[#F97316] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#d96c13] transition">
                     Tambah Berita
                 </a>
@@ -30,6 +39,10 @@
 
             <div class="overflow-x-auto bg-white rounded-lg shadow">
                 <table class="w-full border-collapse border border-gray-200 text-sm min-w-[600px]">
+                    {{-- <div class="mt-4 bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                        {{ $beritas->links('pagination::tailwind') }}
+                    </div> --}}
+
                     <thead>
                         <tr class="bg-[#f5f8ff] border-b border-gray-200">
                             <th class="border px-3 py-2 text-left font-semibold">No</th>

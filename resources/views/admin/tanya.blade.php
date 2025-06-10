@@ -25,7 +25,16 @@
         <section class="flex-1 flex flex-col p-4 sm:p-6 overflow-x-auto">
             <h1 class="text-xl font-semibold mb-4">Daftar FAQ</h1>
 
-            <div class="flex justify-end mb-10">
+            <div class="flex justify-between items-center flex-wrap gap-4 mb-10">
+                <form method="GET" action="{{ route('admin.faq.index') }}"
+                    class="bg-white rounded-lg px-4 py-3 w-full sm:max-w-md flex items-center gap-2 shadow">
+                    <i class="fas fa-search text-black text-sm"></i>
+                    <input type="text" name="q" value="{{ request('q') }}"
+                        placeholder="Cari Pertanyaan"
+                        class="bg-transparent text-sm outline-none w-full"
+                    />
+                </form>
+
                 <a href="{{ route('admin.faq.create') }}" class="bg-[#F97316] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#d96c13] transition">
                     Tambah FAQ
                 </a>
