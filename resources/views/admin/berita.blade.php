@@ -22,6 +22,7 @@
         </aside>
         <!-- Page Content -->
         <section class="flex-1 flex flex-col p-4 sm:p-6 overflow-x-auto">
+            <h1 class="text-xl font-semibold mb-4">Daftar Berita</h1>
             <div class="flex justify-between items-center mb-10 flex-wrap gap-4">
                 <form method="GET" action="{{ route('admin.berita.index') }}"
                     class="bg-white rounded-lg px-4 py-3 max-w-md w-full flex items-center gap-2 shadow">
@@ -32,6 +33,7 @@
                     />
                 </form>
 
+            
                 <a href="{{ route('admin.berita.create') }}" class="bg-[#F97316] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#d96c13] transition">
                     Tambah Berita
                 </a>
