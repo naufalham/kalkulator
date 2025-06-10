@@ -41,9 +41,9 @@
 
             <div class="overflow-x-auto bg-white rounded-lg shadow">
                 <table class="w-full border-collapse border border-gray-200 text-sm min-w-[600px]">
-                    {{-- <div class="mt-4 bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                    <div class="mt-4 bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
                         {{ $beritas->links('pagination::tailwind') }}
-                    </div> --}}
+                    </div>
 
                     <thead>
                         <tr class="bg-[#f5f8ff] border-b border-gray-200">
