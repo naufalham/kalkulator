@@ -55,7 +55,7 @@
                     {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('l, d F Y') }}
                 </div>
                 <h3 class="font-bold text-gray-900 text-base leading-snug mb-1 group-hover:text-[#2f318d] transition-colors duration-200">
-                    <a href="{{ route('user.berita.show', $berita->id) }}" class="hover:underline">
+                    <a href="{{ route('user.berita.show', $berita->slug) }}" class="hover:underline">
                         {{ $berita->judul }}
                     </a>
                 </h3>

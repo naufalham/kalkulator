@@ -81,7 +81,7 @@
 
         @elseif($kalkulator->slug === 'laba')
             const pendapatan = parseFloat(document.getElementById('pendapatan').value) || 0;
-            const biaya = parseFloat(document.getElementById('biaya').value) || 0;
+            const biaya = parseFloat(document.getElementById('totalBiaya').value) || 0;
             const laba = pendapatan - biaya;
             let hasil = 'Rp ' + Math.abs(laba).toLocaleString('id-ID');
             if (laba < 0) {
@@ -93,7 +93,7 @@
             const sewa = parseFloat(document.getElementById('sewaTempat').value) || 0;
             const biayaAlat = parseFloat(document.getElementById('biayaOperasional').value) || 0;
             const stokBarang = parseFloat(document.getElementById('beliStokBarang').value) || 0;
-            const biayaPromosi = parseFloat(document.getElementById('biayaTetap').value) || 0;
+            const biayaPromosi = parseFloat(document.getElementById('biayaPromosi').value) || 0;
             const total = sewa + biayaAlat + stokBarang + biayaPromosi;
             document.getElementById('hasilLaba').textContent = 'Rp ' + total.toLocaleString('id-ID');
 
@@ -110,7 +110,7 @@
 
         @elseif($kalkulator->slug === 'stok')
             const jumlahUnit = parseFloat(document.getElementById('jumlahUnit').value) || 0;
-            const hargaBeli = parseFloat(document.getElementById('hargaBeli').value) || 0;
+            const hargaBeli = parseFloat(document.getElementById('hargaBeliPerUnit').value) || 0;
             const total = jumlahUnit * hargaBeli;
             document.getElementById('hasilLaba').textContent = 'Rp ' + total.toLocaleString('id-ID');
 

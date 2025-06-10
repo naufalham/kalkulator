@@ -9,12 +9,21 @@ use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $beritas = Berita::all(); // Ambil semua data berita dari database
-        // dd($beritas);
-        return view('admin.berita', compact('beritas')); // Kirim data ke view
+        $query = Berita::query();
+
+        if ($request->filled('q')) {
+            $q = $request->q;
+            $query->where('judul', 'like', "%$q%")
+                ->orWhere('isi', 'like', "%$q%");
+        }
+
+        $beritas = $query->latest()->paginate(10)->withQueryString();
+
+        return view('admin.berita', compact('beritas'));
     }
+
 
     public function user_index()
     {
@@ -40,7 +49,9 @@ class BeritaController extends Controller
     public function show($slug)
     {
         $berita = Berita::where('slug', $slug)->firstOrFail();
-        return view('user.isi_berita', compact('berita'));
+        $rekomendasi = $berita->rekomendasi();
+
+        return view('user.isi_berita', compact('berita', 'rekomendasi'));
     }
 
     /**

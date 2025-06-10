@@ -45,4 +45,20 @@ class Berita extends Model
             $model->slug = $slug;
         });
     }
+
+    public function rekomendasi($limit = 4)
+    {
+        $beritaLain = Berita::where('id', '!=', $this->id)->get();
+
+        return $beritaLain->sortByDesc(function ($item) {
+            // Hitung similarity judul
+            similar_text(strip_tags($this->judul), strip_tags($item->judul), $similarJudul);
+
+            // Hitung similarity isi
+            similar_text(strip_tags($this->isi), strip_tags($item->isi), $similarIsi);
+
+            // Bobot: 70% judul, 30% isi
+            return (0.7 * $similarJudul) + (0.3 * $similarIsi);
+        })->take($limit);
+    }
 }
