@@ -35,6 +35,7 @@
                 <table class="w-full border-collapse border border-gray-200 text-sm min-w-[600px]">
                     <thead>
                         <tr class="bg-[#f5f8ff] border-b border-gray-200">
+                            <th class="border px-3 py-2 text-left font-semibold">No</th>
                             <th class="border px-3 py-2 text-left font-semibold">Pertanyaan</th>
                             <th class="border px-3 py-2 text-left font-semibold">Jawaban</th>
                             <th class="border px-3 py-2 text-left font-semibold">Aksi</th>
@@ -43,17 +44,25 @@
                     <tbody>
                         @foreach($faqs as $faq)
                         <tr class="border-t hover:bg-gray-50">
+                            <td class="border px-3 py-2">{{ $loop->iteration }}</td>
                             <td class="border px-3 py-2">{{ $faq->question }}</td>
                             <td class="border px-3 py-2">{{ $faq->answer }}</td>
                             <td class="border px-3 py-2">
-                                    <a href="{{ route('admin.faq.edit', $faq) }}" class="bg-yellow-400 text-black font-semibold text-sm px-2 py-1 rounded hover:bg-yellow-500 mr-3">
-                                        Edit
-                                    </a>
-                                    <form action="{{ route('admin.faq.destroy', $faq) }}" method="POST" style="display:inline;">
+                                <div class="flex gap-2">
+                                    <form action="{{ route('admin.faq.edit', $faq) }}" method="GET">
+                                        <button class="bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded hover:bg-yellow-500">
+                                            Edit
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('admin.faq.destroy', $faq) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="bg-red-600 text-white text-sm font-semibold px-2 py-1 rounded hover:bg-red-700" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                                        <button class="bg-red-600 text-white text-sm font-semibold px-3 py-1 rounded hover:bg-red-700">
+                                            Hapus
+                                        </button>
                                     </form>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
