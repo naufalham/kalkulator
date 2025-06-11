@@ -14,7 +14,7 @@
         </p>
         <form class="w-full max-w-2xl mx-auto" method="GET" action="{{ route('user.berita') }}">
             <div class="flex items-center bg-white rounded-full px-6 py-3 shadow-md">
-                <!-- ...svg... -->
+                <!-- SVG search icon (opsional) -->
                 <input 
                     type="text" 
                     name="q"
@@ -31,14 +31,14 @@
         <h2 class="text-xl font-extrabold text-gray-900 mb-1">Berita Terbaru</h2>
         <div class="border-t border-gray-400 mb-5"></div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 mt-30 mb-30">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 items-stretch">
             @if($beritas->isEmpty())
                 <div class="col-span-full text-center text-gray-500 py-8">
                     Tidak ada berita ditemukan.
                 </div>
             @endif
             @foreach($beritas as $berita)
-            <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 px-4 pt-4 pb-5 flex flex-col h-full">
+            <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 px-4 pt-4 pb-5 flex flex-col justify-between h-full min-h-[400px]">
                 <a href="{{ route('user.berita.show', $berita->slug) }}" class="group">
                     <div class="relative rounded-xl overflow-hidden mb-3">
                         <img 
@@ -48,20 +48,24 @@
                         />
                     </div>
                 </a>
-                <div class="flex items-center text-xs text-gray-500 mb-1">
-                    <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 4h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2z" />
-                    </svg>
-                    {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('l, d F Y') }}
+                <div class="flex flex-col flex-grow justify-between h-full">
+                    <div>
+                        <div class="flex items-center text-xs text-gray-500 mb-1">
+                            <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 4h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2z" />
+                            </svg>
+                            {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('l, d F Y') }}
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-base leading-snug mb-1 group-hover:text-[#2f318d] transition-colors duration-200">
+                            <a href="{{ route('user.berita.show', $berita->slug) }}" class="hover:underline">
+                                {{ $berita->judul }}
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600 font-medium leading-relaxed">
+                            {{ Str::limit(strip_tags($berita->isi), 80) }}
+                        </p>
+                    </div>
                 </div>
-                <h3 class="font-bold text-gray-900 text-base leading-snug mb-1 group-hover:text-[#2f318d] transition-colors duration-200">
-                    <a href="{{ route('user.berita.show', $berita->slug) }}" class="hover:underline">
-                        {{ $berita->judul }}
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600 font-medium leading-relaxed">
-                    {{ Str::limit(strip_tags($berita->isi), 80) }}
-                </p>
             </div>
             @endforeach
         </div>

@@ -68,7 +68,7 @@
         <h3 class="font-bold text-lg mb-6 mt-6 select-text">Anda mungkin juga suka</h3>
 
         @foreach($rekomendasi as $item)
-          <article class="bg-white rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-6 shadow-sm">
+          <article class="bg-white rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-6 shadow-sm my-8">
             <img src="{{ $item->foto ? asset('storage/' . $item->foto) : 'https://via.placeholder.com/400x200?text=No+Image' }}" alt="{{ $item->judul }}" class="rounded-lg w-full sm:w-[200px] h-auto object-cover" />
             <div class="flex-1">
               <h3 class="font-bold text-base text-black mb-2 select-none">{{ $item->judul }}</h3>
