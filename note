@@ -28,23 +28,6 @@ cek
 
 
 
-tampilkan foto berita di view
-@foreach ($beritas as $berita)
-    <div>
-        <h3>{{ $berita->judul }}</h3>
-        <p>{{ $berita->isi }}</p>
-        @if($berita->foto)
-            <img src="{{ asset('storage/' . $berita->foto) }}" alt="Foto Berita" width="120">
-        @endif
-    </div>
-@endforeach
-
-Atau jika pakai accessor:
-
-<img src="{{ $berita->foto_url }}" alt="Foto Berita" width="120">
-
-
-
 
 tambah midtrans_pay
 
