@@ -46,11 +46,29 @@ class Berita extends Model
         });
     }
 
+    // public function rekomendasi($limit = 4)
+    // {
+    //     $beritaLain = Berita::where('id', '!=', $this->id)->get();
+
+    //     return $beritaLain->sortByDesc(function ($item) {
+    //         // Hitung similarity judul
+    //         similar_text(strip_tags($this->judul), strip_tags($item->judul), $similarJudul);
+
+    //         // Hitung similarity isi
+    //         similar_text(strip_tags($this->isi), strip_tags($item->isi), $similarIsi);
+
+    //         // Bobot: 70% judul, 30% isi
+    //         return (0.7 * $similarJudul) + (0.3 * $similarIsi);
+    //     })->take($limit);
+    // }
+
+
     public function rekomendasi($limit = 4)
     {
         $beritaLain = Berita::where('id', '!=', $this->id)->get();
 
-        return $beritaLain->sortByDesc(function ($item) {
+        // Hitung skor kemiripan untuk setiap berita lain dan tambahkan sebagai atribut sementara
+        $beritaDenganScore = $beritaLain->map(function ($item) {
             // Hitung similarity judul
             similar_text(strip_tags($this->judul), strip_tags($item->judul), $similarJudul);
 
@@ -58,7 +76,18 @@ class Berita extends Model
             similar_text(strip_tags($this->isi), strip_tags($item->isi), $similarIsi);
 
             // Bobot: 70% judul, 30% isi
-            return (0.7 * $similarJudul) + (0.3 * $similarIsi);
-        })->take($limit);
+            $score = (0.7 * $similarJudul) + (0.3 * $similarIsi);
+            $item->similarity_score = $score; // Tambahkan skor sebagai atribut sementara
+            return $item;
+        });
+
+        // Filter berita yang memiliki skor kemiripan kurang dari 100 (tidak identik)
+        $filteredBerita = $beritaDenganScore->filter(function ($item) {
+            return $item->similarity_score < 100;
+        });
+
+        // Urutkan berdasarkan skor kemiripan secara menurun dan ambil sejumlah limit
+        return $filteredBerita->sortByDesc('similarity_score')->take($limit);
     }
+
 }
