@@ -47,6 +47,7 @@
                 <div class="mb-3 text-sm">
                     <label for="foto" class="form-label text-sm">Gambar Berita</label>
                     {{-- Menampilkan pesan kesalahan jika ada --}}
+                    <p class="text-xs text-gray-500 mt-1">* Nama file gambar harus sama dengan judul berita.</p>
                     @if ($errors->any())
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4">
                             <ul class="text-xs list-disc pl-5">
