@@ -1,3 +1,5 @@
+{{-- resources/views/user/form_usaha.blade.php --}}
+
 @vite(['resources/css/form_usaha.css','resources/js/app.js'])
 <!-- Navbar -->
 <x-navbar></x-navbar>
@@ -19,70 +21,108 @@
         </div>
 
         <hr>
-        <!-- Pendapatan -->
-        <input type="hidden" name="layanan_id" value="{{ $layanan->id }}">
 
-        <section>
-            <h2 class="font-extrabold text-black text-base mb-6 mt-6 select-none">
-                Pendapatan
-            </h2>
-            <div id="pendapatan-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
-                @foreach($fieldsPendapatan as $i => $field)
-                    <div class="flex flex-col">
-                        <label class="text-sm text-black mb-1 select-none" for="pendapatan_{{ $i }}">
-                            @if(($layanan->tipe ?? '') === 'campuran' && $field->layanan)
-                                [{{ $field->layanan->nama_layanan }}]
-                            @endif
-                            {{ $field->nama_pendapatan }} (Rp)
-                        </label>
-                        <input type="hidden" name="pendapatan_statis[{{ $i }}][label]" value="{{ $field->nama_pendapatan }}">
-                        <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]"
-                            id="pendapatan_{{ $i }}"
-                            name="pendapatan_statis[{{ $i }}][value]"
-                            type="number"/>
-                    </div>
-                @endforeach
-            </div>
-            <div class="flex mt-6">
-                <button type="button" id="add-field" class="bg-[#F97316] text-white text-sm font-semibold rounded-lg px-4 py-3 hover:bg-[#e06f11] transition-colors mr-2">
-                    Tambah Pendapatan
+        {{-- Tambahan dropdown usaha lain (jika layanan ID 5) --}}
+             @if($layanan->id == 5)
+            <section id="replikasi-usaha-section" class="mt-10 space-y-4">
+                <h2 class="font-extrabold text-black text-base mb-4 select-none">Tambahkan Usaha Lain</h2>
+                <div id="usaha-wrapper" class="space-y-6">
+                    <!-- tempat usaha tambahan akan muncul -->
+                </div>
+                <button type="button" id="add-usaha-btn" class="bg-[#F97316] text-white font-semibold rounded-lg px-6 py-3 hover:bg-[#e06f11]">
+                    Tambah Usaha
                 </button>
-            </div>
-            <div id="dynamic-fields" class="space-y-4">
-            </div>
-        </section>
+            </section>
+            @endif
 
-        <!-- Pengeluaran -->
-        <section>
-            <h2 class="font-extrabold text-black text-base mb-6 mt-6 select-none">
-                Pengeluaran
-            </h2>
-            <div id="pengeluaran-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
-                @foreach($fieldsPengeluaran as $i => $field)
-                    <div class="flex flex-col">
-                        <label class="text-sm text-black mb-1 select-none" for="pengeluaran_{{ $i }}">
-                            @if(($layanan->tipe ?? '') === 'campuran' && $field->layanan)
-                                [{{ $field->layanan->nama_layanan }}]
-                            @endif
-                            {{ $field->nama_pengeluaran }} (Rp)
-                        </label>
-                        <input type="hidden" name="pengeluaran_statis[{{ $i }}][label]" value="{{ $field->nama_pengeluaran }}">
-                        <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]"
-                            id="pengeluaran_{{ $i }}"
-                            name="pengeluaran_statis[{{ $i }}][value]"
-                            type="number"/>
+         @unless($layanan->id == 5) {{-- <-- Tambahkan kondisi ini --}}
+            {{-- Always include the main layanan_id --}}
+            <input type="hidden" name="layanan_id" value="{{ $layanan->id }}">
+
+            {{-- Tambahan dropdown usaha lain (jika layanan ID 5) --}}
+            @if($layanan->id == 5)
+                <section id="replikasi-usaha-section" class="mt-10 space-y-4">
+                    <h2 class="font-extrabold text-black text-base mb-4 select-none">Tambahkan Usaha Lain</h2>
+                    <div id="usaha-wrapper" class="space-y-6">
+                        <!-- tempat usaha tambahan akan muncul -->
                     </div>
-                @endforeach
-            </div>
-            <div class="flex mt-6">
+                    <button type="button" id="add-usaha-btn" class="bg-[#F97316] text-white font-semibold rounded-lg px-6 py-3 hover:bg-[#e06f11]">
+                        Tambah Usaha
+                    </button>
+                </section>
+            @endif
 
-                <button type="button" id="add-field-pengeluaran" class="bg-[#F97316] text-white text-sm font-semibold rounded-lg px-4 py-3 hover:bg-[#e06f11] transition-colors mr-2">
-                    Tambah Pengeluaran
-                </button>
-            </div>
-            <div id="dynamic-fields" class="space-y-4">
-            </div>
-        </section>
+            {{-- Always display the main business fields --}}
+            <section>
+                <h2 class="font-extrabold text-black text-base mb-6 mt-6 select-none">
+                    @if($layanan->id == 5)
+                        Pendapatan Usaha Utama ({{ $layanan->nama_layanan ?? '' }})
+                    @else
+                        Pendapatan
+                    @endif
+                </h2>
+                <div id="pendapatan-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
+                    @foreach($fieldsPendapatan as $i => $field)
+                        <div class="flex flex-col">
+                            <label class="text-sm text-black mb-1 select-none" for="pendapatan_{{ $i }}">
+                                @if(($layanan->tipe ?? '') === 'campuran' && $field->layanan)
+                                    [{{ $field->layanan->nama_layanan }}]
+                                @endif
+                                {{ $field->nama_pendapatan }} (Rp)
+                            </label>
+                            <input type="hidden" name="pendapatan_statis[{{ $i }}][label]" value="{{ $field->nama_pendapatan }}">
+                            <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]"
+                                id="pendapatan_{{ $i }}"
+                                name="pendapatan_statis[{{ $i }}][value]"
+                                type="number"/>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="flex mt-6">
+                    <button type="button" id="add-field" class="bg-[#F97316] text-white text-sm font-semibold rounded-lg px-4 py-3 hover:bg-[#e06f11] transition-colors mr-2">
+                        Tambah Pendapatan
+                    </button>
+                </div>
+                <div id="dynamic-fields" class="space-y-4">
+                </div>
+            </section>
+
+            <!-- Pengeluaran -->
+            <section>
+                <h2 class="font-extrabold text-black text-base mb-6 mt-6 select-none">
+                    @if($layanan->id == 5)
+                        Pengeluaran Usaha Utama ({{ $layanan->nama_layanan ?? '' }})
+                    @else
+                        Pengeluaran
+                    @endif
+                </h2>
+                <div id="pengeluaran-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
+                    @foreach($fieldsPengeluaran as $i => $field)
+                        <div class="flex flex-col">
+                            <label class="text-sm text-black mb-1 select-none" for="pengeluaran_{{ $i }}">
+                                @if(($layanan->tipe ?? '') === 'campuran' && $field->layanan)
+                                    [{{ $field->layanan->nama_layanan }}]
+                                @endif
+                                {{ $field->nama_pengeluaran }} (Rp)
+                            </label>
+                            <input type="hidden" name="pengeluaran_statis[{{ $i }}][label]" value="{{ $field->nama_pengeluaran }}">
+                            <input class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]"
+                                id="pengeluaran_{{ $i }}"
+                                name="pengeluaran_statis[{{ $i }}][value]"
+                                type="number" />
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="flex mt-6">
+                    <button type="button" id="add-field-pengeluaran" class="bg-[#F97316] text-white text-sm font-semibold rounded-lg px-4 py-3 hover:bg-[#e06f11] transition-colors mr-2">
+                        Tambah Pengeluaran
+                    </button>
+                </div>
+                <div id="dynamic-fields" class="space-y-4">
+                </div>
+            </section>
+        @endunless
 
         <div class="flex justify-end">
             <button class="bg-[#F97316] text-white text-sm font-semibold rounded-lg px-6 py-3 hover:bg-[#e06f11] transition-colors" type="submit">
@@ -173,6 +213,54 @@
         });
     }
 </script>
+
+<script>
+    const usahaList = @json($semuaLayanan->where('id', '!=', 5)->values()); // asumsikan dikirim dari controller
+    let usahaCount = 0;
+
+    document.getElementById('add-usaha-btn')?.addEventListener('click', function () {
+        const wrapper = document.getElementById('usaha-wrapper');
+
+        const usahaDiv = document.createElement('div');
+        usahaDiv.classList.add('bg-gray-50', 'p-4', 'rounded-lg', 'border');
+
+        const dropdownId = `usaha_dropdown_${usahaCount}`;
+        const formId = `usaha_form_${usahaCount}`;
+
+        let dropdownHtml = `<label class="block mb-2 font-semibold">Pilih Usaha</label>`;
+        dropdownHtml += `<select id="${dropdownId}" name="usaha_tambahan[${usahaCount}][id]" class="w-full border rounded-md px-3 py-2 mb-4">`;
+        dropdownHtml += `<option value="">-- Pilih Usaha --</option>`;
+        usahaList.forEach(usaha => {
+            dropdownHtml += `<option value="${usaha.id}">${usaha.nama_layanan}</option>`;
+        });
+        dropdownHtml += `</select>`;
+
+        dropdownHtml += `<div id="${formId}" class="space-y-4 usaha-form"></div>`;
+
+        usahaDiv.innerHTML = dropdownHtml;
+        wrapper.appendChild(usahaDiv);
+
+        // Di dalam addEventListener untuk dropdownId
+        document.getElementById(dropdownId).addEventListener('change', function () {
+            const usahaId = this.value;
+            const targetForm = document.getElementById(formId);
+            if (usahaId) {
+                // Pastikan usahaCount dikirim sebagai query parameter 'index'
+                fetch(`/user/get-usaha-form/${usahaId}?index=${usahaCount}`)
+                    .then(res => res.text())
+                    .then(html => {
+                        targetForm.innerHTML = html;
+                    });
+            } else {
+                targetForm.innerHTML = '';
+            }
+        });
+
+
+        usahaCount++;
+    });
+</script>
+
 
 <x-wa />
 

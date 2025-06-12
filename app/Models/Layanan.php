@@ -9,17 +9,27 @@ class Layanan extends Model
 {
     use HasFactory;
 
-    protected $table = 'layanans';
-    protected $fillable = ['nama_layanan', 'deskripsi'];
+    protected $fillable = [
+        'nama_layanan',
+        'tipe', // Assuming 'tipe' is a fillable field based on your controller logic
+        // Add other fillable fields as necessary
+    ];
 
-    public function recordPendapatan()
+    /**
+     * Get the pendapatan associated with the layanan.
+     */
+    public function pendapatan()
     {
-        return $this->hasMany(RecordPendapatan::class, 'layanan_id');
+        return $this->hasMany(\App\Models\NamaPendapatan::class, 'layanan_id');
     }
 
-    public function recordPengeluaran()
+    /**
+     * Get the pengeluaran associated with the layanan.
+     */
+    public function pengeluaran()
     {
-        return $this->hasMany(RecordPengeluaran::class, 'layanan_id');
+        return $this->hasMany(\App\Models\NamaPengeluaran::class, 'layanan_id');
     }
+
+    // Add other relationships or methods as needed
 }
- 
