@@ -9,7 +9,7 @@
             <h1 class="font-bold text-lg text-black">
                 {{ $kalkulator->nama }}
             </h1>
-            <a href="{{ route ('user.hitung.index') }}" class="text-[#F97316] font-semibold hover:underline text-base">
+            <a href="{{ route ('user.hitung.index') }}" class="text-[#F97316] font-semibold hover:underline text-3xl leading-none">
                 &times;
             </a>
         </div>

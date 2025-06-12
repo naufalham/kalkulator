@@ -31,14 +31,14 @@
         <h2 class="text-xl font-extrabold text-gray-900 mb-1">Berita Terbaru</h2>
         <div class="border-t border-gray-400 mb-5"></div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 items-stretch">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 items-stretch" id="berita-list">
             @if($beritas->isEmpty())
                 <div class="col-span-full text-center text-gray-500 py-8">
                     Tidak ada berita ditemukan.
                 </div>
             @endif
             @foreach($beritas as $berita)
-            <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 px-4 pt-4 pb-5 flex flex-col justify-between h-full min-h-[400px]">
+            <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 px-4 pt-4 pb-5 flex flex-col justify-between h-full min-h-[400px] berita-item">
                 <a href="{{ route('user.berita.show', $berita->slug) }}" class="group">
                     <div class="relative rounded-xl overflow-hidden mb-3">
                         <img 
@@ -69,6 +69,42 @@
             </div>
             @endforeach
         </div>
+
+        @if($beritas->count() > 8)
+            <div class="flex justify-center mt-8">
+                <button id="loadMoreBtn"
+                    class="bg-[#F97316] text-white px-6 py-2 rounded-full font-semibold shadow transition
+                        hover:bg-[#e06f11] hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#F97316] focus:ring-offset-2 duration-200 text-l">
+                    Muat Lebih Banyak
+                </button>
+            </div>
+        @endif
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const beritaItems = document.querySelectorAll('.berita-item');
+                const loadMoreBtn = document.getElementById('loadMoreBtn');
+                let visible = 8;
+
+                function updateVisibility() {
+                    beritaItems.forEach((item, idx) => {
+                        item.style.display = idx < visible ? '' : 'none';
+                    });
+                    if (visible >= beritaItems.length && loadMoreBtn) {
+                        loadMoreBtn.style.display = 'none';
+                    }
+                }
+
+                updateVisibility();
+
+                if (loadMoreBtn) {
+                    loadMoreBtn.addEventListener('click', function () {
+                        visible += 8;
+                        updateVisibility();
+                    });
+                }
+            });
+        </script>
     </div>
 </div>
 

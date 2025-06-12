@@ -30,8 +30,6 @@ class AnalisisUsahaExportController extends Controller
     public function export(Request $request)
     {
 
-        dd($request->all());
-
         $user_id = Auth::id() ?? 1;
         $layanan_id = $request->input('layanan_id');
 
