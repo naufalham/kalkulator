@@ -29,9 +29,6 @@ class AnalisisUsahaExportController extends Controller
 
     public function export(Request $request)
     {
-
-        dd($request->all());
-
         $user_id = Auth::id() ?? 1;
         $layanan_id = $request->input('layanan_id');
 
@@ -55,254 +52,309 @@ class AnalisisUsahaExportController extends Controller
             return view('user.pay_snap', compact('snapToken'));
         }
 
-        // Jika sudah bayar, ambil data form dari session dan proses download
+        // Ambil data form, prioritaskan dari session jika ada (setelah pembayaran)
         $formData = $request->session()->get('form_usaha');
         if ($formData) {
-            $request = new Request($formData);
-        }
-        $layanan_id = $request->input('layanan_id');
-        $layanan = Layanan::find($layanan_id);
-        $namaUsaha = $layanan ? $layanan->nama_layanan : '';
-        $tipeUsaha = $layanan ? $layanan->tipe : '';
-
-        // Ambil array statis dari form
-        $pengeluaran_statis = $request->pengeluaran_statis ?? [];
-        $pendapatan_statis = $request->pendapatan_statis ?? [];
-
-        // Ambil label statis dari database (hanya yang created_at dan updated_at NULL)
-        if ($tipeUsaha === 'campuran') {
-            // Ambil semua field dari semua layanan, join ke tabel layanan
-            $fieldsPendapatan = \App\Models\NamaPendapatan::whereNull('created_at')
-                ->whereNull('updated_at')
-                ->with('layanan') // pastikan relasi 'layanan' ada di model NamaPendapatan
-                ->orderBy('layanan_id')
-                ->get();
-
-            $fieldsPengeluaran = \App\Models\NamaPengeluaran::whereNull('created_at')
-                ->whereNull('updated_at')
-                ->with('layanan') // pastikan relasi 'layanan' ada di model NamaPengeluaran
-                ->orderBy('layanan_id')
-                ->get();
-        } else {
-            // Ambil field sesuai layanan
-            $fieldsPendapatan = \App\Models\NamaPendapatan::where('layanan_id', $layanan_id)
-                ->whereNull('created_at')
-                ->whereNull('updated_at')
-                ->with('layanan')
-                ->get();
-            $fieldsPengeluaran = \App\Models\NamaPengeluaran::where('layanan_id', $layanan_id)
-                ->whereNull('created_at')
-                ->whereNull('updated_at')
-                ->with('layanan')
-                ->get();
+            $request->merge($formData); // Menggabungkan data ke request yang sudah ada
+            // Hapus data form dari session setelah digunakan
+            $request->session()->forget('form_usaha');
         }
 
-        // Simpan pendapatan statis ke database
-        foreach ($pendapatan_statis as $item) {
+        // Ambil layanan_id utama dari request
+        $layanan_id_utama = $request->input('layanan_id');
+
+        // Jika layanan_id utama tidak ada (misal form ID 5 disubmit langsung tanpa hidden input)
+        // atau jika form ID 5 disubmit, pastikan layanan_id_utama adalah 5
+        // Kita bisa mendeteksinya dengan adanya input 'usaha_tambahan'
+        if (is_null($layanan_id_utama) || $request->has('usaha_tambahan')) {
+             $layanan_id_utama = 5; // Asumsikan ini adalah form layanan ID 5
+        }
+
+
+        // Jika layanan_id_utama masih null setelah pemeriksaan, berarti ada masalah
+        if (is_null($layanan_id_utama)) {
+             abort(400, 'Layanan ID tidak valid.');
+        }
+
+        $layanan_utama = Layanan::find($layanan_id_utama);
+        $namaUsahaUtama = $layanan_utama ? $layanan_utama->nama_layanan : '';
+        $tipeUsahaUtama = $layanan_utama ? $layanan_utama->tipe : '';
+        
+
+        // Inisialisasi total pendapatan dan pengeluaran untuk Excel
+        $total_pendapatan_excel = 0;
+        $total_pengeluaran_excel = 0;
+        $excel_data = []; // Array untuk menampung data yang akan ditulis ke Excel
+
+        // --- Logika Penyimpanan Data dan Pengumpulan Data Excel ---
+
+        // --- Proses data usaha utama (dari form utama) terlebih dahulu ---
+
+        // Ambil array statis dari form utama
+        $pengeluaran_statis_utama = $request->pengeluaran_statis ?? [];
+        $pendapatan_statis_utama = $request->pendapatan_statis ?? [];
+
+        // Ambil label statis dari database (hanya yang created_at & updated_at NULL)
+        // Ini perlu disesuaikan agar mengambil field sesuai $layanan_id_utama
+        $fieldsPendapatanUtama = \App\Models\NamaPendapatan::where('layanan_id', $layanan_id_utama)
+            ->whereNull('created_at')
+            ->whereNull('updated_at')
+            ->with('layanan')
+            ->get();
+        $fieldsPengeluaranUtama = \App\Models\NamaPengeluaran::where('layanan_id', $layanan_id_utama)
+            ->whereNull('created_at')
+            ->whereNull('updated_at')
+            ->with('layanan')
+            ->get();
+
+
+        // Simpan pendapatan statis usaha utama ke database dan kumpulkan data Excel
+        $excel_data[] = ['label' => ($layanan_id_utama == 5 ? "[$namaUsahaUtama] Pendapatan" : 'Pendapatan'), 'value' => null, 'is_header' => true];
+        foreach ($pendapatan_statis_utama as $i => $item) {
             if (!empty($item['label'])) {
+                // Gunakan $layanan_id_utama untuk firstOrCreate dan create
                 $namaPendapatan = NamaPendapatan::firstOrCreate(
-                    ['nama_pendapatan' => $item['label'], 'layanan_id' => $layanan_id]
+                    ['nama_pendapatan' => $item['label'], 'layanan_id' => $layanan_id_utama]
                 );
+                $value = is_numeric($item['value']) ? $item['value'] : 0;
                 RecordPendapatan::create([
                     'user_id' => $user_id,
-                    'layanan_id' => $layanan_id,
+                    'layanan_id' => $layanan_id_utama, // Gunakan layanan_id_utama
                     'nama_pendapatan_id' => $namaPendapatan->id,
-                    'value' => is_numeric($item['value']) ? $item['value'] : 0,
+                    'value' => $value,
                 ]);
+                 // Tambahkan nama layanan jika tipe campuran dan bukan layanan ID 5
+                $namaLayananPrefix = ($tipeUsahaUtama === 'campuran' && $layanan_id_utama != 5 && ($fieldsPendapatanUtama[$i]->layanan ?? null)) ? '[' . $fieldsPendapatanUtama[$i]->layanan->nama_layanan . '] ' : '';
+                $excel_data[] = ['label' => $namaLayananPrefix . $item['label'], 'value' => $value];
+                $total_pendapatan_excel += $value;
             }
         }
 
-        // Simpan pendapatan tambahan ke database
+        // Simpan pendapatan tambahan usaha utama ke database dan kumpulkan data Excel
+        // Note: Ini adalah field tambahan yang ditambahkan melalui tombol "Tambah Pendapatan" di form utama
         if ($request->has('pendapatan_tambahan_label')) {
             foreach ($request->pendapatan_tambahan_label as $idx => $label) {
                 $label = trim($label);
                 $value = $request->pendapatan_tambahan[$idx] ?? 0;
                 if (!empty($label)) {
+                     // Gunakan $layanan_id_utama untuk firstOrCreate dan create
                     $namaPendapatan = NamaPendapatan::firstOrCreate(
-                        ['nama_pendapatan' => $label, 'layanan_id' => $layanan_id]
+                        ['nama_pendapatan' => $label, 'layanan_id' => $layanan_id_utama]
                     );
+                    $value = is_numeric($value) ? $value : 0;
                     RecordPendapatan::create([
                         'user_id' => $user_id,
-                        'layanan_id' => $layanan_id,
+                        'layanan_id' => $layanan_id_utama, // Gunakan layanan_id_utama
                         'nama_pendapatan_id' => $namaPendapatan->id,
-                        'value' => is_numeric($value) ? $value : 0,
+                        'value' => $value,
                     ]);
+                    $excel_data[] = ['label' => $label, 'value' => $value];
+                    $total_pendapatan_excel += $value;
                 }
             }
         }
+         $excel_data[] = ['label' => '', 'value' => null]; // Baris kosong
 
-        // Simpan pengeluaran statis ke database
-        foreach ($pengeluaran_statis as $item) {
+        // Simpan pengeluaran statis usaha utama ke database dan kumpulkan data Excel
+        $excel_data[] = ['label' => ($layanan_id_utama == 5 ? "[$namaUsahaUtama] Pengeluaran" : 'Pengeluaran'), 'value' => null, 'is_header' => true];
+        foreach ($pengeluaran_statis_utama as $i => $item) {
             if (!empty($item['label'])) {
+                 // Gunakan $layanan_id_utama untuk firstOrCreate dan create
                 $namaPengeluaran = NamaPengeluaran::firstOrCreate(
-                    ['nama_pengeluaran' => $item['label'], 'layanan_id' => $layanan_id]
+                    ['nama_pengeluaran' => $item['label'], 'layanan_id' => $layanan_id_utama]
                 );
+                $value = is_numeric($item['value']) ? $item['value'] : 0;
                 RecordPengeluaran::create([
                     'user_id' => $user_id,
-                    'layanan_id' => $layanan_id,
+                    'layanan_id' => $layanan_id_utama, // Gunakan layanan_id_utama
                     'nama_pengeluaran_id' => $namaPengeluaran->id,
-                    'value' => is_numeric($item['value']) ? $item['value'] : 0,
+                    'value' => $value,
                 ]);
+                 // Tambahkan nama layanan jika tipe campuran dan bukan layanan ID 5
+                $namaLayananPrefix = ($tipeUsahaUtama === 'campuran' && $layanan_id_utama != 5 && ($fieldsPengeluaranUtama[$i]->layanan ?? null)) ? '[' . $fieldsPengeluaranUtama[$i]->layanan->nama_layanan . '] ' : '';
+                 $excel_data[] = ['label' => $namaLayananPrefix . $item['label'], 'value' => $value];
+                $total_pengeluaran_excel += $value;
             }
         }
 
-        // Simpan pengeluaran tambahan ke database
+        // Simpan pengeluaran tambahan usaha utama ke database dan kumpulkan data Excel
+        // Note: Ini adalah field tambahan yang ditambahkan melalui tombol "Tambah Pengeluaran" di form utama
         if ($request->has('pengeluaran_tambahan_label')) {
             foreach ($request->pengeluaran_tambahan_label as $idx => $label) {
                 $label = trim($label);
                 $value = $request->pengeluaran_tambahan[$idx] ?? 0;
                 if (!empty($label)) {
+                     // Gunakan $layanan_id_utama untuk firstOrCreate dan create
                     $namaPengeluaran = NamaPengeluaran::firstOrCreate(
-                        ['nama_pengeluaran' => $label, 'layanan_id' => $layanan_id]
+                        ['nama_pengeluaran' => $label, 'layanan_id' => $layanan_id_utama]
                     );
+                    $value = is_numeric($value) ? $value : 0;
                     RecordPengeluaran::create([
                         'user_id' => $user_id,
-                        'layanan_id' => $layanan_id,
+                        'layanan_id' => $layanan_id_utama, // Gunakan layanan_id_utama
                         'nama_pengeluaran_id' => $namaPengeluaran->id,
-                        'value' => is_numeric($value) ? $value : 0,
+                        'value' => $value,
                     ]);
+                    $excel_data[] = ['label' => $label, 'value' => $value];
+                    $total_pengeluaran_excel += $value;
                 }
             }
         }
+         $excel_data[] = ['label' => '', 'value' => null]; // Baris kosong
+
+
+        // --- Proses data usaha tambahan HANYA JIKA layanan utama adalah ID 5 ---
+        if ($layanan_id_utama == 5) {
+            $pendapatan_statis_utama = $request->input('usaha_tambahan.0.pendapatan_statis', []);
+            $pengeluaran_statis_utama = $request->input('usaha_tambahan.0.pengeluaran_statis', []);
+            
+            $usahaTambahan = collect($request->input('usaha_tambahan', []))
+                ->reject(fn ($usaha) => isset($usaha['id']) && $usaha['id'] == 5) // Exclude ID 5
+                ->values();
+
+            foreach ($usahaTambahan as $index => $usaha_data) {
+                $layanan_id_tambahan = $usaha_data['id'] ?? null;
+
+                // Skip processing if it's the main business (ID 5) or invalid
+                if (!$layanan_id_tambahan || $layanan_id_tambahan == 5) {
+                    continue;
+                }
+
+                $layanan_tambahan = Layanan::find($layanan_id_tambahan);
+                $namaUsahaTambahan = $layanan_tambahan ? $layanan_tambahan->nama_layanan : 'Usaha Tambahan';
+
+                // Process income
+                $excel_data[] = ['label' => "[$namaUsahaTambahan] Pendapatan", 'value' => null, 'is_header' => true];
+                $pendapatan_statis_tambahan = $usaha_data['pendapatan_statis'] ?? [];
+                foreach ($pendapatan_statis_tambahan as $item) {
+                    if (!empty($item['label'])) {
+                        $namaPendapatan = NamaPendapatan::firstOrCreate(
+                            ['nama_pendapatan' => $item['label'], 'layanan_id' => $layanan_id_tambahan]
+                        );
+                        $value = is_numeric($item['value']) ? $item['value'] : 0;
+                        RecordPendapatan::create([
+                            'user_id' => $user_id,
+                            'layanan_id' => $layanan_id_tambahan,
+                            'nama_pendapatan_id' => $namaPendapatan->id,
+                            'value' => $value,
+                        ]);
+                        $excel_data[] = ['label' => $item['label'], 'value' => $value];
+                        $total_pendapatan_excel += $value;
+                    }
+                }
+
+                // Process expenses
+                $excel_data[] = ['label' => "[$namaUsahaTambahan] Pengeluaran", 'value' => null, 'is_header' => true];
+                $pengeluaran_statis_tambahan = $usaha_data['pengeluaran_statis'] ?? [];
+                foreach ($pengeluaran_statis_tambahan as $item) {
+                    if (!empty($item['label'])) {
+                        $namaPengeluaran = NamaPengeluaran::firstOrCreate(
+                            ['nama_pengeluaran' => $item['label'], 'layanan_id' => $layanan_id_tambahan]
+                        );
+                        $value = is_numeric($item['value']) ? $item['value'] : 0;
+                        RecordPengeluaran::create([
+                            'user_id' => $user_id,
+                            'layanan_id' => $layanan_id_tambahan,
+                            'nama_pengeluaran_id' => $namaPengeluaran->id,
+                            'value' => $value,
+                        ]);
+                        $excel_data[] = ['label' => $item['label'], 'value' => $value];
+                        $total_pengeluaran_excel += $value;
+                    }
+                }
+                
+                // Add empty row separator
+                $excel_data[] = ['label' => '', 'value' => null];
+            }
+
+        }
+
+
+
+        // --- Logika Penulisan ke Excel ---
 
         $spreadsheet = IOFactory::load(storage_path('app/templates/template_analisis.xlsx'));
         $sheet = $spreadsheet->getActiveSheet();
         $rupiahFormat = '"Rp" #,##0;[Red]"Rp" -#,##0';
+        $percentageFormat = '0.00%';
 
         // Judul utama di atas tabel
-        $sheet->setCellValue('E3', 'Analisis Kelayakan Usaha ' . ($namaUsaha ? "($namaUsaha)" : ''));
+        // Gunakan nama usaha utama untuk judul
+        $sheet->setCellValue('E3', 'Analisis Kelayakan Usaha ' . ($namaUsahaUtama ? "($namaUsahaUtama)" : ''));
         $sheet->mergeCells('E3:F3');
         $sheet->getStyle('E3')->getFont()->setBold(true)->setSize(14);
         $sheet->getStyle('E3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         // Header tabel
-        $sheet->setCellValue('E6', 'Modal Belanja');
-        $sheet->setCellValue('F6', 'Total Biaya');
+        $sheet->setCellValue('E6', 'Deskripsi'); // Ubah header
+        $sheet->setCellValue('F6', 'Jumlah');    // Ubah header
         $sheet->getStyle('E6:F6')->getFont()->setBold(true);
         $sheet->getStyle('E6:F6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 
-        // Tulis pendapatan ke Excel
-        $startRowPendapatan = 8;
-        $total_pendapatan = 0;
-        $sheet->setCellValue('E7', 'Pendapatan');
-        $sheet->getStyle('E7')->getFont()->setBold(true);
+        // Tulis data yang sudah dikumpulkan ke Excel
+        $currentRow = 7; // Mulai dari baris 7 setelah header
+        foreach ($excel_data as $data_row) {
+            $sheet->setCellValue('E' . $currentRow, $data_row['label']);
+            $sheet->setCellValue('F' . $currentRow, $data_row['value']);
 
-        // Tulis pendapatan statis dari database
-        foreach ($fieldsPendapatan as $i => $field) {
-            $value = $pendapatan_statis[$i]['value'] ?? 0;
-            $namaLayanan = ($tipeUsaha === 'campuran' && $field->layanan) ? '[' . $field->layanan->nama_layanan . '] ' : '';
-            $sheet->setCellValue('E' . $startRowPendapatan, $namaLayanan . $field->nama_pendapatan);
-            $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($value) ? $value : 0);
-            $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
-            $total_pendapatan += is_numeric($value) ? $value : 0;
-            $startRowPendapatan++;
-        }
-
-
-        // Tulis pendapatan dinamis (tambahan)
-        if ($request->has('pendapatan_tambahan_label')) {
-            foreach ($request->pendapatan_tambahan_label as $idx => $label) {
-                $label = trim($label);
-                $value = $request->pendapatan_tambahan[$idx] ?? 0;
-                if (!empty($label)) {
-                    $sheet->setCellValue('E' . $startRowPendapatan, $label);
-                    $sheet->setCellValue('F' . $startRowPendapatan, is_numeric($value) ? $value : 0);
-                    $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
-                    $total_pendapatan += is_numeric($value) ? $value : 0;
-                    $startRowPendapatan++;
-                }
+            // Terapkan format Rupiah hanya jika bukan header dan ada nilai
+            if (!isset($data_row['is_header']) || !$data_row['is_header']) {
+                 $sheet->getStyle('F' . $currentRow)->getNumberFormat()->setFormatCode($rupiahFormat);
+            } else {
+                 // Format header jika perlu, atau biarkan default
+                 $sheet->getStyle('E' . $currentRow)->getFont()->setBold(true);
             }
+
+            $currentRow++;
         }
 
-        // Baris kosong sebelum total pendapatan
-        $sheet->setCellValue('E' . $startRowPendapatan, '');
-        $sheet->setCellValue('F' . $startRowPendapatan, '');
-        $startRowPendapatan++;
+        // Baris kosong sebelum total
+        $sheet->setCellValue('E' . $currentRow, '');
+        $sheet->setCellValue('F' . $currentRow, '');
+        $currentRow++;
 
-        // Total pendapatan
-        $sheet->setCellValue('E' . $startRowPendapatan, 'Total Pendapatan');
-        $sheet->setCellValue('F' . $startRowPendapatan, $total_pendapatan);
-        $sheet->getStyle('F' . $startRowPendapatan)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $sheet->getStyle('E' . $startRowPendapatan . ':F' . $startRowPendapatan)->getFont()->setBold(true);
-        $rowTotalPendapatan = $startRowPendapatan;
-        $startRowPendapatan++;
+        // Total Pendapatan
+        $sheet->setCellValue('E' . $currentRow, 'Total Pendapatan');
+        $sheet->setCellValue('F' . $currentRow, $total_pendapatan_excel);
+        $sheet->getStyle('F' . $currentRow)->getNumberFormat()->setFormatCode($rupiahFormat);
+        $sheet->getStyle('E' . $currentRow . ':F' . $currentRow)->getFont()->setBold(true);
+        $rowTotalPendapatan = $currentRow;
+        $currentRow++;
 
-        // Baris kosong setelah total pendapatan
-        $sheet->setCellValue('E' . $startRowPendapatan, '');
-        $sheet->setCellValue('F' . $startRowPendapatan, '');
-        $startRowPendapatan++;
-
-        // Pengeluaran
-        $startRowPengeluaran = $startRowPendapatan;
-        $total_pengeluaran = 0;
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Pengeluaran');
-        $sheet->getStyle('E' . $startRowPengeluaran)->getFont()->setBold(true);
-        $startRowPengeluaran++;
-
-        // Tulis pengeluaran statis dari database
-        foreach ($fieldsPengeluaran as $i => $field) {
-            $value = $pengeluaran_statis[$i]['value'] ?? 0;
-            $namaLayanan = ($tipeUsaha === 'campuran' && $field->layanan) ? '[' . $field->layanan->nama_layanan . '] ' : '';
-            $sheet->setCellValue('E' . $startRowPengeluaran, $namaLayanan . $field->nama_pengeluaran);
-            $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($value) ? $value : 0);
-            $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-            $total_pengeluaran += is_numeric($value) ? $value : 0;
-            $startRowPengeluaran++;
-        }
-
-        // Tulis pengeluaran dinamis (tambahan)
-        if ($request->has('pengeluaran_tambahan_label')) {
-            foreach ($request->pengeluaran_tambahan_label as $idx => $label) {
-                $label = trim($label);
-                $value = $request->pengeluaran_tambahan[$idx] ?? 0;
-                if (!empty($label)) {
-                    $sheet->setCellValue('E' . $startRowPengeluaran, $label);
-                    $sheet->setCellValue('F' . $startRowPengeluaran, is_numeric($value) ? $value : 0);
-                    $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-                    $total_pengeluaran += is_numeric($value) ? $value : 0;
-                    $startRowPengeluaran++;
-                }
-            }
-        }
-
-        // Baris kosong setelah pengeluaran
-        $sheet->setCellValue('E' . $startRowPengeluaran, '');
-        $sheet->setCellValue('F' . $startRowPengeluaran, '');
-        $startRowPengeluaran++;
-
-        // Total pengeluaran
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Total Pengeluaran');
-        $sheet->setCellValue('F' . $startRowPengeluaran, $total_pengeluaran);
-        $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $sheet->getStyle('E' . $startRowPengeluaran . ':F' . $startRowPengeluaran)->getFont()->setBold(true);
-        $rowTotalPengeluaran = $startRowPengeluaran;
-        $startRowPengeluaran++;
-
+        // Total Pengeluaran
+        $sheet->setCellValue('E' . $currentRow, 'Total Pengeluaran');
+        $sheet->setCellValue('F' . $currentRow, $total_pengeluaran_excel);
+        $sheet->getStyle('F' . $currentRow)->getNumberFormat()->setFormatCode($rupiahFormat);
+        $sheet->getStyle('E' . $currentRow . ':F' . $currentRow)->getFont()->setBold(true);
+        $rowTotalPengeluaran = $currentRow;
+        $currentRow++;
 
         // Baris kosong sebelum laba rugi
-        $sheet->setCellValue('E' . $startRowPengeluaran, '');
-        $sheet->setCellValue('F' . $startRowPengeluaran, '');
-        $startRowPengeluaran++;
+        $sheet->setCellValue('E' . $currentRow, '');
+        $sheet->setCellValue('F' . $currentRow, '');
+        $currentRow++;
 
         // Rumus Laba Rugi
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Laba/Rugi');
-        $sheet->setCellValue('F' . $startRowPengeluaran, '=F' . ($rowTotalPendapatan) . '-F' . ($rowTotalPengeluaran));
-        $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode($rupiahFormat);
-        $sheet->getStyle('E' . $startRowPengeluaran . ':F' . $startRowPengeluaran)->getFont()->setBold(true);
-        $startRowPengeluaran++;
+        $sheet->setCellValue('E' . $currentRow, 'Laba/Rugi');
+        // Gunakan nilai total yang sudah dihitung di PHP, bukan rumus Excel yang mereferensi baris dinamis
+        $laba_rugi = $total_pendapatan_excel - $total_pengeluaran_excel;
+        $sheet->setCellValue('F' . $currentRow, $laba_rugi);
+        $sheet->getStyle('F' . $currentRow)->getNumberFormat()->setFormatCode($rupiahFormat);
+        $sheet->getStyle('E' . $currentRow . ':F' . $currentRow)->getFont()->setBold(true);
+        $currentRow++;
 
         // Margin Laba terhadap Omset
-        $margin = ($total_pendapatan > 0) ? (($total_pendapatan - $total_pengeluaran) / $total_pendapatan) * 100 : 0;
-        $margin = min($margin, 100);
-        $sheet->setCellValue('E' . $startRowPengeluaran, 'Margin Laba terhadap Omset (%)');
-        $sheet->setCellValue('F' . $startRowPengeluaran, round($margin / 100, 4));
-        $sheet->getStyle('E' . $startRowPengeluaran . ':F' . $startRowPengeluaran)->getFont()->setBold(true);
-        $sheet->getStyle('F' . $startRowPengeluaran)->getNumberFormat()->setFormatCode('0.00%');
+        $margin = ($total_pendapatan_excel > 0) ? ($laba_rugi / $total_pendapatan_excel) : 0;
+        $sheet->setCellValue('E' . $currentRow, 'Margin Laba terhadap Omset (%)');
+        $sheet->setCellValue('F' . $currentRow, $margin); // Tulis nilai desimal
+        $sheet->getStyle('E' . $currentRow . ':F' . $currentRow)->getFont()->setBold(true);
+        $sheet->getStyle('F' . $currentRow)->getNumberFormat()->setFormatCode($percentageFormat); // Terapkan format persentase
+        $currentRow++;
 
 
         // Tambahkan border pada area tabel (misal dari E6:F{baris terakhir})
-        $lastRow = $startRowPengeluaran; // baris terakhir yang terisi
+        $lastRow = $currentRow -1; // baris terakhir yang terisi adalah baris sebelum increment terakhir
         $sheet->getStyle('E6:F' . $lastRow)->applyFromArray([
             'borders' => [
                 'allBorders' => [
@@ -312,14 +364,19 @@ class AnalisisUsahaExportController extends Controller
             ],
         ]);
 
-        $filename = 'analisis_usaha_' . $user_id . '_' . $layanan_id . '.xlsx';
+        // Auto-size columns for better readability
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+
+
+        $filename = 'analisis_usaha_' . $user_id . '_' . $layanan_id_utama . '.xlsx'; // Gunakan layanan_id_utama untuk nama file
         $tempFile = storage_path('app/' . $filename);
         (new Xlsx($spreadsheet))->save($tempFile);
-        
+
         // Catat download
         Download::create([
             'user_id' => Auth::id(),
-            'layanan_id' => $layanan_id,
+            'layanan_id' => $layanan_id_utama, // Catat layanan_id_utama
             'downloaded_at' => now(),
         ]);
 
@@ -338,4 +395,5 @@ class AnalisisUsahaExportController extends Controller
 
         return response()->download($path);
     }
+
 }

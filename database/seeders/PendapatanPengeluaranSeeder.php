@@ -74,25 +74,6 @@ class PendapatanPengeluaranSeeder extends Seeder
             ]
         ];
 
-        $fieldsPendapatan[5] = [];
-        foreach ($fieldsPendapatan as $id => $fields) {
-            if ($id != 5) {
-                foreach ($fields as $field) {
-                    $fieldsPendapatan[5][] = $field;
-                }
-            }
-        }
-
-        // Gabungkan semua pengeluaran dari layanan lain untuk id 5
-        $fieldsPengeluaran[5] = [];
-        foreach ($fieldsPengeluaran as $id => $fields) {
-            if ($id != 5) {
-                foreach ($fields as $field) {
-                    $fieldsPengeluaran[5][] = $field;
-                }
-            }
-        }
-
         // Insert ke nama_pendapatans
         $pendapatan = [];
         foreach ($fieldsPendapatan as $layanan_id => $fields) {

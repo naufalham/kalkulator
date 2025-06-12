@@ -66,6 +66,8 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
 
     Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha.index');
     Route::get('/usaha/form/{layanan}', [UsahaController::class, 'show'])->name('usaha.form');
+    Route::get('/get-usaha-form/{layanan}', [UsahaController::class, 'getUsahaForm']);
+
 
     Route::get('/form_usaha', [UsahaController::class, 'index'])->name('form_usaha');
 
@@ -101,6 +103,8 @@ Route::middleware(['auth'])->group(function () {
 
     
 });
+
+
 
 //gugel
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
