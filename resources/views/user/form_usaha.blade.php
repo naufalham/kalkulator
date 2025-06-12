@@ -15,8 +15,8 @@
                     Analisis Kelayakan Usaha {{ $layanan->nama_layanan ?? '' }}
                 </h1>
             </div>
-            <a href="{{ route('user.usaha.index') }}" class="absolute right-0 text-[#F97316] font-semibold hover:underline text-base">
-                Keluar
+            <a href="{{ route ('user.usaha.index') }}" class="text-[#F97316] font-semibold hover:underline text-3xl leading-none">
+                &times;
             </a>
         </div>
 
@@ -125,7 +125,7 @@
         @endunless
 
         <div class="flex justify-end">
-            <button class="bg-[#F97316] text-white text-sm font-semibold rounded-lg px-6 py-3 hover:bg-[#e06f11] transition-colors" type="submit">
+            <button class="bg-[#F97316] text-white text-sm font-semibold rounded-full px-6 py-3 hover:bg-[#e06f11] transition-colors" type="submit">
                 Unduh Hasil
             </button>
         </div>
