@@ -19,8 +19,9 @@ class UsahaController extends Controller
     {
         $index = $request->query('index');
         $layanan = Layanan::findOrFail($id);
-        $fieldsPendapatan = NamaPendapatan::where('layanan_id', $id)->get();
-        $fieldsPengeluaran = NamaPengeluaran::where('layanan_id', $id)->get();
+
+        $fieldsPendapatan = NamaPendapatan::where('layanan_id', $id)->get(); // $id adalah ID Fesyen
+        $fieldsPengeluaran = NamaPengeluaran::where('layanan_id', $id)->get(); // $id adalah ID Fesyen
 
         return view('user._usaha_fields', compact('fieldsPendapatan', 'fieldsPengeluaran', 'index'));
     }

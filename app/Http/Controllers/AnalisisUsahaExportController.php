@@ -29,6 +29,8 @@ class AnalisisUsahaExportController extends Controller
 
     public function export(Request $request)
     {
+        // dd($request->all()); 
+
         $user_id = Auth::id() ?? 1;
         $layanan_id = $request->input('layanan_id');
 
@@ -109,7 +111,10 @@ class AnalisisUsahaExportController extends Controller
 
 
         // Simpan pendapatan statis usaha utama ke database dan kumpulkan data Excel
-        $excel_data[] = ['label' => ($layanan_id_utama == 5 ? "[$namaUsahaUtama] Pendapatan" : 'Pendapatan'), 'value' => null, 'is_header' => true];
+        if ($layanan_id_utama != 5) {
+            $excel_data[] = ['label' => 'Pendapatan', 'value' => null, 'is_header' => true];
+        }
+
         foreach ($pendapatan_statis_utama as $i => $item) {
             if (!empty($item['label'])) {
                 // Gunakan $layanan_id_utama untuk firstOrCreate dan create
@@ -123,20 +128,24 @@ class AnalisisUsahaExportController extends Controller
                     'nama_pendapatan_id' => $namaPendapatan->id,
                     'value' => $value,
                 ]);
-                 // Tambahkan nama layanan jika tipe campuran dan bukan layanan ID 5
-                $namaLayananPrefix = ($tipeUsahaUtama === 'campuran' && $layanan_id_utama != 5 && ($fieldsPendapatanUtama[$i]->layanan ?? null)) ? '[' . $fieldsPendapatanUtama[$i]->layanan->nama_layanan . '] ' : '';
-                $excel_data[] = ['label' => $namaLayananPrefix . $item['label'], 'value' => $value];
+                if ($layanan_id_utama != 5) {
+                    // Tambahkan nama layanan jika tipe campuran dan bukan layanan ID 5
+                    $namaLayananPrefix = ($tipeUsahaUtama === 'campuran' && ($fieldsPendapatanUtama[$i]->layanan ?? null)) ? '[' . $fieldsPendapatanUtama[$i]->layanan->nama_layanan . '] ' : '';
+                    $excel_data[] = ['label' => $namaLayananPrefix . $item['label'], 'value' => $value];
+                }
                 $total_pendapatan_excel += $value;
             }
         }
 
         // Simpan pendapatan tambahan usaha utama ke database dan kumpulkan data Excel
         // Note: Ini adalah field tambahan yang ditambahkan melalui tombol "Tambah Pendapatan" di form utama
+        $adaPendapatanTambahanUtama = false;
         if ($request->has('pendapatan_tambahan_label')) {
             foreach ($request->pendapatan_tambahan_label as $idx => $label) {
                 $label = trim($label);
                 $value = $request->pendapatan_tambahan[$idx] ?? 0;
                 if (!empty($label)) {
+                    $adaPendapatanTambahanUtama = true;
                      // Gunakan $layanan_id_utama untuk firstOrCreate dan create
                     $namaPendapatan = NamaPendapatan::firstOrCreate(
                         ['nama_pendapatan' => $label, 'layanan_id' => $layanan_id_utama]
@@ -148,15 +157,23 @@ class AnalisisUsahaExportController extends Controller
                         'nama_pendapatan_id' => $namaPendapatan->id,
                         'value' => $value,
                     ]);
-                    $excel_data[] = ['label' => $label, 'value' => $value];
+                    if ($layanan_id_utama != 5) {
+                        $excel_data[] = ['label' => $label, 'value' => $value];
+                    }
                     $total_pendapatan_excel += $value;
                 }
             }
         }
-         $excel_data[] = ['label' => '', 'value' => null]; // Baris kosong
+
+        if ($layanan_id_utama != 5 && (!empty($pendapatan_statis_utama) || $adaPendapatanTambahanUtama)) {
+            $excel_data[] = ['label' => '', 'value' => null]; // Baris kosong
+        }
 
         // Simpan pengeluaran statis usaha utama ke database dan kumpulkan data Excel
-        $excel_data[] = ['label' => ($layanan_id_utama == 5 ? "[$namaUsahaUtama] Pengeluaran" : 'Pengeluaran'), 'value' => null, 'is_header' => true];
+        if ($layanan_id_utama != 5) {
+            $excel_data[] = ['label' => 'Pengeluaran', 'value' => null, 'is_header' => true];
+        }
+
         foreach ($pengeluaran_statis_utama as $i => $item) {
             if (!empty($item['label'])) {
                  // Gunakan $layanan_id_utama untuk firstOrCreate dan create
@@ -171,8 +188,11 @@ class AnalisisUsahaExportController extends Controller
                     'value' => $value,
                 ]);
                  // Tambahkan nama layanan jika tipe campuran dan bukan layanan ID 5
-                $namaLayananPrefix = ($tipeUsahaUtama === 'campuran' && $layanan_id_utama != 5 && ($fieldsPengeluaranUtama[$i]->layanan ?? null)) ? '[' . $fieldsPengeluaranUtama[$i]->layanan->nama_layanan . '] ' : '';
-                 $excel_data[] = ['label' => $namaLayananPrefix . $item['label'], 'value' => $value];
+                if ($layanan_id_utama != 5) {
+                    // Tambahkan nama layanan jika tipe campuran dan bukan layanan ID 5
+                    $namaLayananPrefix = ($tipeUsahaUtama === 'campuran' && ($fieldsPengeluaranUtama[$i]->layanan ?? null)) ? '[' . $fieldsPengeluaranUtama[$i]->layanan->nama_layanan . '] ' : '';
+                    $excel_data[] = ['label' => $namaLayananPrefix . $item['label'], 'value' => $value];
+                }
                 $total_pengeluaran_excel += $value;
             }
         }
@@ -180,10 +200,12 @@ class AnalisisUsahaExportController extends Controller
         // Simpan pengeluaran tambahan usaha utama ke database dan kumpulkan data Excel
         // Note: Ini adalah field tambahan yang ditambahkan melalui tombol "Tambah Pengeluaran" di form utama
         if ($request->has('pengeluaran_tambahan_label')) {
+            $adaPengeluaranTambahanUtama = false;
             foreach ($request->pengeluaran_tambahan_label as $idx => $label) {
                 $label = trim($label);
                 $value = $request->pengeluaran_tambahan[$idx] ?? 0;
                 if (!empty($label)) {
+                    $adaPengeluaranTambahanUtama = true;
                      // Gunakan $layanan_id_utama untuk firstOrCreate dan create
                     $namaPengeluaran = NamaPengeluaran::firstOrCreate(
                         ['nama_pengeluaran' => $label, 'layanan_id' => $layanan_id_utama]
@@ -195,21 +217,24 @@ class AnalisisUsahaExportController extends Controller
                         'nama_pengeluaran_id' => $namaPengeluaran->id,
                         'value' => $value,
                     ]);
-                    $excel_data[] = ['label' => $label, 'value' => $value];
+                    if ($layanan_id_utama != 5) {
+                        $excel_data[] = ['label' => $label, 'value' => $value];
+                    }
                     $total_pengeluaran_excel += $value;
                 }
             }
         }
-         $excel_data[] = ['label' => '', 'value' => null]; // Baris kosong
-
+        if ($layanan_id_utama != 5 && (!empty($pengeluaran_statis_utama) || $adaPengeluaranTambahanUtama)) {
+            $excel_data[] = ['label' => '', 'value' => null]; // Baris kosong
+        }
 
         // --- Proses data usaha tambahan HANYA JIKA layanan utama adalah ID 5 ---
         if ($layanan_id_utama == 5) {
-            $pendapatan_statis_utama = $request->input('usaha_tambahan.0.pendapatan_statis', []);
-            $pengeluaran_statis_utama = $request->input('usaha_tambahan.0.pengeluaran_statis', []);
+            // $pendapatan_statis_utama = $request->input('usaha_tambahan.0.pendapatan_statis', []);
+            // $pengeluaran_statis_utama = $request->input('usaha_tambahan.0.pengeluaran_statis', []);
             
             $usahaTambahan = collect($request->input('usaha_tambahan', []))
-                ->reject(fn ($usaha) => isset($usaha['id']) && $usaha['id'] == 5) // Exclude ID 5
+                ->reject(fn ($usaha) => isset($usaha['id']) && $usaha['id'] == 5) 
                 ->values();
 
             foreach ($usahaTambahan as $index => $usaha_data) {
