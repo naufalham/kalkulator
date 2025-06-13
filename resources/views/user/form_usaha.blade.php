@@ -15,8 +15,8 @@
                     Analisis Kelayakan Usaha {{ $layanan->nama_layanan ?? '' }}
                 </h1>
             </div>
-            <a href="{{ route ('user.usaha.index') }}" class="text-[#F97316] font-semibold hover:underline text-3xl leading-none">
-                &times;
+            <a href="{{ route('user.usaha.index') }}" class="text-[#F97316] font-semibold hover:underline text-base flex items-center gap-1">
+                <span class="hidden sm:inline">Keluar</span>
             </a>
         </div>
 
@@ -25,7 +25,7 @@
         {{-- Tambahan dropdown usaha lain (jika layanan ID 5) --}}
              @if($layanan->id == 5)
             <section id="replikasi-usaha-section" class="mt-10 space-y-4">
-                <h2 class="font-extrabold text-black text-base mb-4 select-none">Tambahkan Usaha Lain</h2>
+                <h2 class="font-extrabold text-black text-sm mb-4 select-none">Tambahkan Usaha Lain</h2>
                 <div id="usaha-wrapper" class="space-y-6">
                     <!-- tempat usaha tambahan akan muncul -->
                 </div>
@@ -42,7 +42,7 @@
             {{-- Tambahan dropdown usaha lain (jika layanan ID 5) --}}
             @if($layanan->id == 5)
                 <section id="replikasi-usaha-section" class="mt-10 space-y-4">
-                    <h2 class="font-extrabold text-black text-base mb-4 select-none">Tambahkan Usaha Lain</h2>
+                    <h2 class="font-extrabold text-black text-sm mb-4 select-none">Tambahkan Usaha Lain</h2>
                     <div id="usaha-wrapper" class="space-y-6">
                         <!-- tempat usaha tambahan akan muncul -->
                     </div>
@@ -54,7 +54,7 @@
 
             {{-- Always display the main business fields --}}
             <section>
-                <h2 class="font-extrabold text-black text-base mb-6 mt-6 select-none">
+                <h2 class="font-extrabold text-black text-sm mb-6 mt-6 select-none">
                     @if($layanan->id == 5)
                         Pendapatan Usaha Utama ({{ $layanan->nama_layanan ?? '' }})
                     @else
@@ -89,7 +89,7 @@
 
             <!-- Pengeluaran -->
             <section>
-                <h2 class="font-extrabold text-black text-base mb-6 mt-6 select-none">
+                <h2 class="font-extrabold text-black text-sm mb-6 mt-6 select-none">
                     @if($layanan->id == 5)
                         Pengeluaran Usaha Utama ({{ $layanan->nama_layanan ?? '' }})
                     @else
@@ -222,30 +222,34 @@
         const wrapper = document.getElementById('usaha-wrapper');
 
         const usahaDiv = document.createElement('div');
-        usahaDiv.classList.add('bg-gray-50', 'p-4', 'rounded-lg', 'border');
+        usahaDiv.classList.add('bg-gray-50', 'p-4', 'rounded-lg', 'border', 'relative', 'mb-4');
 
         const dropdownId = `usaha_dropdown_${usahaCount}`;
         const formId = `usaha_form_${usahaCount}`;
 
-        let dropdownHtml = `<label class="block mb-2 font-semibold">Pilih Usaha</label>`;
-        dropdownHtml += `<select id="${dropdownId}" name="usaha_tambahan[${usahaCount}][id]" class="w-full border rounded-md px-3 py-2 mb-4">`;
-        dropdownHtml += `<option value="">-- Pilih Usaha --</option>`;
-        usahaList.forEach(usaha => {
-            dropdownHtml += `<option value="${usaha.id}">${usaha.nama_layanan}</option>`;
-        });
-        dropdownHtml += `</select>`;
-
-        dropdownHtml += `<div id="${formId}" class="space-y-4 usaha-form"></div>`;
+        let dropdownHtml = `
+            <button type="button" class="absolute top-2 right-2 text-2xl text-red-500 font-bold remove-usaha" title="Hapus Usaha">&times;</button>
+            <label class="block mb-2 font-semibold">Pilih Usaha</label>
+            <select id="${dropdownId}" name="usaha_tambahan[${usahaCount}][id]" class="w-full border rounded-md px-3 py-2 mb-4">
+                <option value="">-- Pilih Usaha --</option>
+                ${usahaList.map(usaha => `<option value="${usaha.id}">${usaha.nama_layanan}</option>`).join('')}
+            </select>
+            <div id="${formId}" class="space-y-4 usaha-form"></div>
+        `;
 
         usahaDiv.innerHTML = dropdownHtml;
         wrapper.appendChild(usahaDiv);
 
-        // Di dalam addEventListener untuk dropdownId
+        // Event untuk hapus card usaha
+        usahaDiv.querySelector('.remove-usaha').onclick = function() {
+            usahaDiv.remove();
+        };
+
+        // Event untuk dropdown
         document.getElementById(dropdownId).addEventListener('change', function () {
             const usahaId = this.value;
             const targetForm = document.getElementById(formId);
             if (usahaId) {
-                // Pastikan usahaCount dikirim sebagai query parameter 'index'
                 fetch(`/user/get-usaha-form/${usahaId}?index=${usahaCount}`)
                     .then(res => res.text())
                     .then(html => {
@@ -255,7 +259,6 @@
                 targetForm.innerHTML = '';
             }
         });
-
 
         usahaCount++;
     });
