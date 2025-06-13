@@ -215,11 +215,14 @@
 </script>
 
 <script>
-    const usahaList = @json($semuaLayanan->where('id', '!=', 5)->values()); // asumsikan dikirim dari controller
+    const usahaList = @json($semuaLayanan->where('id', '!=', 5)->values()); // ID 5 is excluded here
+    // const usahaList = @json($semuaLayanan->values());
     let usahaCount = 0;
 
     document.getElementById('add-usaha-btn')?.addEventListener('click', function () {
         const wrapper = document.getElementById('usaha-wrapper');
+        const currentIndex = usahaCount; // Tangkap nilai usahaCount saat ini untuk blok ini
+
 
         const usahaDiv = document.createElement('div');
         usahaDiv.classList.add('bg-gray-50', 'p-4', 'rounded-lg', 'border');
@@ -228,7 +231,7 @@
         const formId = `usaha_form_${usahaCount}`;
 
         let dropdownHtml = `<label class="block mb-2 font-semibold">Pilih Usaha</label>`;
-        dropdownHtml += `<select id="${dropdownId}" name="usaha_tambahan[${usahaCount}][id]" class="w-full border rounded-md px-3 py-2 mb-4">`;
+        dropdownHtml += `<select id="${dropdownId}" name="usaha_tambahan[${currentIndex}][id]" class="w-full border rounded-md px-3 py-2 mb-4" data-index="${currentIndex}">`;
         dropdownHtml += `<option value="">-- Pilih Usaha --</option>`;
         usahaList.forEach(usaha => {
             dropdownHtml += `<option value="${usaha.id}">${usaha.nama_layanan}</option>`;
@@ -243,10 +246,11 @@
         // Di dalam addEventListener untuk dropdownId
         document.getElementById(dropdownId).addEventListener('change', function () {
             const usahaId = this.value;
-            const targetForm = document.getElementById(formId);
+            const itemIndex = parseInt(this.dataset.index); // Ambil index dari atribut data
+            const targetForm = document.getElementById(`usaha_form_${itemIndex}`); // Pastikan targetForm juga benar
             if (usahaId) {
                 // Pastikan usahaCount dikirim sebagai query parameter 'index'
-                fetch(`/user/get-usaha-form/${usahaId}?index=${usahaCount}`)
+                fetch(`/user/get-usaha-form/${usahaId}?index=${itemIndex}`)
                     .then(res => res.text())
                     .then(html => {
                         targetForm.innerHTML = html;
@@ -255,8 +259,6 @@
                 targetForm.innerHTML = '';
             }
         });
-
-
         usahaCount++;
     });
 </script>

@@ -19,8 +19,16 @@ class UsahaController extends Controller
     {
         $index = $request->query('index');
         $layanan = Layanan::findOrFail($id);
-        $fieldsPendapatan = NamaPendapatan::where('layanan_id', $id)->get();
-        $fieldsPengeluaran = NamaPengeluaran::where('layanan_id', $id)->get();
+
+        // Ambil hanya data master (created_at & updated_at NULL) untuk field statis
+        $fieldsPendapatan = NamaPendapatan::where('layanan_id', $id)
+            ->whereNull('created_at')
+            ->whereNull('updated_at')
+            ->get();
+        $fieldsPengeluaran = NamaPengeluaran::where('layanan_id', $id)
+            ->whereNull('created_at')
+            ->whereNull('updated_at')
+            ->get();
 
         return view('user._usaha_fields', compact('fieldsPendapatan', 'fieldsPengeluaran', 'index'));
     }
