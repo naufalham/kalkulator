@@ -215,11 +215,14 @@
 </script>
 
 <script>
-    const usahaList = @json($semuaLayanan->where('id', '!=', 5)->values()); // asumsikan dikirim dari controller
+    const usahaList = @json($semuaLayanan->where('id', '!=', 5)->values()); // ID 5 is excluded here
+    // const usahaList = @json($semuaLayanan->values());
     let usahaCount = 0;
 
     document.getElementById('add-usaha-btn')?.addEventListener('click', function () {
         const wrapper = document.getElementById('usaha-wrapper');
+        const currentIndex = usahaCount; // Tangkap nilai usahaCount saat ini untuk blok ini
+
 
         const usahaDiv = document.createElement('div');
         usahaDiv.classList.add('bg-gray-50', 'p-4', 'rounded-lg', 'border', 'relative', 'mb-4');
@@ -227,15 +230,22 @@
         const dropdownId = `usaha_dropdown_${usahaCount}`;
         const formId = `usaha_form_${usahaCount}`;
 
-        let dropdownHtml = `
-            <button type="button" class="absolute top-2 right-2 text-2xl text-red-500 font-bold remove-usaha" title="Hapus Usaha">&times;</button>
+        let dropdownHtml = `<button type="button" class="absolute top-2 right-2 text-2xl text-red-500 font-bold remove-usaha" title="Hapus Usaha">&times;</button>
             <label class="block mb-2 font-semibold">Pilih Usaha</label>
             <select id="${dropdownId}" name="usaha_tambahan[${usahaCount}][id]" class="w-full border rounded-md px-3 py-2 mb-4">
                 <option value="">-- Pilih Usaha --</option>
                 ${usahaList.map(usaha => `<option value="${usaha.id}">${usaha.nama_layanan}</option>`).join('')}
             </select>
             <div id="${formId}" class="space-y-4 usaha-form"></div>
-        `;
+            `;
+        dropdownHtml += `<select id="${dropdownId}" name="usaha_tambahan[${currentIndex}][id]" class="w-full border rounded-md px-3 py-2 mb-4" data-index="${currentIndex}">`;
+        dropdownHtml += `<option value="">-- Pilih Usaha --</option>`;
+        usahaList.forEach(usaha => {
+            dropdownHtml += `<option value="${usaha.id}">${usaha.nama_layanan}</option>`;
+        });
+        dropdownHtml += `</select>`;
+
+        dropdownHtml += `<div id="${formId}" class="space-y-4 usaha-form"></div>`;
 
         usahaDiv.innerHTML = dropdownHtml;
         wrapper.appendChild(usahaDiv);
@@ -248,9 +258,11 @@
         // Event untuk dropdown
         document.getElementById(dropdownId).addEventListener('change', function () {
             const usahaId = this.value;
-            const targetForm = document.getElementById(formId);
+            const itemIndex = parseInt(this.dataset.index); // Ambil index dari atribut data
+            const targetForm = document.getElementById(`usaha_form_${itemIndex}`); // Pastikan targetForm juga benar
             if (usahaId) {
-                fetch(`/user/get-usaha-form/${usahaId}?index=${usahaCount}`)
+                // Pastikan usahaCount dikirim sebagai query parameter 'index'
+                fetch(`/user/get-usaha-form/${usahaId}?index=${itemIndex}`)
                     .then(res => res.text())
                     .then(html => {
                         targetForm.innerHTML = html;
@@ -259,14 +271,10 @@
                 targetForm.innerHTML = '';
             }
         });
-
         usahaCount++;
     });
 </script>
 
-
 <x-wa />
-
-<!-- Footer -->
 <div class="mt-10"></div>
 <x-footer></x-footer>
