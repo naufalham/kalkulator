@@ -232,20 +232,12 @@
 
         let dropdownHtml = `<button type="button" class="absolute top-2 right-2 text-2xl text-red-500 font-bold remove-usaha" title="Hapus Usaha">&times;</button>
             <label class="block mb-2 font-semibold">Pilih Usaha</label>
-            <select id="${dropdownId}" name="usaha_tambahan[${usahaCount}][id]" class="w-full border rounded-md px-3 py-2 mb-4">
+            <select id="${dropdownId}" name="usaha_tambahan[${currentIndex}][id]" class="w-full border rounded-md px-3 py-2 mb-4" data-index="${currentIndex}">
                 <option value="">-- Pilih Usaha --</option>
                 ${usahaList.map(usaha => `<option value="${usaha.id}">${usaha.nama_layanan}</option>`).join('')}
             </select>
             <div id="${formId}" class="space-y-4 usaha-form"></div>
             `;
-        dropdownHtml += `<select id="${dropdownId}" name="usaha_tambahan[${currentIndex}][id]" class="w-full border rounded-md px-3 py-2 mb-4" data-index="${currentIndex}">`;
-        dropdownHtml += `<option value="">-- Pilih Usaha --</option>`;
-        usahaList.forEach(usaha => {
-            dropdownHtml += `<option value="${usaha.id}">${usaha.nama_layanan}</option>`;
-        });
-        dropdownHtml += `</select>`;
-
-        dropdownHtml += `<div id="${formId}" class="space-y-4 usaha-form"></div>`;
 
         usahaDiv.innerHTML = dropdownHtml;
         wrapper.appendChild(usahaDiv);
