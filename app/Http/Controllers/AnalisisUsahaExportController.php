@@ -298,7 +298,7 @@ class AnalisisUsahaExportController extends Controller
 
         // --- Logika Penulisan ke Excel ---
 
-        $spreadsheet = IOFactory::load(storage_path('app/templates/template_analisis.xlsx'));
+        $spreadsheet = IOFactory::load(public_path('templates/template_analisis.xlsx'));
         $sheet = $spreadsheet->getActiveSheet();
         $rupiahFormat = '"Rp" #,##0;[Red]"Rp" -#,##0';
         $percentageFormat = '0.00%';
@@ -395,7 +395,7 @@ class AnalisisUsahaExportController extends Controller
 
 
         $filename = 'analisis_usaha_' . $user_id . '_' . $layanan_id_utama . '.xlsx'; // Gunakan layanan_id_utama untuk nama file
-        $tempFile = storage_path('app/' . $filename);
+        $tempFile = public_path('download/' . $filename);
         (new Xlsx($spreadsheet))->save($tempFile);
 
         // Catat download
@@ -412,7 +412,7 @@ class AnalisisUsahaExportController extends Controller
     {
         $user_id = Auth::id();
         $filename = 'analisis_usaha_' . $user_id . '_' . $layanan_id . '.xlsx';
-        $path = storage_path('app/' . $filename);
+        $path = public_path('download/' . $filename);
 
         if (!file_exists($path)) {
             abort(404, 'File tidak ditemukan');
