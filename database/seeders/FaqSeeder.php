@@ -16,7 +16,7 @@ class FaqSeeder extends Seeder
          Faq::insert([
             [
             'question' => 'Bagaimana cara menggunakan kalkulator analisis?',
-            'answer' => 'Cukup pilih jenis usaha → masukkan data yang diminta → klik "Hitung". Anda akan diminta melakukan pembayaran terlebih dahulu untuk mendapatkan hasil analisis dalam bentuk file Excel.'
+            'answer' => 'Cukup pilih jenis usaha → masukkan data yang diminta → klik "Unduh". Anda akan diminta melakukan pembayaran terlebih dahulu untuk mendapatkan hasil analisis dalam bentuk file Excel.'
             ],
             [
             'question' => 'Apakah saya perlu membayar untuk menggunakan kalkulator?',
@@ -24,7 +24,7 @@ class FaqSeeder extends Seeder
             ],
             [
             'question' => 'Apa yang harus saya lakukan jika hasil analisis tidak sesuai harapan?',
-            'answer' => 'Jika hasil analisis tidak sesuai harapan, Anda dapat menghubungi tim dukungan kami melalui email atau formulir kontak di situs web untuk mendapatkan bantuan lebih lanjut.'
+            'answer' => 'Jika hasil analisis tidak sesuai harapan, Anda dapat menghubungi tim dukungan kami melalui email atau formulir kontak di situs web (ada di pojok kanan bawah) untuk mendapatkan bantuan lebih lanjut.'
             ],
             [
             'question' => 'Apakah ada batasan jumlah usaha yang dapat saya analisis?',
