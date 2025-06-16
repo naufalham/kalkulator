@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'aktif', // Ganti is_active menjadi aktif
     ];
 
     /**
@@ -43,6 +44,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'aktif' => 'boolean', // Tambahkan casting untuk kolom aktif
         ];
     }
 

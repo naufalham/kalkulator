@@ -1,6 +1,32 @@
 @extends('layouts.head')
 
 @section('content')
+
+    {{-- Statistik Ringkas --}}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-[#f5f8ff] rounded-xl shadow p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-700 mb-1">Total Kalkulator</h3>
+            <p class="text-4xl font-bold text-orange-500">{{ $jumlahKalkulator ?? 'N/A' }}</p>
+            <p class="text-sm text-gray-500 mt-1">Jenis layanan kalkulator</p>
+        </div>
+        <div class="bg-[#f5f8ff] rounded-xl shadow p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-700 mb-1">Total Jenis Usaha</h3>
+            <p class="text-4xl font-bold text-orange-500">{{ $jumlahUsaha ?? 'N/A' }}</p>
+            <p class="text-sm text-gray-500 mt-1">Tidak termasuk layanan campuran</p>
+        </div>
+        <div class="bg-[#f5f8ff] rounded-xl shadow p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-700 mb-1">Total Pengguna</h3>
+            <p class="text-4xl font-bold text-orange-500">{{ $jumlahPengguna ?? 'N/A' }}</p>
+            <p class="text-sm text-gray-500 mt-1">Pengguna terdaftar</p>
+        </div>        
+        <div class="bg-[#f5f8ff] rounded-xl shadow p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-700 mb-1">Total Berita</h3>
+            <p class="text-4xl font-bold text-orange-500">{{ $jumlahBerita ?? 'N/A' }}</p>
+            <p class="text-sm text-gray-500 mt-1">Artikel berita dipublikasikan</p>
+        </div>
+
+    </div>
+
     <div class="w-full max-w-3xl mx-auto">
         <div class="bg-[#f5f8ff] rounded-xl shadow p-4 mb-8">
             <div id="container" class="w-full min-h-[320px]"></div>

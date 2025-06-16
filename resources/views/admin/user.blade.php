@@ -7,20 +7,29 @@
         <!-- Card Total Pengguna -->
         <div class="bg-white rounded-lg px-4 py-3 flex items-center gap-3 max-w-xs shadow">
             <i class="fas fa-user text-black text-lg"></i>
-            <div>
+            <div class="w-full">
                 <p class="text-sm font-semibold">Total Pengguna</p>
-                <p class="text-sm">Total: {{ isset($users) ? count($users) : '0' }}</p>
+                <p class="text-sm">Total: {{ $users->total() }}</p> {{-- Menggunakan total dari paginator --}}
             </div>
         </div>
 
+        @if (session('success'))
+            <div class="md:col-span-2 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
+
         <!-- Form Pencarian -->
-        <form method="GET" action="{{ route('admin.user') }}"
+        <form method="GET" action="{{ route('admin.user') }}" id="searchForm"
             class="bg-white rounded-lg px-4 py-3 max-w-md w-full flex items-center gap-2 shadow">
             <i class="fas fa-search text-black text-bs"></i>
             <input type="text" name="q" value="{{ request('q') }}"
                 placeholder="Cari Pengguna"
                 class="bg-transparent text-sm outline-none w-full"
             />
+            <button type="submit" class="bg-[#F97316] text-white text-xs font-semibold rounded px-3 py-1.5 hover:bg-[#e06f11] transition-colors">
+                Cari
+            </button>
         </form>
     </div>
 
@@ -34,29 +43,65 @@
                     <th class="border px-3 py-2 text-left font-semibold">Nama</th>
                     <th class="border px-3 py-2 text-left font-semibold">Email</th>
                     <th class="border px-3 py-2 text-left font-semibold">Role</th>
+                    <th class="border px-3 py-2 text-left font-semibold">Password</th>
+                    <th class="border px-3 py-2 text-left font-semibold">Status</th>
                     <th class="border px-3 py-2 text-left font-semibold">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $index => $user)
+                @forelse ($users as $index => $user)
                     <tr class="border-t">
-                        <td class="border px-3 py-2">{{ $index + 1 }}</td>
+                        <td class="border px-3 py-2">{{ $users->firstItem() + $index }}</td>
                         <td class="border px-3 py-2">{{ $user->name }}</td>
                         <td class="border px-3 py-2">{{ $user->email }}</td>
                         <td class="border px-3 py-2 capitalize">{{ $user->role }}</td>
                         <td class="border px-3 py-2">
-                            <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" class="inline">
+                            {{-- Form untuk update password per user --}}
+                            <form action="{{ route('admin.user.updatePassword', $user->id) }}" method="POST" class="flex items-center gap-1">
                                 @csrf
-                                @method('DELETE')
-                                <button onclick="return confirm('Yakin ingin menghapus user ini?')"
-                                    class="bg-red-600 text-white text-sm font-semibold rounded px-2 py-1">
-                                    Hapus
-                                </button>
+                                @method('PATCH')
+                                <input type="password" name="password" placeholder="Password Baru"
+                                       class="border border-gray-300 rounded-md px-2 py-1 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-[#F97316]">
+                                <button type="submit"
+                                        class="bg-blue-500 text-white text-xs font-semibold rounded px-2 py-1 hover:bg-blue-600">Simpan</button>
                             </form>
                         </td>
+                        <td class="border px-3 py-2">
+                            @if ($user->aktif)
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Aktif
+                                </span>
+                            @else
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Tidak Aktif
+                                </span>
+                            @endif
+                        </td>
+                        <td class="border px-3 py-2">
+                            <div class="flex gap-2">
+                                <form action="{{ route('admin.user.toggleStatus', $user->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit"
+                                        class="{{ $user->aktif ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-green-500 hover:bg-green-600' }} text-white text-xs font-semibold rounded px-2 py-1">
+                                        {{ $user->aktif ? 'Nonaktifkan' : 'Aktifkan' }}
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center py-4">Tidak ada pengguna ditemukan.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
+    <div class="mt-4">
+        {{ $users->links() }}
+    </div>
+
+    {{-- AlpineJS sudah di-load melalui layouts.head atau komponen sidemin, jadi @once di sini tidak diperlukan lagi --}}
+    {{-- Jika belum, pastikan AlpineJS di-include di layout utama Anda (layouts.head.blade.php) --}}
 @endsection
