@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Faq;
 use App\Http\Middleware\checkRoll;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
@@ -55,8 +56,9 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
 });
 
 Route::get('/', function () {
-        return view('user.landing_page');
-    })->name('landing_page');
+    $faqs = Faq::all();
+    return view('user.landing_page', compact('faqs'));
+})->name('landing_page');
 
 
 Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('user.')->group(function(){
@@ -64,7 +66,6 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     Route::get('/profil', [UserController::class, 'edit'])->name('edit');
     Route::post('/profil', [UserController::class, 'update'])->name('update');
 
-    Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha.index');
     Route::get('/usaha/form/{layanan}', [UsahaController::class, 'show'])->name('usaha.form');
     Route::get('/get-usaha-form/{layanan}', [UsahaController::class, 'getUsahaForm']);
 
@@ -83,11 +84,13 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
 
     Route::get('/tanya', [FaqController::class, 'index'])->name('tanya');
 
-    Route::get('/kalkulator', [KalkulatorController::class, 'index'])->name('hitung.index');
     Route::get('/kalkulator/{slug}', [KalkulatorController::class, 'show'])->name('hitung.show');
 
     
 });
+
+    Route::get('/user/usaha', [UsahaController::class, 'index'])->name('user.usaha.index');
+    Route::get('/user/kalkulator', [KalkulatorController::class, 'index'])->name('user.hitung.index');
 
 Route::middleware(['auth'])->group(function () {
 
