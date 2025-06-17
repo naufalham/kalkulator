@@ -57,36 +57,42 @@ class UserController extends Controller
     }
 
 
-    public function admin_tampil()
+    public function admin_tampil(Request $request)
     {
-        $users = User::all();
-        return view('admin.user', compact('users'));
-    }
+        $query = User::where('role', '!=', 'admin'); // Filter agar admin tidak muncul
 
-    public function admin_cari(Request $request)
-    {
-        $query = User::query();
-
-        if ($request->filled('q')) {
-            $q = $request->q;
-            $query->where(function($sub) use ($q) {
-                $sub->where('name', 'like', "%$q%")
-                    ->orWhere('email', 'like', "%$q%")
-                    ->orWhere('role', 'like', "%$q%");
+        if ($request->filled('search')) { // Sesuaikan dengan nama input di form pencarian
+            $search = $request->search;
+            $query->where(function($sub) use ($search) {
+                $sub->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('role', 'like', "%{$search}%");
             });
         }
 
-        $users = $query->get();
-        return view('admin.user', compact('users'));
+        $users = $query->paginate(10); // Tambahkan paginasi
+        return view('admin.user', compact('users')); // Pastikan viewnya adalah admin.user
     }
 
-
-    public function admin_destroy($id)
+    public function toggleUserStatus(User $user)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        $user->aktif = !$user->aktif;
+        $user->save();
 
-        return redirect()->route('admin.user')->with('success', 'User berhasil dihapus!');
+        $statusMessage = $user->aktif ? 'diaktifkan' : 'dinonaktifkan';
+        return redirect()->route('admin.user')->with('success', "Pengguna {$user->name} berhasil {$statusMessage}.");
+    }
+
+    public function admin_updatePassword(Request $request, User $user)
+    {
+        $request->validate([
+            'password' => 'required|string|min:6',
+        ]);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('admin.user')->with('success', "Password untuk pengguna {$user->name} berhasil diperbarui.");
     }
 
 }

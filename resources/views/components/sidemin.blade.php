@@ -17,8 +17,16 @@
 
         <ul class="space-y-4 text-sm font-semibold text-gray-900">
             <li>
-                <a href="/admin/user"
+                <a href="/admin/kalkulator"
                 class="flex items-center space-x-3 transition duration-200 py-2
+                {{ request()->is('admin/kalkulator') ? 'text-orange-500' : 'hover:text-orange-500' }}">
+                    <i class="fas fa-calculator {{ request()->is('admin/kalkulator') ? 'text-orange-500' : 'text-orange-500' }} text-2xl"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/user"
+                class="flex items-center space-x-4 transition duration-200 py-2
                 {{ request()->is('admin/user') ? 'text-orange-500' : 'hover:text-orange-500' }}">
                     <i class="fas fa-users {{ request()->is('admin/user') ? 'text-orange-500' : 'text-orange-500' }} text-2xl"></i>
                     <span>Pengguna</span>
@@ -33,14 +41,6 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/kalkulator"
-                class="flex items-center space-x-4 transition duration-200 py-2
-                {{ request()->is('admin/kalkulator') ? 'text-orange-500' : 'hover:text-orange-500' }}">
-                    <i class="fas fa-calculator {{ request()->is('admin/kalkulator') ? 'text-orange-500' : 'text-orange-500' }} text-2xl"></i>
-                    <span>Penggunaan Kalkulator</span>
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('admin.faq.index') }}"
                 class="flex items-center space-x-4 transition duration-200 py-2
                 {{ request()->is('admin/faq*') ? 'text-orange-500' : 'hover:text-orange-500' }}">
@@ -48,6 +48,15 @@
                     <span>FAQ</span>
                 </a>
             </li>
+           
+            {{-- Tombol Akses Halaman User --}}
+            <li class="pt-4 border-t border-gray-200 mt-4">
+                <a href="{{ route('landing_page') }}" class="flex items-center space-x-3 transition duration-200 py-2 hover:text-orange-500">
+                    <i class="fas fa-user-circle text-orange-500 text-2xl"></i>
+                    <span>Halaman User</span>
+                </a>
+            </li>
+
         </ul>
     </nav>
 </div>

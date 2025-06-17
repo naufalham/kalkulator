@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\FaqAdminController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AnalisisUsahaExportController;
 
 // register
@@ -27,8 +28,13 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::post('/export-analisis-usaha', [AnalisisUsahaExportController::class, 'export'])
+    ->name('export.analisis.usaha')
+    ->middleware('auth'); // Pastikan pengguna terautentikasi
 
-Route::post('/export-analisis-usaha', [AnalisisUsahaExportController::class, 'export'])->name('export.analisis.usaha');
+Route::get('/user/berita', [BeritaController::class, 'user_index'])->name('user.berita');
+Route::get('/user/berita', [BeritaController::class, 'cari'])->name('user.berita');
+Route::get('/user/berita/{slug}', [BeritaController::class, 'show'])->name('user.berita.show');
 
 // Redirect sesuai role
 Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name('admin.')->group(function(){
@@ -36,8 +42,8 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
     Route::prefix('user')->name('user')->group(function(){
         Route::get('', [UserController::class, 'admin_tampil'])->name('');
         Route::get('/{id}', [UserController::class, 'admin_show'])->name('.show');
-        Route::delete('/{id}', [UserController::class, 'admin_destroy'])->name('.destroy');
-        Route::get('', [UserController::class, 'admin_cari'])->name('');
+        Route::patch('/{user}/toggle-status', [UserController::class, 'toggleUserStatus'])->name('.toggleStatus');
+        Route::patch('/{user}/update-password', [UserController::class, 'admin_updatePassword'])->name('.updatePassword'); 
     });
 
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index'); // Rute untuk menampilkan daftar berita
@@ -51,6 +57,20 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
     Route::resource('faq', FaqAdminController::class)->middleware('auth'); // atau middleware admin
 
     Route::get('/kalkulator', [DownloadController::class, 'statistikDownload'])->name('kalkulator');
+    Route::get('/kalkulator', [DashboardController::class, 'index'])->name('kalkulator');
+    Route::post('/kalkulator', [DashboardController::class, 'index'])->name('kalkulator');
+
+
+    // Admin akses ke fungsionalitas Usaha pengguna
+    Route::get('/data-usaha', [UsahaController::class, 'index'])->name('data-usaha.index');
+    Route::get('/data-usaha/form/{layanan}', [UsahaController::class, 'show'])->name('data-usaha.form');
+    // Route untuk getUsahaForm jika admin juga memerlukannya secara terpisah
+    // Route::get('/get-usaha-form/{layanan}', [UsahaController::class, 'getUsahaForm'])->name('get-usaha-form.admin');
+
+    // Admin akses ke fungsionalitas Kalkulator pengguna
+    Route::get('/gunakan-kalkulator', [KalkulatorController::class, 'index'])->name('gunakan-kalkulator.index');
+    Route::get('/gunakan-kalkulator/{slug}', [KalkulatorController::class, 'show'])->name('gunakan-kalkulator.show');
+
     
     
 });
@@ -61,7 +81,7 @@ Route::get('/', function () {
 })->name('landing_page');
 
 
-Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('user.')->group(function(){
+Route::middleware(['auth'])->prefix('user')->name('user.')->group(function(){
     //profile
     Route::get('/profil', [UserController::class, 'edit'])->name('edit');
     Route::post('/profil', [UserController::class, 'update'])->name('update');
@@ -78,10 +98,6 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     Route::get('/download/{layanan_id}', [AnalisisUsahaExportController::class, 'download'])->name('usaha.download');
     Route::post('/usaha/export', [AnalisisUsahaExportController::class, 'export'])->name('usaha.export');
 
-    Route::get('/berita', [BeritaController::class, 'user_index'])->name('berita');
-    Route::get('/berita', [BeritaController::class, 'cari'])->name('berita');
-    Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
-
     Route::get('/tanya', [FaqController::class, 'index'])->name('tanya');
 
     Route::get('/kalkulator/{slug}', [KalkulatorController::class, 'show'])->name('hitung.show');
@@ -92,20 +108,20 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     Route::get('/user/usaha', [UsahaController::class, 'index'])->name('user.usaha.index');
     Route::get('/user/kalkulator', [KalkulatorController::class, 'index'])->name('user.hitung.index');
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
 
 
-    Route::get('/isi', function () {
-        return view('user.isi_berita');
-    });
+//     Route::get('/isi', function () {
+//         return view('user.isi_berita');
+//     });
 
-    // Route::get('/admin/kalkulator', function () {
-    //     return view('admin.kalkulator');
-    // });
+//     // Route::get('/admin/kalkulator', function () {
+//     //     return view('admin.kalkulator');
+//     // });
     
 
     
-});
+// });
 
 
 

@@ -38,6 +38,12 @@ class GoogleController extends Controller
                 ]);
             }
 
+            // Periksa status aktif pengguna
+            if (!$user->aktif) {
+                Auth::logout(); // Pastikan tidak ada sesi yang tertinggal
+                return redirect()->route('login')->withErrors(['email' => 'Akun Anda tidak aktif. Silakan hubungi administrator.'])->onlyInput('email');
+            }
+
             // Login pengguna
             Auth::login($user);
 

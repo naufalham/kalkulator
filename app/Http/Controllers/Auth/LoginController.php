@@ -38,9 +38,17 @@ class LoginController extends Controller
             return back()->withErrors(['password' => 'Password salah.'])->onlyInput('email');
         }
 
+        // Periksa status aktif pengguna
+        if (!$user->aktif) {
+            Auth::logout(); // Logout pengguna
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->route('login')->withErrors(['email' => 'Akun Anda tidak aktif. Silakan hubungi administrator.'])->onlyInput('email');
+        }
+
         // Redirect berdasarkan role
         if ($user->role === 'admin') {
-            return redirect()->route('admin.user');
+            return redirect()->route('admin.kalkulator');
         } elseif ($user->role === 'user') {
             return redirect()->route('landing_page');
         }

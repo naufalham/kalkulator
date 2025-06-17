@@ -19,29 +19,61 @@
         <li><a class="hover:underline" href="{{ route ('user.hitung.index') }}">Kalkulator</a></li>
         <li><a class="hover:underline" href="{{ route ('user.usaha.index') }}">Usaha</a></li>
 
-        @auth
-        <li>
-            <a class="text-[#F97316] hover:underline flex items-center gap-1" href="{{ route('user.edit') }}">
-                    <svg class="w-4 h-4 text-[#F97316]" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 12c2.7 0 4.5-1.8 4.5-4.5S14.7 3 12 3 7.5 4.8 7.5 7.5 9.3 12 12 12zm0 2c-3 0-9 1.5-9 4.5V21h18v-2.5c0-3-6-4.5-9-4.5z"/>
-                    </svg>
-                {{ Auth::user()->name }}
-            </a>
-        </li>
-
-        <li>
-            <form method="POST" action="{{ route('logout') }}" class="contents">
-                @csrf
-                <button type="submit" class="text-[#F97316] inline-flex items-center gap-1 hover:underline">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Logout
-                </button>
-            </form>
-        </li>
-        @else
-        <li>
-            <a href="/login" class="text-[#F97316] hover:underline">Masuk</a>
-        </li>
+        @auth {{-- Pastikan pengguna terautentikasi sebelum cek role --}}
+            @if (Auth::user()->role === 'admin')
+                {{-- Navigasi untuk ADMIN --}}
+                @if (request()->is('admin/*'))
+                    {{-- Admin sedang di halaman admin --}}
+                    <li>
+                        <a class="text-[#F97316] hover:underline flex items-center gap-1" href="{{ route('user.edit') }}"> {{-- Seharusnya ini ke profil admin jika ada, atau hilangkan jika tidak relevan di admin nav --}}
+                                <svg class="w-4 h-4 text-[#F97316]" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.7 0 4.5-1.8 4.5-4.5S14.7 3 12 3 7.5 4.8 7.5 7.5 9.3 12 12 12zm0 2c-3 0-9 1.5-9 4.5V21h18v-2.5c0-3-6-4.5-9-4.5z"/>
+                                </svg>
+                            {{ Auth::user()->name }}
+                        </a>
+                    </li>
+                @else
+                    {{-- Admin sedang di halaman user (landing_page atau user/*) --}}
+                    <li>
+                        <a href="{{ route('admin.kalkulator') }}" class="text-[#F97316] inline-flex items-center gap-1 hover:underline">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard Admin
+                        </a>
+                    </li>
+                @endif
+                <li>
+                    <form method="POST" action="{{ route('logout') }}" class="contents">
+                        @csrf
+                        <button type="submit" class="text-[#F97316] inline-flex items-center gap-1 hover:underline">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            @else
+                {{-- Navigasi untuk USER BIASA --}}
+                <li>
+                    <a class="text-[#F97316] hover:underline flex items-center gap-1" href="{{ route('user.edit') }}">
+                        <svg class="w-4 h-4 text-[#F97316]" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.7 0 4.5-1.8 4.5-4.5S14.7 3 12 3 7.5 4.8 7.5 7.5 9.3 12 12 12zm0 2c-3 0-9 1.5-9 4.5V21h18v-2.5c0-3-6-4.5-9-4.5z"/>
+                        </svg>
+                        {{ Auth::user()->name }}
+                    </a>
+                </li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}" class="contents">
+                        @csrf
+                        <button type="submit" class="text-[#F97316] inline-flex items-center gap-1 hover:underline">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            @endif
+        @else {{-- Pengguna belum terautentikasi --}}
+            <li>
+                <a href="/login" class="text-[#F97316] hover:underline">Masuk</a>
+            </li>
         @endauth
     </ul>
     <div x-show="open" @click.away="open = false" class="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg border-t z-50">
