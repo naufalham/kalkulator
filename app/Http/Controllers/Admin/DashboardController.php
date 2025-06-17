@@ -21,7 +21,7 @@ class DashboardController extends Controller
 
     $jumlahUsaha = Layanan::where('id', '!=', 5)->count();
     $jumlahKalkulator = Layanan::count(); // Hitung total layanan/kalkulator
-    $jumlahPengguna = User::count();       // Hitung total pengguna
+    $jumlahPengguna = User::where('role', 'user')->count();       // Hitung total pengguna
     $jumlahBerita = Berita::count(); // Hitung total berita
 
 

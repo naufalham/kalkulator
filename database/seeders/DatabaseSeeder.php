@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             LayananSeeder::class,
             PendapatanPengeluaranSeeder::class,
-            // BeritaSeeder::class,
+            BeritaSeeder::class,
             FaqSeeder::class,
             KalkulatorSeeder::class,
             // ProductSeeder::class,
