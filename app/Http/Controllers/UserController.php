@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -83,16 +84,48 @@ class UserController extends Controller
         return redirect()->route('admin.user')->with('success', "Pengguna {$user->name} berhasil {$statusMessage}.");
     }
 
-    public function admin_updatePassword(Request $request, User $user)
+    public function resetPassword(User $user)
     {
-        $request->validate([
-            'password' => 'required|string|min:6',
-        ]);
+        // Password default
+        $defaultPassword = 'password';
 
-        $user->password = Hash::make($request->password);
+        // Update password pengguna
+        $user->password = Hash::make($defaultPassword);
         $user->save();
 
-        return redirect()->route('admin.user')->with('success', "Password untuk pengguna {$user->name} berhasil diperbarui.");
+        return redirect()->route('admin.user')
+                         ->with('success', 'Password untuk pengguna ' . $user->name . ' berhasil direset menjadi default.');
+    }
+
+    public function updateAdminProfile(Request $request)
+    {
+        $admin = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $admin->id,
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator, 'adminProfileUpdate')
+                        ->withInput();
+        }
+
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+
+        if ($request->filled('password')) {
+            $admin->password = Hash::make($request->password);
+        }
+
+        $admin->save();
+
+        // Redirect kembali ke halaman sebelumnya (tempat modal dibuka) atau ke dashboard admin
+        // Jika redirect()->back() tidak bekerja sesuai harapan karena modal,
+        // Anda bisa redirect ke route admin yang spesifik.
+        return redirect()->back()->with('success', 'Profil Anda berhasil diperbarui!');
     }
 
 }

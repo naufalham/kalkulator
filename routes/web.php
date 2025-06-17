@@ -39,11 +39,14 @@ Route::get('/user/berita/{slug}', [BeritaController::class, 'show'])->name('user
 // Redirect sesuai role
 Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name('admin.')->group(function(){
     
+    Route::patch('/profile', [UserController::class, 'updateAdminProfile'])->name('profile.update'); // Route baru untuk update profil admin
+
     Route::prefix('user')->name('user')->group(function(){
         Route::get('', [UserController::class, 'admin_tampil'])->name('');
         Route::get('/{id}', [UserController::class, 'admin_show'])->name('.show');
-        Route::patch('/{user}/toggle-status', [UserController::class, 'toggleUserStatus'])->name('.toggleStatus');
-        Route::patch('/{user}/update-password', [UserController::class, 'admin_updatePassword'])->name('.updatePassword'); 
+        Route::patch('/{user}/reset-password', [UserController::class, 'resetPassword'])->name('.resetPassword');
+        Route::patch('/toggle-status', [UserController::class, 'toggleUserStatus'])->name('.toggleStatus'); // Asumsi route ini sudah ada atau Anda akan menambahkannya
+        Route::resource('user', UserController::class)->except(['show', 'create', 'store', 'edit', 'update', 'destroy']); // Sesuaikan jika perlu
     });
 
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index'); // Rute untuk menampilkan daftar berita

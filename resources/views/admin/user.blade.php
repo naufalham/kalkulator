@@ -56,14 +56,15 @@
                         <td class="border px-3 py-2">{{ $user->email }}</td>
                         <td class="border px-3 py-2 capitalize">{{ $user->role }}</td>
                         <td class="border px-3 py-2">
-                            {{-- Form untuk update password per user --}}
-                            <form action="{{ route('admin.user.updatePassword', $user->id) }}" method="POST" class="flex items-center gap-1">
+                            {{-- Tombol untuk reset password per user --}}
+                            <form action="{{ route('admin.user.resetPassword', $user->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('PATCH')
-                                <input type="password" name="password" placeholder="Password Baru"
-                                       class="border border-gray-300 rounded-md px-2 py-1 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-[#F97316]">
                                 <button type="submit"
-                                        class="bg-blue-500 text-white text-xs font-semibold rounded px-2 py-1 hover:bg-blue-600">Simpan</button>
+                                        onclick="return confirm('Anda yakin ingin mereset password pengguna ini menjadi default (password)?')"
+                                        class="bg-orange-500 text-white text-xs font-semibold rounded px-2 py-1 hover:bg-orange-600 transition-colors">
+                                    Reset Password
+                                </button>
                             </form>
                         </td>
                         <td class="border px-3 py-2">
