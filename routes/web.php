@@ -92,6 +92,7 @@ Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('u
     Route::get('/user/usaha', [UsahaController::class, 'index'])->name('user.usaha.index');
     Route::get('/user/kalkulator', [KalkulatorController::class, 'index'])->name('user.hitung.index');
 
+
 Route::middleware(['auth'])->group(function () {
 
 

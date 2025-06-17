@@ -1,0 +1,30 @@
+body, .font-poppins {
+        font-family: 'Poppins', Arial, sans-serif;
+    }
+    .nota-box {
+        background: repeating-linear-gradient(
+            135deg,
+            #f3f4f6,
+            #f3f4f6 10px,
+            #fff 10px,
+            #fff 20px
+        );
+        border: 2px dashed #e5e7eb;
+        box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+        position: relative;
+    }
+    .nota-box::before, .nota-box::after {
+        content: '';
+        position: absolute;
+        left: 0; right: 0;
+        height: 12px;
+        background: repeating-linear-gradient(
+            90deg,
+            #fff,
+            #fff 6px,
+            #e5e7eb 6px,
+            #e5e7eb 12px
+        );
+    }
+    .nota-box::before { top: -14px; }
+    .nota-box::after { bottom: -14px; }
