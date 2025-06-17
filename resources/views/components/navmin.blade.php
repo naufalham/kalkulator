@@ -40,7 +40,7 @@
         <ul class="flex flex-col py-4 px-6 space-y-4 font-semibold text-black text-base tracking-tight">
             @auth
             <li>
-                <a class="text-[#F97316] hover:underline" href="{{ route('user.edit') }}">
+                <a class="text-[#F97316] hover:underline">
                     {{ Auth::user()->name }}
                 </a>
             </li>
