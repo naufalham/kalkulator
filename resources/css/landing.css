@@ -1,3 +1,22 @@
 body {
     font-family: poppins, sans-serif;
   }
+.faq-item summary {
+    padding: 1rem;
+    min-height: 30px; /* atau set tinggi sesuai tinggi saat dibuka */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none; /* hilangkan default arrow bawaan */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none; /* hilangkan arrow default di browser Webkit */
+}
+
+.faq-item .faq-answer {
+    padding: 1rem 1rem 1rem;
+    margin-bottom: 0.5rem;
+}

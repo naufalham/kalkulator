@@ -85,7 +85,7 @@
         </a>
     </div>
 
-    <div class="flex justify-center mt-10">
+    <div class = "flex justify-center mt-10">
         <a href="{{ route ('user.usaha.index') }}">
             <button
                 class="border-none bg-[#F28C28] text-white font-semibold rounded-full px-8 py-3 text-sm sm:text-base shadow-md hover:bg-[#e07c1a] transition-all duration-200"
@@ -96,8 +96,48 @@
     </div>
 </section>
 
+<!-- FAQ Section -->
+<section class="w-full px-6 sm:px-12 lg:px-16 xl:px-24 mt-10 max-w-screen-xl mx-auto">
+    <h2 class="text-xl sm:text-2xl font-bold text-center text-[#1a1a1a] mb-8">
+        Pertanyaan yang Sering Diajukan
+    </h2>
+    <div class="space-y-4">
+        @foreach($faqs as $faq)
+            <details class="faq-item borderborder-gray-300 rounded-lg bg-white text-sm">
+                <summary>
+                    {{ $faq->question }}
+                    <i class="fas fa-chevron-down ml-2 text-gray-600"></i>
+                </summary>
+                <div class="faq-answer text-sm text-gray-700 leading-relaxed">
+                    {!! nl2br(e($faq->answer)) !!}
+                </div>
+            </details>
+        @endforeach
+    </div>
+</section>
+
 <x-wa />
 
 <!-- Footer -->
 <div class="mt-10"></div>
 <x-footer></x-footer>
+
+<script>
+document.querySelectorAll('.faq-item').forEach(function(detail) {
+    const summary = detail.querySelector('summary');
+    const icon = summary.querySelector('i');
+
+    function updateIcon() {
+        if (detail.open) {
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        } else {
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        }
+    }
+
+    updateIcon(); // Set awal
+    detail.addEventListener('toggle', updateIcon);
+});
+</script>
