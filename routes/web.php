@@ -27,8 +27,9 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
-Route::post('/export-analisis-usaha', [AnalisisUsahaExportController::class, 'export'])->name('export.analisis.usaha');
+Route::post('/export-analisis-usaha', [AnalisisUsahaExportController::class, 'export'])
+    ->name('export.analisis.usaha')
+    ->middleware('auth'); // Pastikan pengguna terautentikasi
 
 Route::get('/user/berita', [BeritaController::class, 'user_index'])->name('user.berita');
 Route::get('/user/berita', [BeritaController::class, 'cari'])->name('user.berita');
@@ -56,6 +57,18 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
 
     Route::get('/kalkulator', [DownloadController::class, 'statistikDownload'])->name('kalkulator');
     Route::get('/kalkulator', [DashboardController::class, 'index'])->name('kalkulator');
+    Route::post('/kalkulator', [DashboardController::class, 'index'])->name('kalkulator');
+
+
+    // Admin akses ke fungsionalitas Usaha pengguna
+    Route::get('/data-usaha', [UsahaController::class, 'index'])->name('data-usaha.index');
+    Route::get('/data-usaha/form/{layanan}', [UsahaController::class, 'show'])->name('data-usaha.form');
+    // Route untuk getUsahaForm jika admin juga memerlukannya secara terpisah
+    // Route::get('/get-usaha-form/{layanan}', [UsahaController::class, 'getUsahaForm'])->name('get-usaha-form.admin');
+
+    // Admin akses ke fungsionalitas Kalkulator pengguna
+    Route::get('/gunakan-kalkulator', [KalkulatorController::class, 'index'])->name('gunakan-kalkulator.index');
+    Route::get('/gunakan-kalkulator/{slug}', [KalkulatorController::class, 'show'])->name('gunakan-kalkulator.show');
 
     
     
@@ -66,7 +79,7 @@ Route::get('/', function () {
     })->name('landing_page');
 
 
-Route::middleware(['auth', checkRoll::class . ':user'])->prefix('user')->name('user.')->group(function(){
+Route::middleware(['auth'])->prefix('user')->name('user.')->group(function(){
     //profile
     Route::get('/profil', [UserController::class, 'edit'])->name('edit');
     Route::post('/profil', [UserController::class, 'update'])->name('update');

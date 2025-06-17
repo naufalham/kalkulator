@@ -30,19 +30,20 @@ class AnalisisUsahaExportController extends Controller
     public function export(Request $request)
     {
         // dd($request->all()); 
+        $user = Auth::user(); // Dapatkan pengguna yang terautentikasi
+        $isAdmin = ($user && $user->role === 'admin');
 
-        $user_id = Auth::id() ?? 1;
+        $user_id = $user ? $user->id : null; // Gunakan ID pengguna yang terautentikasi
         $layanan_id = $request->input('layanan_id');
-
-         // Jika belum bayar, tampilkan Snap Midtrans
-        if (!$request->has('is_paid')) {
+        // Jika belum bayar dan bukan admin, tampilkan Snap Midtrans
+        if (!$request->has('is_paid') && !$isAdmin) {
             $params = [
                 'transaction_details' => [
                     'order_id' => uniqid(),
                     'gross_amount' => 10000,
                 ],
                 'customer_details' => [
-                    'email' => Auth::user()->email,
+                    'email' => $user->email,
                 ],
             ];
             $snapToken = Snap::getSnapToken($params);
@@ -52,6 +53,11 @@ class AnalisisUsahaExportController extends Controller
 
             // Tampilkan view Snap
             return view('user.pay_snap', compact('snapToken'));
+        }
+
+        // Jika user_id null (seharusnya tidak terjadi jika middleware auth diterapkan pada rute)
+        if (is_null($user_id)) {
+            abort(401, 'Pengguna tidak terautentikasi.');
         }
 
         // Ambil data form, prioritaskan dari session jika ada (setelah pembayaran)
@@ -400,7 +406,7 @@ class AnalisisUsahaExportController extends Controller
 
         // Catat download
         Download::create([
-            'user_id' => Auth::id(),
+            'user_id' => $user_id, // Gunakan user_id yang sudah ditentukan
             'layanan_id' => $layanan_id_utama, // Catat layanan_id_utama
             'downloaded_at' => now(),
         ]);

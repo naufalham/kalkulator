@@ -48,6 +48,15 @@
                     <span>FAQ</span>
                 </a>
             </li>
+           
+            {{-- Tombol Akses Halaman User --}}
+            <li class="pt-4 border-t border-gray-200 mt-4">
+                <a href="{{ route('landing_page') }}" class="flex items-center space-x-3 transition duration-200 py-2 hover:text-orange-500">
+                    <i class="fas fa-user-circle text-orange-500 text-2xl"></i>
+                    <span>Halaman User</span>
+                </a>
+            </li>
+
         </ul>
     </nav>
 </div>
