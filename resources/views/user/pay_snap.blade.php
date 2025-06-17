@@ -14,6 +14,8 @@
             <h1 class="font-semibold text-center text-lg mb-2">Pembayaran!</h1>
             <p class="card-text text-sm mb-4 text-center">Klik tombol di bawah untuk melanjutkan pembayaran melalui Midtrans.</p>
             <button id="pay-button" class="bg-[#F97316] text-white font-semibold rounded-lg py-3 px-8 hover:bg-[#e06f11] transition-colors text-sm">Bayar Sekarang</button>
+            <a href="{{ route('user.usaha.index') }}" class="block w-full text-center bg-gray-200 text-gray-700 font-semibold rounded-lg py-3 px-8 hover:bg-gray-300 transition-colors text-sm">Batal</a>
+            
         </div>
     </div>
 </main>
