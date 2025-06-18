@@ -33,18 +33,24 @@
                 </div>
             @endif
 
-            
+            <div class="flex flex-col gap-1">
+                <label class="font-semibold text-sm select-none" for="email">
+                    Email
+                </label>
+                <input
+                    class="border border-black rounded-lg py-2 px-3 text-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+                    id="email"
+                    type="email"
+                    name="email"
+                    value="{{ Auth::user()->email }}"
+                    disabled
+                />
+            </div>
             <div class="flex flex-col gap-1">
                 <label class="font-semibold text-sm select-none" for="fullname">
                     Nama Lengkap
                 </label>
                 <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" placeholder="{{ old('name', Auth::user()->name) }}" id="name" type="text" name="name" value="{{ old('name') }}" />
-            </div>
-            <div class="flex flex-col gap-1">
-                <label class="font-semibold text-sm select-none" for="email">
-                    Email
-                </label>
-                <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" placeholder="{{ old('email', Auth::user()->email) }}" id="email" type="email" name="email" value="{{ old('email') }}" />
             </div>
             <div class="flex flex-col md:flex-row gap-6">
                 <div class="flex-1 flex flex-col gap-1">
