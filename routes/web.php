@@ -45,7 +45,7 @@ Route::middleware(['auth', checkRoll::class . ':admin'])->prefix('admin')->name(
         Route::get('', [UserController::class, 'admin_tampil'])->name('');
         Route::get('/{id}', [UserController::class, 'admin_show'])->name('.show');
         Route::patch('/{user}/reset-password', [UserController::class, 'resetPassword'])->name('.resetPassword');
-        Route::patch('/toggle-status', [UserController::class, 'toggleUserStatus'])->name('.toggleStatus'); // Asumsi route ini sudah ada atau Anda akan menambahkannya
+        Route::patch('/{user}/toggle-status', [UserController::class, 'toggleUserStatus'])->name('.toggleStatus');
         Route::resource('user', UserController::class)->except(['show', 'create', 'store', 'edit', 'update', 'destroy']); // Sesuaikan jika perlu
     });
 

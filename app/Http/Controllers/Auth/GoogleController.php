@@ -35,6 +35,7 @@ class GoogleController extends Controller
                     'email' => $googleUser->getEmail(),
                     'password' => bcrypt('defaultpassword'), // Anda bisa mengganti ini
                     'role' => 'user', // Default role = User
+                    'aktif' => 1,
                 ]);
             }
 
