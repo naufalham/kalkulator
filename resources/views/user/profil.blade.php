@@ -54,6 +54,14 @@
                     <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="password" type="password" name="password"/>
                 </div>
             </div>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="flex-1 flex flex-col gap-1">
+                    <label class="font-semibold text-sm select-none" for="password_confirmation">
+                        Konfirmasi Kata Sandi
+                    </label>
+                    <input class="border border-black rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#f97316]" id="password_confirmation" type="password" name="password_confirmation"/>
+                </div>
+            </div>
             <div class="flex justify-end">
                 <button class="bg-[#f97316] text-white rounded-lg py-2 px-6 text-sm font-semibold hover:bg-[#e66a0d] transition-colors" type="submit">
                     Perbarui Profil
