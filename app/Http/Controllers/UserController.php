@@ -75,7 +75,7 @@ class UserController extends Controller
         return view('admin.user', compact('users')); // Pastikan viewnya adalah admin.user
     }
 
-    public function toggleUserStatus(User $user)
+    public function toggleUserStatus(\App\Models\User $user)
     {
         $user->aktif = !$user->aktif;
         $user->save();
@@ -83,7 +83,7 @@ class UserController extends Controller
         $statusMessage = $user->aktif ? 'diaktifkan' : 'dinonaktifkan';
         return redirect()->route('admin.user')->with('success', "Pengguna {$user->name} berhasil {$statusMessage}.");
     }
-
+    
     public function resetPassword(User $user)
     {
         // Password default
