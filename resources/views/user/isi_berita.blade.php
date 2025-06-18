@@ -32,37 +32,6 @@
     <!-- Related news (biarkan tetap statis jika belum dinamis) -->
     <section aria-label="Related news you might also like" class="max-w-6xl">
 
-
-      {{-- @if($rekomendasi->count())
-        <div class="mt-10">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Berita Terkait</h3>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                @foreach($rekomendasi as $item)
-                    <article class="bg-white rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-6 shadow-sm hover:shadow-md transition">
-                        <img 
-                            src="{{ $item->foto ? asset('storage/' . $item->foto) : 'https://via.placeholder.com/400x200?text=No+Image' }}" 
-                            alt="{{ $item->judul }}" 
-                            class="rounded-lg w-full sm:w-[200px] h-auto object-cover" 
-                        />
-                        <div class="flex-1">
-                            <h3 class="font-bold text-base text-black mb-2 select-none">
-                                {{ $item->judul }}
-                            </h3>
-                            <p class="text-sm text-[#4B4B4B] leading-relaxed">
-                                {{ Str::limit(strip_tags($item->isi), 120) }}
-                            </p>
-                            <a href="{{ route('user.berita.show', $item->slug) }}" class="text-[#F28C28] text-sm mt-3 inline-block">
-                                Baca selengkapnya
-                            </a>
-                        </div>
-                    </article>
-                @endforeach
-            </div>
-        </div>
-      @endif --}}
-
-
       <!-- Berita 1 -->
       @if($rekomendasi->count())
         <h3 class="font-bold text-lg mb-6 mt-6 select-text">Anda mungkin juga suka</h3>
@@ -80,18 +49,6 @@
           </article>
         @endforeach
       @endif
-
-      <!-- Berita 2 -->
-      {{-- <article class="bg-white rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-6 shadow-sm mt-8">
-        <img src="{{ asset('asset/fesyen.jpg') }}" alt="Fesyen Image" class="rounded-lg w-full sm:w-[200px] h-auto object-cover" />
-        <div class="flex-1">
-          <h3 class="font-bold text-base text-black mb-2 select-none">Fesyen</h3>
-          <p class="text-sm text-[#4B4B4B] leading-relaxed">
-            Dunia fesyen Indonesia semakin berkembang dengan munculnya desainer muda yang mengusung gaya kontemporer namun tetap mempertahankan nilai-nilai budaya lokal. Hal ini terlihat dalam gelaran pekan mode terbaru di Jakarta yang menampilkan batik dalam balutan modern. Selain itu, tren sustainable fashion juga mulai diminati oleh kalangan muda.
-          </p>
-          <a href="/isi" class="text-[#F28C28] text-sm mt-3 inline-block">Baca selengkapnya</a>
-        </div>
-      </article> --}}
     </section>
 </main>
 

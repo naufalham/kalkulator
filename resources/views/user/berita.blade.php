@@ -3,52 +3,54 @@
 <!-- Navbar -->
 <x-navbar></x-navbar>
 
-<!-- Kontainer utama dengan padding sama seperti halaman profil -->
-<div class="w-full px-8 sm:px-12 lg:px-16 xl:px-24 pt-3">
+<!-- Main Container -->
+<div class="w-full px-6 sm:px-12 lg:px-20 xl:px-32 pt-3">
 
     <!-- Hero Section -->
-    <div class="w-full bg-[#2f318d] rounded-2xl py-10 px-4 flex flex-col items-center mb-8 mt-28">
-        <h1 class="text-white sm:text-2xl font-extrabold text-center mb-2">Laman Berita</h1>
-        <p class="text-white text-base text-center mb-4">
+    <div class="w-full bg-gradient-to-r from-[#2f318d] to-[#4a51d3] rounded-3xl py-12 px-6 flex flex-col items-center mb-10 mt-28 shadow-lg">
+        <h1 class="text-white text-3xl sm:text-4xl font-extrabold text-center mb-3">Laman Berita</h1>
+        <p class="text-white text-lg text-center mb-6 max-w-2xl">
             Temukan berbagai informasi, inspirasi, dan berita terbaru seputar dunia bisnis dan kewirausahaan di sini.
         </p>
-        <form class="w-full max-w-2xl mx-auto" method="GET" action="{{ route('user.berita') }}">
-            <div class="flex items-center bg-white rounded-full px-6 py-3 shadow-md">
-                <!-- SVG search icon (opsional) -->
+        <form class="w-full max-w-xl mx-auto" method="GET" action="{{ route('user.berita') }}">
+            <div class="flex items-center bg-white rounded-full px-6 py-3 shadow-md focus-within:ring-2 focus-within:ring-[#2f318d]">
                 <input 
                     type="text" 
                     name="q"
                     value="{{ request('q') }}"
-                    placeholder="Cari" 
-                    class="flex-1 border-none outline-none bg-transparent text-gray-700 text-base font-semibold"
+                    placeholder="Cari berita di sini..." 
+                    class="flex-1 border-none outline-none bg-transparent text-gray-700 text-base font-medium placeholder-gray-400"
                 />
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18.5a7.5 7.5 0 006.15-3.85z" />
+                </svg>
             </div>
         </form>
     </div>
 
-    <!-- Artikel Terbaru -->
-    <div>
-        <h2 class="text-xl font-extrabold text-gray-900 mb-1">Berita Terbaru</h2>
-        <div class="border-t border-gray-400 mb-5"></div>
+    <!-- Berita Terbaru -->
+    <section>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Berita Terbaru</h2>
+        <hr class="border-gray-300 mb-6" />
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 items-stretch" id="berita-list">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="berita-list">
             @if($beritas->isEmpty())
-                <div class="col-span-full text-center text-gray-500 py-8">
+                <div class="col-span-full text-center text-gray-500 py-12">
                     Tidak ada berita ditemukan.
                 </div>
             @endif
+
             @foreach($beritas as $berita)
-            <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 px-4 pt-4 pb-5 flex flex-col justify-between h-full min-h-[400px] berita-item">
-                <a href="{{ route('user.berita.show', $berita->slug) }}" class="group">
-                    <div class="relative rounded-xl overflow-hidden mb-3">
-                        <img 
-                            src="{{ $berita->foto ? asset('storage/' . $berita->foto) : 'https://via.placeholder.com/400x200?text=No+Image' }}" 
-                            alt="{{ $berita->judul }}"
-                            class="w-full h-44 object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
-                        />
-                    </div>
-                </a>
-                <div class="flex flex-col flex-grow justify-between h-full">
+            <a href="{{ route('user.berita.show', $berita->slug) }}" class="berita-item block bg-white rounded-2xl shadow-md hover:shadow-xl hover:ring-2 hover:ring-[#2f318d]/30 transition-all duration-300 overflow-hidden min-h-[420px] hover:scale-[1.01]">
+                <div class="w-full h-48 overflow-hidden">
+                    <img 
+                        src="{{ $berita->foto ? asset('storage/' . $berita->foto) : 'https://via.placeholder.com/400x200?text=No+Image' }}" 
+                        alt="{{ $berita->judul }}"
+                        class="w-full h-full object-cover transition-transform duration-300"
+                    />
+                </div>
+                <div class="p-4 flex flex-col justify-between h-full">
                     <div>
                         <div class="flex items-center text-xs text-gray-500 mb-1">
                             <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -56,25 +58,22 @@
                             </svg>
                             {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('l, d F Y') }}
                         </div>
-                        <h3 class="font-bold text-gray-900 text-base leading-snug mb-1 group-hover:text-[#2f318d] transition-colors duration-200">
-                            <a href="{{ route('user.berita.show', $berita->slug) }}" class="hover:underline">
-                                {{ $berita->judul }}
-                            </a>
+                        <h3 class="text-base font-semibold text-gray-800 leading-tight mb-1">
+                            {{ $berita->judul }}
                         </h3>
-                        <p class="text-sm text-gray-600 font-medium leading-relaxed">
+                        <p class="text-sm text-gray-600 leading-relaxed">
                             {{ Str::limit(strip_tags($berita->isi), 80) }}
                         </p>
                     </div>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
 
         @if($beritas->count() > 8)
-            <div class="flex justify-center mt-8">
+            <div class="flex justify-center mt-10">
                 <button id="loadMoreBtn"
-                    class="bg-[#F97316] text-white px-6 py-2 rounded-full font-semibold shadow transition
-                        hover:bg-[#e06f11] hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#F97316] focus:ring-offset-2 duration-200 text-l">
+                    class="bg-[#2f318d] text-white px-6 py-3 rounded-full font-semibold shadow-md hover:bg-[#23246f] hover:scale-105 transition-all duration-200">
                     Muat Lebih Banyak
                 </button>
             </div>
@@ -105,11 +104,10 @@
                 }
             });
         </script>
-    </div>
+    </section>
 </div>
 
+<!-- WhatsApp & Footer -->
 <x-wa />
-
-<!-- Footer -->
-<div class="mt-10"></div>
-<x-footer></x-footer>
+<div class="mt-14"></div>
+<x-footer />
